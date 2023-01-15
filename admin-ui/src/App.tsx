@@ -28,7 +28,7 @@ const App = (): React.ReactElement => {
   return (
     <div className="App">
       <Admin
-        title={"My service"}
+        title={"Base Service"}
         dataProvider={dataProvider}
         authProvider={jwtAuthProvider}
         theme={theme}
