@@ -27,6 +27,9 @@ import { SubscriptionWhereUniqueInput } from "./SubscriptionWhereUniqueInput";
 import { SubscriptionFindManyArgs } from "./SubscriptionFindManyArgs";
 import { SubscriptionUpdateInput } from "./SubscriptionUpdateInput";
 import { Subscription } from "./Subscription";
+import { ConfigurableModuleFindManyArgs } from "../../configurableModule/base/ConfigurableModuleFindManyArgs";
+import { ConfigurableModule } from "../../configurableModule/base/ConfigurableModule";
+import { ConfigurableModuleWhereUniqueInput } from "../../configurableModule/base/ConfigurableModuleWhereUniqueInput";
 import { SchoolFindManyArgs } from "../../school/base/SchoolFindManyArgs";
 import { School } from "../../school/base/School";
 import { SchoolWhereUniqueInput } from "../../school/base/SchoolWhereUniqueInput";
@@ -249,6 +252,103 @@ export class SubscriptionControllerBase {
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
   @nestAccessControl.UseRoles({
+    resource: "ConfigurableModule",
+    action: "read",
+    possession: "any",
+  })
+  @common.Get("/:id/configurableModules")
+  @ApiNestedQuery(ConfigurableModuleFindManyArgs)
+  async findManyConfigurableModules(
+    @common.Req() request: Request,
+    @common.Param() params: SubscriptionWhereUniqueInput
+  ): Promise<ConfigurableModule[]> {
+    const query = plainToClass(ConfigurableModuleFindManyArgs, request.query);
+    const results = await this.service.findConfigurableModules(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+        description: true,
+        id: true,
+        name: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "Subscription",
+    action: "update",
+    possession: "any",
+  })
+  @common.Post("/:id/configurableModules")
+  async connectConfigurableModules(
+    @common.Param() params: SubscriptionWhereUniqueInput,
+    @common.Body() body: ConfigurableModuleWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      configurableModules: {
+        connect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "Subscription",
+    action: "update",
+    possession: "any",
+  })
+  @common.Patch("/:id/configurableModules")
+  async updateConfigurableModules(
+    @common.Param() params: SubscriptionWhereUniqueInput,
+    @common.Body() body: ConfigurableModuleWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      configurableModules: {
+        set: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "Subscription",
+    action: "update",
+    possession: "any",
+  })
+  @common.Delete("/:id/configurableModules")
+  async disconnectConfigurableModules(
+    @common.Param() params: SubscriptionWhereUniqueInput,
+    @common.Body() body: ConfigurableModuleWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      configurableModules: {
+        disconnect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @nestAccessControl.UseRoles({
     resource: "School",
     action: "read",
     possession: "any",
@@ -272,13 +372,9 @@ export class SubscriptionControllerBase {
         createdAt: true,
         id: true,
         name: true,
-
-        schoolDistrict: {
-          select: {
-            id: true,
-          },
-        },
-
+        schoolDistrict: true,
+        state: true,
+        township: true,
         updatedAt: true,
       },
     });

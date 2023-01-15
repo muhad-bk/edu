@@ -12,9 +12,19 @@ https://docs.amplication.com/how-to/custom-code
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { Subscription } from "../../subscription/base/Subscription";
-import { ValidateNested, IsOptional, IsDate, IsString } from "class-validator";
+import {
+  ValidateNested,
+  IsOptional,
+  IsDate,
+  IsString,
+  IsEnum,
+} from "class-validator";
 import { Type } from "class-transformer";
-import { SchoolDistrict } from "../../schoolDistrict/base/SchoolDistrict";
+import { Role } from "../../role/base/Role";
+import { EnumSchoolSchoolDistrict } from "./EnumSchoolSchoolDistrict";
+import { Staf } from "../../staf/base/Staf";
+import { EnumSchoolState } from "./EnumSchoolState";
+import { EnumSchoolTownship } from "./EnumSchoolTownship";
 
 @ObjectType()
 class School {
@@ -56,12 +66,42 @@ class School {
 
   @ApiProperty({
     required: false,
-    type: () => SchoolDistrict,
+    type: () => [Role],
   })
   @ValidateNested()
-  @Type(() => SchoolDistrict)
+  @Type(() => Role)
   @IsOptional()
-  schoolDistrict?: SchoolDistrict | null;
+  roles?: Array<Role>;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumSchoolSchoolDistrict,
+  })
+  @IsEnum(EnumSchoolSchoolDistrict)
+  @IsOptional()
+  @Field(() => EnumSchoolSchoolDistrict, {
+    nullable: true,
+  })
+  schoolDistrict?: "A" | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Staf],
+  })
+  @ValidateNested()
+  @Type(() => Staf)
+  @IsOptional()
+  stafs?: Array<Staf>;
+
+  @ApiProperty({
+    required: true,
+    enum: EnumSchoolState,
+  })
+  @IsEnum(EnumSchoolState)
+  @Field(() => EnumSchoolState, {
+    nullable: true,
+  })
+  state?: "Sate_1" | "State_2";
 
   @ApiProperty({
     required: false,
@@ -71,6 +111,16 @@ class School {
   @Type(() => Subscription)
   @IsOptional()
   SubscriptionHistory?: Array<Subscription>;
+
+  @ApiProperty({
+    required: true,
+    enum: EnumSchoolTownship,
+  })
+  @IsEnum(EnumSchoolTownship)
+  @Field(() => EnumSchoolTownship, {
+    nullable: true,
+  })
+  township?: "T1" | "T2";
 
   @ApiProperty({
     required: true,

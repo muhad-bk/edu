@@ -12,10 +12,14 @@ https://docs.amplication.com/how-to/custom-code
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { SubscriptionWhereUniqueInput } from "../../subscription/base/SubscriptionWhereUniqueInput";
-import { ValidateNested, IsOptional, IsString } from "class-validator";
+import { ValidateNested, IsOptional, IsString, IsEnum } from "class-validator";
 import { Type } from "class-transformer";
-import { SchoolDistrictWhereUniqueInput } from "../../schoolDistrict/base/SchoolDistrictWhereUniqueInput";
+import { RoleCreateNestedManyWithoutSchoolsInput } from "./RoleCreateNestedManyWithoutSchoolsInput";
+import { EnumSchoolSchoolDistrict } from "./EnumSchoolSchoolDistrict";
+import { StafCreateNestedManyWithoutSchoolsInput } from "./StafCreateNestedManyWithoutSchoolsInput";
+import { EnumSchoolState } from "./EnumSchoolState";
 import { SubscriptionCreateNestedManyWithoutSchoolsInput } from "./SubscriptionCreateNestedManyWithoutSchoolsInput";
+import { EnumSchoolTownship } from "./EnumSchoolTownship";
 
 @InputType()
 class SchoolCreateInput {
@@ -44,15 +48,46 @@ class SchoolCreateInput {
 
   @ApiProperty({
     required: false,
-    type: () => SchoolDistrictWhereUniqueInput,
+    type: () => RoleCreateNestedManyWithoutSchoolsInput,
   })
   @ValidateNested()
-  @Type(() => SchoolDistrictWhereUniqueInput)
+  @Type(() => RoleCreateNestedManyWithoutSchoolsInput)
   @IsOptional()
-  @Field(() => SchoolDistrictWhereUniqueInput, {
+  @Field(() => RoleCreateNestedManyWithoutSchoolsInput, {
     nullable: true,
   })
-  schoolDistrict?: SchoolDistrictWhereUniqueInput | null;
+  roles?: RoleCreateNestedManyWithoutSchoolsInput;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumSchoolSchoolDistrict,
+  })
+  @IsEnum(EnumSchoolSchoolDistrict)
+  @IsOptional()
+  @Field(() => EnumSchoolSchoolDistrict, {
+    nullable: true,
+  })
+  schoolDistrict?: "A" | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => StafCreateNestedManyWithoutSchoolsInput,
+  })
+  @ValidateNested()
+  @Type(() => StafCreateNestedManyWithoutSchoolsInput)
+  @IsOptional()
+  @Field(() => StafCreateNestedManyWithoutSchoolsInput, {
+    nullable: true,
+  })
+  stafs?: StafCreateNestedManyWithoutSchoolsInput;
+
+  @ApiProperty({
+    required: true,
+    enum: EnumSchoolState,
+  })
+  @IsEnum(EnumSchoolState)
+  @Field(() => EnumSchoolState)
+  state!: "Sate_1" | "State_2";
 
   @ApiProperty({
     required: false,
@@ -65,6 +100,14 @@ class SchoolCreateInput {
     nullable: true,
   })
   SubscriptionHistory?: SubscriptionCreateNestedManyWithoutSchoolsInput;
+
+  @ApiProperty({
+    required: true,
+    enum: EnumSchoolTownship,
+  })
+  @IsEnum(EnumSchoolTownship)
+  @Field(() => EnumSchoolTownship)
+  township!: "T1" | "T2";
 }
 
 export { SchoolCreateInput };

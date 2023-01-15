@@ -5,14 +5,15 @@ import {
   SimpleForm,
   EditProps,
   NumberInput,
+  ReferenceArrayInput,
+  SelectArrayInput,
   BooleanInput,
   TextInput,
   SelectInput,
-  ReferenceArrayInput,
-  SelectArrayInput,
   ReferenceInput,
 } from "react-admin";
 
+import { ConfigurableModuleTitle } from "../configurableModule/ConfigurableModuleTitle";
 import { SchoolTitle } from "../school/SchoolTitle";
 
 export const SubscriptionEdit = (props: EditProps): React.ReactElement => {
@@ -20,6 +21,14 @@ export const SubscriptionEdit = (props: EditProps): React.ReactElement => {
     <Edit {...props}>
       <SimpleForm>
         <NumberInput label="amount " source="amount" />
+        <ReferenceArrayInput
+          source="configurableModules"
+          reference="ConfigurableModule"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={ConfigurableModuleTitle} />
+        </ReferenceArrayInput>
         <BooleanInput label="isStanderd " source="isStanderd" />
         <TextInput label="Name" source="name" />
         <SelectInput

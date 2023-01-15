@@ -3,8 +3,11 @@ import { APP_INTERCEPTOR } from "@nestjs/core";
 import { MorganInterceptor, MorganModule } from "nest-morgan";
 import { UserModule } from "./user/user.module";
 import { SchoolModule } from "./school/school.module";
-import { SchoolDistrictModule } from "./schoolDistrict/schoolDistrict.module";
 import { SubscriptionModule } from "./subscription/subscription.module";
+import { ConfigurableModuleModule } from "./configurableModule/configurableModule.module";
+import { StafModule } from "./staf/staf.module";
+import { RoleModule } from "./role/role.module";
+import { PermissionModule } from "./permission/permission.module";
 import { ACLModule } from "./auth/acl.module";
 import { AuthModule } from "./auth/auth.module";
 import { HealthModule } from "./health/health.module";
@@ -21,8 +24,11 @@ import { GraphQLModule } from "@nestjs/graphql";
   imports: [
     UserModule,
     SchoolModule,
-    SchoolDistrictModule,
     SubscriptionModule,
+    ConfigurableModuleModule,
+    StafModule,
+    RoleModule,
+    PermissionModule,
     ACLModule,
     AuthModule,
     HealthModule,

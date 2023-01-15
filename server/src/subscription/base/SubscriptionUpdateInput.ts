@@ -14,14 +14,15 @@ import { ApiProperty } from "@nestjs/swagger";
 import {
   IsNumber,
   IsOptional,
+  ValidateNested,
   IsBoolean,
   IsString,
   IsEnum,
-  ValidateNested,
 } from "class-validator";
+import { ConfigurableModuleUpdateManyWithoutSubscriptionsInput } from "./ConfigurableModuleUpdateManyWithoutSubscriptionsInput";
+import { Type } from "class-transformer";
 import { EnumSubscriptionPeriod } from "./EnumSubscriptionPeriod";
 import { SchoolUpdateManyWithoutSubscriptionsInput } from "./SchoolUpdateManyWithoutSubscriptionsInput";
-import { Type } from "class-transformer";
 import { SchoolWhereUniqueInput } from "../../school/base/SchoolWhereUniqueInput";
 
 @InputType()
@@ -36,6 +37,18 @@ class SubscriptionUpdateInput {
     nullable: true,
   })
   amount?: number;
+
+  @ApiProperty({
+    required: false,
+    type: () => ConfigurableModuleUpdateManyWithoutSubscriptionsInput,
+  })
+  @ValidateNested()
+  @Type(() => ConfigurableModuleUpdateManyWithoutSubscriptionsInput)
+  @IsOptional()
+  @Field(() => ConfigurableModuleUpdateManyWithoutSubscriptionsInput, {
+    nullable: true,
+  })
+  configurableModules?: ConfigurableModuleUpdateManyWithoutSubscriptionsInput;
 
   @ApiProperty({
     required: false,

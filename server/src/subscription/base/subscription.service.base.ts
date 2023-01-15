@@ -10,7 +10,12 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-import { Prisma, Subscription, School } from "@prisma/client";
+import {
+  Prisma,
+  Subscription,
+  ConfigurableModule,
+  School,
+} from "@prisma/client";
 
 export class SubscriptionServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -45,6 +50,17 @@ export class SubscriptionServiceBase {
     args: Prisma.SelectSubset<T, Prisma.SubscriptionDeleteArgs>
   ): Promise<Subscription> {
     return this.prisma.subscription.delete(args);
+  }
+
+  async findConfigurableModules(
+    parentId: string,
+    args: Prisma.ConfigurableModuleFindManyArgs
+  ): Promise<ConfigurableModule[]> {
+    return this.prisma.subscription
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .configurableModules(args);
   }
 
   async findSchools(

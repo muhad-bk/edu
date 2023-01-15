@@ -8,7 +8,6 @@ import {
   DateField,
 } from "react-admin";
 import { SUBSCRIPTION_TITLE_FIELD } from "../subscription/SubscriptionTitle";
-import { SCHOOLDISTRICT_TITLE_FIELD } from "../schoolDistrict/SchoolDistrictTitle";
 
 export const SchoolShow = (props: ShowProps): React.ReactElement => {
   return (
@@ -24,13 +23,9 @@ export const SchoolShow = (props: ShowProps): React.ReactElement => {
         <DateField source="createdAt" label="Created At" />
         <TextField label="ID" source="id" />
         <TextField label="Name" source="name" />
-        <ReferenceField
-          label="SchoolDistrict"
-          source="schooldistrict.id"
-          reference="SchoolDistrict"
-        >
-          <TextField source={SCHOOLDISTRICT_TITLE_FIELD} />
-        </ReferenceField>
+        <TextField label="school district" source="schoolDistrict" />
+        <TextField label="State" source="state" />
+        <TextField label="Township" source="township" />
         <DateField source="updatedAt" label="Updated At" />
       </SimpleShowLayout>
     </Show>

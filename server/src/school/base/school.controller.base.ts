@@ -27,6 +27,12 @@ import { SchoolWhereUniqueInput } from "./SchoolWhereUniqueInput";
 import { SchoolFindManyArgs } from "./SchoolFindManyArgs";
 import { SchoolUpdateInput } from "./SchoolUpdateInput";
 import { School } from "./School";
+import { RoleFindManyArgs } from "../../role/base/RoleFindManyArgs";
+import { Role } from "../../role/base/Role";
+import { RoleWhereUniqueInput } from "../../role/base/RoleWhereUniqueInput";
+import { StafFindManyArgs } from "../../staf/base/StafFindManyArgs";
+import { Staf } from "../../staf/base/Staf";
+import { StafWhereUniqueInput } from "../../staf/base/StafWhereUniqueInput";
 import { SubscriptionFindManyArgs } from "../../subscription/base/SubscriptionFindManyArgs";
 import { Subscription } from "../../subscription/base/Subscription";
 import { SubscriptionWhereUniqueInput } from "../../subscription/base/SubscriptionWhereUniqueInput";
@@ -57,12 +63,6 @@ export class SchoolControllerBase {
               connect: data.activeSuscription,
             }
           : undefined,
-
-        schoolDistrict: data.schoolDistrict
-          ? {
-              connect: data.schoolDistrict,
-            }
-          : undefined,
       },
       select: {
         activeSuscription: {
@@ -74,13 +74,9 @@ export class SchoolControllerBase {
         createdAt: true,
         id: true,
         name: true,
-
-        schoolDistrict: {
-          select: {
-            id: true,
-          },
-        },
-
+        schoolDistrict: true,
+        state: true,
+        township: true,
         updatedAt: true,
       },
     });
@@ -110,13 +106,9 @@ export class SchoolControllerBase {
         createdAt: true,
         id: true,
         name: true,
-
-        schoolDistrict: {
-          select: {
-            id: true,
-          },
-        },
-
+        schoolDistrict: true,
+        state: true,
+        township: true,
         updatedAt: true,
       },
     });
@@ -147,13 +139,9 @@ export class SchoolControllerBase {
         createdAt: true,
         id: true,
         name: true,
-
-        schoolDistrict: {
-          select: {
-            id: true,
-          },
-        },
-
+        schoolDistrict: true,
+        state: true,
+        township: true,
         updatedAt: true,
       },
     });
@@ -190,12 +178,6 @@ export class SchoolControllerBase {
                 connect: data.activeSuscription,
               }
             : undefined,
-
-          schoolDistrict: data.schoolDistrict
-            ? {
-                connect: data.schoolDistrict,
-              }
-            : undefined,
         },
         select: {
           activeSuscription: {
@@ -207,13 +189,9 @@ export class SchoolControllerBase {
           createdAt: true,
           id: true,
           name: true,
-
-          schoolDistrict: {
-            select: {
-              id: true,
-            },
-          },
-
+          schoolDistrict: true,
+          state: true,
+          township: true,
           updatedAt: true,
         },
       });
@@ -252,13 +230,9 @@ export class SchoolControllerBase {
           createdAt: true,
           id: true,
           name: true,
-
-          schoolDistrict: {
-            select: {
-              id: true,
-            },
-          },
-
+          schoolDistrict: true,
+          state: true,
+          township: true,
           updatedAt: true,
         },
       });
@@ -270,6 +244,203 @@ export class SchoolControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @nestAccessControl.UseRoles({
+    resource: "Role",
+    action: "read",
+    possession: "any",
+  })
+  @common.Get("/:id/roles")
+  @ApiNestedQuery(RoleFindManyArgs)
+  async findManyRoles(
+    @common.Req() request: Request,
+    @common.Param() params: SchoolWhereUniqueInput
+  ): Promise<Role[]> {
+    const query = plainToClass(RoleFindManyArgs, request.query);
+    const results = await this.service.findRoles(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+        id: true,
+        name: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "School",
+    action: "update",
+    possession: "any",
+  })
+  @common.Post("/:id/roles")
+  async connectRoles(
+    @common.Param() params: SchoolWhereUniqueInput,
+    @common.Body() body: RoleWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      roles: {
+        connect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "School",
+    action: "update",
+    possession: "any",
+  })
+  @common.Patch("/:id/roles")
+  async updateRoles(
+    @common.Param() params: SchoolWhereUniqueInput,
+    @common.Body() body: RoleWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      roles: {
+        set: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "School",
+    action: "update",
+    possession: "any",
+  })
+  @common.Delete("/:id/roles")
+  async disconnectRoles(
+    @common.Param() params: SchoolWhereUniqueInput,
+    @common.Body() body: RoleWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      roles: {
+        disconnect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @nestAccessControl.UseRoles({
+    resource: "Staf",
+    action: "read",
+    possession: "any",
+  })
+  @common.Get("/:id/stafs")
+  @ApiNestedQuery(StafFindManyArgs)
+  async findManyStafs(
+    @common.Req() request: Request,
+    @common.Param() params: SchoolWhereUniqueInput
+  ): Promise<Staf[]> {
+    const query = plainToClass(StafFindManyArgs, request.query);
+    const results = await this.service.findStafs(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+        id: true,
+        updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "School",
+    action: "update",
+    possession: "any",
+  })
+  @common.Post("/:id/stafs")
+  async connectStafs(
+    @common.Param() params: SchoolWhereUniqueInput,
+    @common.Body() body: StafWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      stafs: {
+        connect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "School",
+    action: "update",
+    possession: "any",
+  })
+  @common.Patch("/:id/stafs")
+  async updateStafs(
+    @common.Param() params: SchoolWhereUniqueInput,
+    @common.Body() body: StafWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      stafs: {
+        set: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "School",
+    action: "update",
+    possession: "any",
+  })
+  @common.Delete("/:id/stafs")
+  async disconnectStafs(
+    @common.Param() params: SchoolWhereUniqueInput,
+    @common.Body() body: StafWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      stafs: {
+        disconnect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
