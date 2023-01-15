@@ -1,6 +1,6 @@
 {
-  "short_name": "My service",
-  "name": "My service",
+  "short_name": "Base Service",
+  "name": "Base Service",
   "icons": [
     {
       "src": "favicon.ico",
