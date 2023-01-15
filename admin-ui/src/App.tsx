@@ -9,6 +9,18 @@ import { UserList } from "./user/UserList";
 import { UserCreate } from "./user/UserCreate";
 import { UserEdit } from "./user/UserEdit";
 import { UserShow } from "./user/UserShow";
+import { SchoolList } from "./school/SchoolList";
+import { SchoolCreate } from "./school/SchoolCreate";
+import { SchoolEdit } from "./school/SchoolEdit";
+import { SchoolShow } from "./school/SchoolShow";
+import { SchoolDistrictList } from "./schoolDistrict/SchoolDistrictList";
+import { SchoolDistrictCreate } from "./schoolDistrict/SchoolDistrictCreate";
+import { SchoolDistrictEdit } from "./schoolDistrict/SchoolDistrictEdit";
+import { SchoolDistrictShow } from "./schoolDistrict/SchoolDistrictShow";
+import { SubscriptionList } from "./subscription/SubscriptionList";
+import { SubscriptionCreate } from "./subscription/SubscriptionCreate";
+import { SubscriptionEdit } from "./subscription/SubscriptionEdit";
+import { SubscriptionShow } from "./subscription/SubscriptionShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -41,6 +53,27 @@ const App = (): React.ReactElement => {
           edit={UserEdit}
           create={UserCreate}
           show={UserShow}
+        />
+        <Resource
+          name="School"
+          list={SchoolList}
+          edit={SchoolEdit}
+          create={SchoolCreate}
+          show={SchoolShow}
+        />
+        <Resource
+          name="SchoolDistrict"
+          list={SchoolDistrictList}
+          edit={SchoolDistrictEdit}
+          create={SchoolDistrictCreate}
+          show={SchoolDistrictShow}
+        />
+        <Resource
+          name="Subscription"
+          list={SubscriptionList}
+          edit={SubscriptionEdit}
+          create={SubscriptionCreate}
+          show={SubscriptionShow}
         />
       </Admin>
     </div>
