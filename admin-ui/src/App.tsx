@@ -13,14 +13,26 @@ import { SchoolList } from "./school/SchoolList";
 import { SchoolCreate } from "./school/SchoolCreate";
 import { SchoolEdit } from "./school/SchoolEdit";
 import { SchoolShow } from "./school/SchoolShow";
-import { SchoolDistrictList } from "./schoolDistrict/SchoolDistrictList";
-import { SchoolDistrictCreate } from "./schoolDistrict/SchoolDistrictCreate";
-import { SchoolDistrictEdit } from "./schoolDistrict/SchoolDistrictEdit";
-import { SchoolDistrictShow } from "./schoolDistrict/SchoolDistrictShow";
 import { SubscriptionList } from "./subscription/SubscriptionList";
 import { SubscriptionCreate } from "./subscription/SubscriptionCreate";
 import { SubscriptionEdit } from "./subscription/SubscriptionEdit";
 import { SubscriptionShow } from "./subscription/SubscriptionShow";
+import { ConfigurableModuleList } from "./configurableModule/ConfigurableModuleList";
+import { ConfigurableModuleCreate } from "./configurableModule/ConfigurableModuleCreate";
+import { ConfigurableModuleEdit } from "./configurableModule/ConfigurableModuleEdit";
+import { ConfigurableModuleShow } from "./configurableModule/ConfigurableModuleShow";
+import { StafList } from "./staf/StafList";
+import { StafCreate } from "./staf/StafCreate";
+import { StafEdit } from "./staf/StafEdit";
+import { StafShow } from "./staf/StafShow";
+import { RoleList } from "./role/RoleList";
+import { RoleCreate } from "./role/RoleCreate";
+import { RoleEdit } from "./role/RoleEdit";
+import { RoleShow } from "./role/RoleShow";
+import { PermissionList } from "./permission/PermissionList";
+import { PermissionCreate } from "./permission/PermissionCreate";
+import { PermissionEdit } from "./permission/PermissionEdit";
+import { PermissionShow } from "./permission/PermissionShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -62,18 +74,39 @@ const App = (): React.ReactElement => {
           show={SchoolShow}
         />
         <Resource
-          name="SchoolDistrict"
-          list={SchoolDistrictList}
-          edit={SchoolDistrictEdit}
-          create={SchoolDistrictCreate}
-          show={SchoolDistrictShow}
-        />
-        <Resource
           name="Subscription"
           list={SubscriptionList}
           edit={SubscriptionEdit}
           create={SubscriptionCreate}
           show={SubscriptionShow}
+        />
+        <Resource
+          name="ConfigurableModule"
+          list={ConfigurableModuleList}
+          edit={ConfigurableModuleEdit}
+          create={ConfigurableModuleCreate}
+          show={ConfigurableModuleShow}
+        />
+        <Resource
+          name="Staf"
+          list={StafList}
+          edit={StafEdit}
+          create={StafCreate}
+          show={StafShow}
+        />
+        <Resource
+          name="Role"
+          list={RoleList}
+          edit={RoleEdit}
+          create={RoleCreate}
+          show={RoleShow}
+        />
+        <Resource
+          name="Permission"
+          list={PermissionList}
+          edit={PermissionEdit}
+          create={PermissionCreate}
+          show={PermissionShow}
         />
       </Admin>
     </div>

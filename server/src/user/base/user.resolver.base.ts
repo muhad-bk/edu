@@ -25,6 +25,8 @@ import { DeleteUserArgs } from "./DeleteUserArgs";
 import { UserFindManyArgs } from "./UserFindManyArgs";
 import { UserFindUniqueArgs } from "./UserFindUniqueArgs";
 import { User } from "./User";
+import { StafFindManyArgs } from "../../staf/base/StafFindManyArgs";
+import { Staf } from "../../staf/base/Staf";
 import { UserService } from "../user.service";
 
 @graphql.Resolver(() => User)
@@ -134,5 +136,25 @@ export class UserResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Staf])
+  @nestAccessControl.UseRoles({
+    resource: "Staf",
+    action: "read",
+    possession: "any",
+  })
+  async stafs(
+    @graphql.Parent() parent: User,
+    @graphql.Args() args: StafFindManyArgs
+  ): Promise<Staf[]> {
+    const results = await this.service.findStafs(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 }

@@ -12,12 +12,16 @@ https://docs.amplication.com/how-to/custom-code
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { SubscriptionWhereUniqueInput } from "../../subscription/base/SubscriptionWhereUniqueInput";
-import { ValidateNested, IsOptional } from "class-validator";
+import { ValidateNested, IsOptional, IsEnum } from "class-validator";
 import { Type } from "class-transformer";
 import { StringFilter } from "../../util/StringFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
-import { SchoolDistrictWhereUniqueInput } from "../../schoolDistrict/base/SchoolDistrictWhereUniqueInput";
+import { RoleListRelationFilter } from "../../role/base/RoleListRelationFilter";
+import { EnumSchoolSchoolDistrict } from "./EnumSchoolSchoolDistrict";
+import { StafListRelationFilter } from "../../staf/base/StafListRelationFilter";
+import { EnumSchoolState } from "./EnumSchoolState";
 import { SubscriptionListRelationFilter } from "../../subscription/base/SubscriptionListRelationFilter";
+import { EnumSchoolTownship } from "./EnumSchoolTownship";
 
 @InputType()
 class SchoolWhereInput {
@@ -57,15 +61,49 @@ class SchoolWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => SchoolDistrictWhereUniqueInput,
+    type: () => RoleListRelationFilter,
   })
   @ValidateNested()
-  @Type(() => SchoolDistrictWhereUniqueInput)
+  @Type(() => RoleListRelationFilter)
   @IsOptional()
-  @Field(() => SchoolDistrictWhereUniqueInput, {
+  @Field(() => RoleListRelationFilter, {
     nullable: true,
   })
-  schoolDistrict?: SchoolDistrictWhereUniqueInput;
+  roles?: RoleListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumSchoolSchoolDistrict,
+  })
+  @IsEnum(EnumSchoolSchoolDistrict)
+  @IsOptional()
+  @Field(() => EnumSchoolSchoolDistrict, {
+    nullable: true,
+  })
+  schoolDistrict?: "A";
+
+  @ApiProperty({
+    required: false,
+    type: () => StafListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => StafListRelationFilter)
+  @IsOptional()
+  @Field(() => StafListRelationFilter, {
+    nullable: true,
+  })
+  stafs?: StafListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumSchoolState,
+  })
+  @IsEnum(EnumSchoolState)
+  @IsOptional()
+  @Field(() => EnumSchoolState, {
+    nullable: true,
+  })
+  state?: "Sate_1" | "State_2";
 
   @ApiProperty({
     required: false,
@@ -78,6 +116,17 @@ class SchoolWhereInput {
     nullable: true,
   })
   SubscriptionHistory?: SubscriptionListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumSchoolTownship,
+  })
+  @IsEnum(EnumSchoolTownship)
+  @IsOptional()
+  @Field(() => EnumSchoolTownship, {
+    nullable: true,
+  })
+  township?: "T1" | "T2";
 }
 
 export { SchoolWhereInput };

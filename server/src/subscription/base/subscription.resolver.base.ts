@@ -25,6 +25,8 @@ import { DeleteSubscriptionArgs } from "./DeleteSubscriptionArgs";
 import { SubscriptionFindManyArgs } from "./SubscriptionFindManyArgs";
 import { SubscriptionFindUniqueArgs } from "./SubscriptionFindUniqueArgs";
 import { Subscription } from "./Subscription";
+import { ConfigurableModuleFindManyArgs } from "../../configurableModule/base/ConfigurableModuleFindManyArgs";
+import { ConfigurableModule } from "../../configurableModule/base/ConfigurableModule";
 import { SchoolFindManyArgs } from "../../school/base/SchoolFindManyArgs";
 import { School } from "../../school/base/School";
 import { SubscriptionService } from "../subscription.service";
@@ -162,6 +164,26 @@ export class SubscriptionResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [ConfigurableModule])
+  @nestAccessControl.UseRoles({
+    resource: "ConfigurableModule",
+    action: "read",
+    possession: "any",
+  })
+  async configurableModules(
+    @graphql.Parent() parent: Subscription,
+    @graphql.Args() args: ConfigurableModuleFindManyArgs
+  ): Promise<ConfigurableModule[]> {
+    const results = await this.service.findConfigurableModules(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

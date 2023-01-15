@@ -12,10 +12,14 @@ https://docs.amplication.com/how-to/custom-code
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { SubscriptionWhereUniqueInput } from "../../subscription/base/SubscriptionWhereUniqueInput";
-import { ValidateNested, IsOptional, IsString } from "class-validator";
+import { ValidateNested, IsOptional, IsString, IsEnum } from "class-validator";
 import { Type } from "class-transformer";
-import { SchoolDistrictWhereUniqueInput } from "../../schoolDistrict/base/SchoolDistrictWhereUniqueInput";
+import { RoleUpdateManyWithoutSchoolsInput } from "./RoleUpdateManyWithoutSchoolsInput";
+import { EnumSchoolSchoolDistrict } from "./EnumSchoolSchoolDistrict";
+import { StafUpdateManyWithoutSchoolsInput } from "./StafUpdateManyWithoutSchoolsInput";
+import { EnumSchoolState } from "./EnumSchoolState";
 import { SubscriptionUpdateManyWithoutSchoolsInput } from "./SubscriptionUpdateManyWithoutSchoolsInput";
+import { EnumSchoolTownship } from "./EnumSchoolTownship";
 
 @InputType()
 class SchoolUpdateInput {
@@ -44,15 +48,49 @@ class SchoolUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: () => SchoolDistrictWhereUniqueInput,
+    type: () => RoleUpdateManyWithoutSchoolsInput,
   })
   @ValidateNested()
-  @Type(() => SchoolDistrictWhereUniqueInput)
+  @Type(() => RoleUpdateManyWithoutSchoolsInput)
   @IsOptional()
-  @Field(() => SchoolDistrictWhereUniqueInput, {
+  @Field(() => RoleUpdateManyWithoutSchoolsInput, {
     nullable: true,
   })
-  schoolDistrict?: SchoolDistrictWhereUniqueInput | null;
+  roles?: RoleUpdateManyWithoutSchoolsInput;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumSchoolSchoolDistrict,
+  })
+  @IsEnum(EnumSchoolSchoolDistrict)
+  @IsOptional()
+  @Field(() => EnumSchoolSchoolDistrict, {
+    nullable: true,
+  })
+  schoolDistrict?: "A" | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => StafUpdateManyWithoutSchoolsInput,
+  })
+  @ValidateNested()
+  @Type(() => StafUpdateManyWithoutSchoolsInput)
+  @IsOptional()
+  @Field(() => StafUpdateManyWithoutSchoolsInput, {
+    nullable: true,
+  })
+  stafs?: StafUpdateManyWithoutSchoolsInput;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumSchoolState,
+  })
+  @IsEnum(EnumSchoolState)
+  @IsOptional()
+  @Field(() => EnumSchoolState, {
+    nullable: true,
+  })
+  state?: "Sate_1" | "State_2";
 
   @ApiProperty({
     required: false,
@@ -65,6 +103,17 @@ class SchoolUpdateInput {
     nullable: true,
   })
   SubscriptionHistory?: SubscriptionUpdateManyWithoutSchoolsInput;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumSchoolTownship,
+  })
+  @IsEnum(EnumSchoolTownship)
+  @IsOptional()
+  @Field(() => EnumSchoolTownship, {
+    nullable: true,
+  })
+  township?: "T1" | "T2";
 }
 
 export { SchoolUpdateInput };

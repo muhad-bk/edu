@@ -13,13 +13,14 @@ import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import {
   IsNumber,
+  ValidateNested,
+  IsOptional,
   IsDate,
   IsString,
   IsBoolean,
   IsEnum,
-  IsOptional,
-  ValidateNested,
 } from "class-validator";
+import { ConfigurableModule } from "../../configurableModule/base/ConfigurableModule";
 import { Type } from "class-transformer";
 import { EnumSubscriptionPeriod } from "./EnumSubscriptionPeriod";
 import { School } from "../../school/base/School";
@@ -33,6 +34,15 @@ class Subscription {
   @IsNumber()
   @Field(() => Number)
   amount!: number;
+
+  @ApiProperty({
+    required: false,
+    type: () => [ConfigurableModule],
+  })
+  @ValidateNested()
+  @Type(() => ConfigurableModule)
+  @IsOptional()
+  configurableModules?: Array<ConfigurableModule>;
 
   @ApiProperty({
     required: true,

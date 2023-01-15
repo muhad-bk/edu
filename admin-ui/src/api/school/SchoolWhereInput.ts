@@ -1,13 +1,18 @@
 import { SubscriptionWhereUniqueInput } from "../subscription/SubscriptionWhereUniqueInput";
 import { StringFilter } from "../../util/StringFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
-import { SchoolDistrictWhereUniqueInput } from "../schoolDistrict/SchoolDistrictWhereUniqueInput";
+import { RoleListRelationFilter } from "../role/RoleListRelationFilter";
+import { StafListRelationFilter } from "../staf/StafListRelationFilter";
 import { SubscriptionListRelationFilter } from "../subscription/SubscriptionListRelationFilter";
 
 export type SchoolWhereInput = {
   activeSuscription?: SubscriptionWhereUniqueInput;
   id?: StringFilter;
   name?: StringNullableFilter;
-  schoolDistrict?: SchoolDistrictWhereUniqueInput;
+  roles?: RoleListRelationFilter;
+  schoolDistrict?: "A";
+  stafs?: StafListRelationFilter;
+  state?: "Sate_1" | "State_2";
   SubscriptionHistory?: SubscriptionListRelationFilter;
+  township?: "T1" | "T2";
 };

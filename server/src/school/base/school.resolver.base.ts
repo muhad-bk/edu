@@ -25,9 +25,12 @@ import { DeleteSchoolArgs } from "./DeleteSchoolArgs";
 import { SchoolFindManyArgs } from "./SchoolFindManyArgs";
 import { SchoolFindUniqueArgs } from "./SchoolFindUniqueArgs";
 import { School } from "./School";
+import { RoleFindManyArgs } from "../../role/base/RoleFindManyArgs";
+import { Role } from "../../role/base/Role";
+import { StafFindManyArgs } from "../../staf/base/StafFindManyArgs";
+import { Staf } from "../../staf/base/Staf";
 import { SubscriptionFindManyArgs } from "../../subscription/base/SubscriptionFindManyArgs";
 import { Subscription } from "../../subscription/base/Subscription";
-import { SchoolDistrict } from "../../schoolDistrict/base/SchoolDistrict";
 import { SchoolService } from "../school.service";
 
 @graphql.Resolver(() => School)
@@ -103,12 +106,6 @@ export class SchoolResolverBase {
               connect: args.data.activeSuscription,
             }
           : undefined,
-
-        schoolDistrict: args.data.schoolDistrict
-          ? {
-              connect: args.data.schoolDistrict,
-            }
-          : undefined,
       },
     });
   }
@@ -132,12 +129,6 @@ export class SchoolResolverBase {
           activeSuscription: args.data.activeSuscription
             ? {
                 connect: args.data.activeSuscription,
-              }
-            : undefined,
-
-          schoolDistrict: args.data.schoolDistrict
-            ? {
-                connect: args.data.schoolDistrict,
               }
             : undefined,
         },
@@ -174,6 +165,46 @@ export class SchoolResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Role])
+  @nestAccessControl.UseRoles({
+    resource: "Role",
+    action: "read",
+    possession: "any",
+  })
+  async roles(
+    @graphql.Parent() parent: School,
+    @graphql.Args() args: RoleFindManyArgs
+  ): Promise<Role[]> {
+    const results = await this.service.findRoles(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Staf])
+  @nestAccessControl.UseRoles({
+    resource: "Staf",
+    action: "read",
+    possession: "any",
+  })
+  async stafs(
+    @graphql.Parent() parent: School,
+    @graphql.Args() args: StafFindManyArgs
+  ): Promise<Staf[]> {
+    const results = await this.service.findStafs(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
   @graphql.ResolveField(() => [Subscription])
   @nestAccessControl.UseRoles({
     resource: "Subscription",
@@ -204,24 +235,6 @@ export class SchoolResolverBase {
     @graphql.Parent() parent: School
   ): Promise<Subscription | null> {
     const result = await this.service.getActiveSuscription(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return result;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => SchoolDistrict, { nullable: true })
-  @nestAccessControl.UseRoles({
-    resource: "SchoolDistrict",
-    action: "read",
-    possession: "any",
-  })
-  async schoolDistrict(
-    @graphql.Parent() parent: School
-  ): Promise<SchoolDistrict | null> {
-    const result = await this.service.getSchoolDistrict(parent.id);
 
     if (!result) {
       return null;

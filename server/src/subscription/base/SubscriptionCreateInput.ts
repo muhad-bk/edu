@@ -13,15 +13,16 @@ import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import {
   IsNumber,
+  ValidateNested,
+  IsOptional,
   IsBoolean,
   IsString,
   IsEnum,
-  IsOptional,
-  ValidateNested,
 } from "class-validator";
+import { ConfigurableModuleCreateNestedManyWithoutSubscriptionsInput } from "./ConfigurableModuleCreateNestedManyWithoutSubscriptionsInput";
+import { Type } from "class-transformer";
 import { EnumSubscriptionPeriod } from "./EnumSubscriptionPeriod";
 import { SchoolCreateNestedManyWithoutSubscriptionsInput } from "./SchoolCreateNestedManyWithoutSubscriptionsInput";
-import { Type } from "class-transformer";
 import { SchoolWhereUniqueInput } from "../../school/base/SchoolWhereUniqueInput";
 
 @InputType()
@@ -33,6 +34,18 @@ class SubscriptionCreateInput {
   @IsNumber()
   @Field(() => Number)
   amount!: number;
+
+  @ApiProperty({
+    required: false,
+    type: () => ConfigurableModuleCreateNestedManyWithoutSubscriptionsInput,
+  })
+  @ValidateNested()
+  @Type(() => ConfigurableModuleCreateNestedManyWithoutSubscriptionsInput)
+  @IsOptional()
+  @Field(() => ConfigurableModuleCreateNestedManyWithoutSubscriptionsInput, {
+    nullable: true,
+  })
+  configurableModules?: ConfigurableModuleCreateNestedManyWithoutSubscriptionsInput;
 
   @ApiProperty({
     required: true,

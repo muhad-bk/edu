@@ -13,7 +13,8 @@ import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { FloatFilter } from "../../util/FloatFilter";
 import { Type } from "class-transformer";
-import { IsOptional, IsEnum, ValidateNested } from "class-validator";
+import { IsOptional, ValidateNested, IsEnum } from "class-validator";
+import { ConfigurableModuleListRelationFilter } from "../../configurableModule/base/ConfigurableModuleListRelationFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
 import { EnumSubscriptionPeriod } from "./EnumSubscriptionPeriod";
@@ -32,6 +33,18 @@ class SubscriptionWhereInput {
     nullable: true,
   })
   amount?: FloatFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => ConfigurableModuleListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ConfigurableModuleListRelationFilter)
+  @IsOptional()
+  @Field(() => ConfigurableModuleListRelationFilter, {
+    nullable: true,
+  })
+  configurableModules?: ConfigurableModuleListRelationFilter;
 
   @ApiProperty({
     required: false,

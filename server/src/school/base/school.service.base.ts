@@ -10,7 +10,7 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-import { Prisma, School, Subscription, SchoolDistrict } from "@prisma/client";
+import { Prisma, School, Role, Staf, Subscription } from "@prisma/client";
 
 export class SchoolServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -47,6 +47,28 @@ export class SchoolServiceBase {
     return this.prisma.school.delete(args);
   }
 
+  async findRoles(
+    parentId: string,
+    args: Prisma.RoleFindManyArgs
+  ): Promise<Role[]> {
+    return this.prisma.school
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .roles(args);
+  }
+
+  async findStafs(
+    parentId: string,
+    args: Prisma.StafFindManyArgs
+  ): Promise<Staf[]> {
+    return this.prisma.school
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .stafs(args);
+  }
+
   async findSubscriptionHistory(
     parentId: string,
     args: Prisma.SubscriptionFindManyArgs
@@ -64,13 +86,5 @@ export class SchoolServiceBase {
         where: { id: parentId },
       })
       .activeSuscription();
-  }
-
-  async getSchoolDistrict(parentId: string): Promise<SchoolDistrict | null> {
-    return this.prisma.school
-      .findUnique({
-        where: { id: parentId },
-      })
-      .schoolDistrict();
   }
 }

@@ -1,10 +1,15 @@
 import { SubscriptionWhereUniqueInput } from "../subscription/SubscriptionWhereUniqueInput";
-import { SchoolDistrictWhereUniqueInput } from "../schoolDistrict/SchoolDistrictWhereUniqueInput";
+import { RoleCreateNestedManyWithoutSchoolsInput } from "./RoleCreateNestedManyWithoutSchoolsInput";
+import { StafCreateNestedManyWithoutSchoolsInput } from "./StafCreateNestedManyWithoutSchoolsInput";
 import { SubscriptionCreateNestedManyWithoutSchoolsInput } from "./SubscriptionCreateNestedManyWithoutSchoolsInput";
 
 export type SchoolCreateInput = {
   activeSuscription?: SubscriptionWhereUniqueInput | null;
   name?: string | null;
-  schoolDistrict?: SchoolDistrictWhereUniqueInput | null;
+  roles?: RoleCreateNestedManyWithoutSchoolsInput;
+  schoolDistrict?: "A" | null;
+  stafs?: StafCreateNestedManyWithoutSchoolsInput;
+  state: "Sate_1" | "State_2";
   SubscriptionHistory?: SubscriptionCreateNestedManyWithoutSchoolsInput;
+  township: "T1" | "T2";
 };
