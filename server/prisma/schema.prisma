@@ -17,3 +17,41 @@ model User {
   updatedAt DateTime @updatedAt
   username  String   @unique
 }
+
+model School {
+  activeSuscription      Subscription?   @relation(name: "activeSuscription", fields: [activeSuscriptionId], references: [id])
+  activeSuscriptionId    String?         @unique
+  createdAt              DateTime        @default(now())
+  id                     String          @id @default(auto()) @map("_id") @mongo.ObjectId
+  name                   String?         @unique
+  schoolDistrict         SchoolDistrict? @relation(fields: [schoolDistrictId], references: [id])
+  schoolDistrictId       String?
+  SubscriptionHistory    Subscription[]  @relation(name: "SubscriptionHistory", fields: [SubscriptionHistoryIds], references: [id])
+  SubscriptionHistoryIds String[]        @mongo.ObjectId
+  updatedAt              DateTime        @updatedAt
+}
+
+model SchoolDistrict {
+  createdAt DateTime @default(now())
+  id        String   @id @default(auto()) @map("_id") @mongo.ObjectId
+  schools   School[]
+  updatedAt DateTime @updatedAt
+}
+
+model Subscription {
+  amount                    Float
+  createdAt                 DateTime                @default(now())
+  id                        String                  @id @default(auto()) @map("_id") @mongo.ObjectId
+  isStanderd                Boolean
+  name                      String                  @unique
+  period                    EnumSubscriptionPeriod?
+  schools                   School[]                @relation(name: "SubscriptionHistory", fields: [schoolsIds], references: [id])
+  schoolsIds                String[]                @mongo.ObjectId
+  schoolSubscriptionHistory School?                 @relation(name: "activeSuscription")
+  updatedAt                 DateTime                @updatedAt
+}
+
+enum EnumSubscriptionPeriod {
+  Monthly
+  Yearly
+}
