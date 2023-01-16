@@ -14,6 +14,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { SchoolUpdateManyWithoutStafsInput } from "./SchoolUpdateManyWithoutStafsInput";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
+import { SchoolDistrictWhereUniqueInput } from "../../schoolDistrict/base/SchoolDistrictWhereUniqueInput";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 
 @InputType()
@@ -29,6 +30,18 @@ class StafUpdateInput {
     nullable: true,
   })
   school?: SchoolUpdateManyWithoutStafsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SchoolDistrictWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SchoolDistrictWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SchoolDistrictWhereUniqueInput, {
+    nullable: true,
+  })
+  schoolDistricts?: SchoolDistrictWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

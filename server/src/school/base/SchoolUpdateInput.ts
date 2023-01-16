@@ -14,8 +14,9 @@ import { ApiProperty } from "@nestjs/swagger";
 import { SubscriptionWhereUniqueInput } from "../../subscription/base/SubscriptionWhereUniqueInput";
 import { ValidateNested, IsOptional, IsString, IsEnum } from "class-validator";
 import { Type } from "class-transformer";
+import { ParentWhereUniqueInput } from "../../parent/base/ParentWhereUniqueInput";
 import { RoleUpdateManyWithoutSchoolsInput } from "./RoleUpdateManyWithoutSchoolsInput";
-import { EnumSchoolSchoolDistrict } from "./EnumSchoolSchoolDistrict";
+import { SchoolDistrictWhereUniqueInput } from "../../schoolDistrict/base/SchoolDistrictWhereUniqueInput";
 import { StafUpdateManyWithoutSchoolsInput } from "./StafUpdateManyWithoutSchoolsInput";
 import { EnumSchoolState } from "./EnumSchoolState";
 import { StudentUpdateManyWithoutSchoolsInput } from "./StudentUpdateManyWithoutSchoolsInput";
@@ -49,6 +50,18 @@ class SchoolUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: () => ParentWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => ParentWhereUniqueInput)
+  @IsOptional()
+  @Field(() => ParentWhereUniqueInput, {
+    nullable: true,
+  })
+  parent?: ParentWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
     type: () => RoleUpdateManyWithoutSchoolsInput,
   })
   @ValidateNested()
@@ -61,14 +74,15 @@ class SchoolUpdateInput {
 
   @ApiProperty({
     required: false,
-    enum: EnumSchoolSchoolDistrict,
+    type: () => SchoolDistrictWhereUniqueInput,
   })
-  @IsEnum(EnumSchoolSchoolDistrict)
+  @ValidateNested()
+  @Type(() => SchoolDistrictWhereUniqueInput)
   @IsOptional()
-  @Field(() => EnumSchoolSchoolDistrict, {
+  @Field(() => SchoolDistrictWhereUniqueInput, {
     nullable: true,
   })
-  schoolDistrict?: "A" | null;
+  schoolDistrict?: SchoolDistrictWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

@@ -16,14 +16,16 @@ import {
   IsString,
   IsOptional,
   IsEnum,
-  IsJSON,
   ValidateNested,
+  IsJSON,
 } from "class-validator";
 import { Type } from "class-transformer";
 import { EnumUserLanguage } from "./EnumUserLanguage";
+import { Parent } from "../../parent/base/Parent";
 import { GraphQLJSON } from "graphql-type-json";
 import { JsonValue } from "type-fest";
 import { Staf } from "../../staf/base/Staf";
+import { Student } from "../../student/base/Student";
 
 @ObjectType()
 class User {
@@ -78,6 +80,15 @@ class User {
 
   @ApiProperty({
     required: false,
+    type: () => [Parent],
+  })
+  @ValidateNested()
+  @Type(() => Parent)
+  @IsOptional()
+  parents?: Array<Parent>;
+
+  @ApiProperty({
+    required: false,
     type: String,
   })
   @IsString()
@@ -102,6 +113,15 @@ class User {
   @Type(() => Staf)
   @IsOptional()
   stafs?: Array<Staf>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Student],
+  })
+  @ValidateNested()
+  @Type(() => Student)
+  @IsOptional()
+  students?: Array<Student>;
 
   @ApiProperty({
     required: true,

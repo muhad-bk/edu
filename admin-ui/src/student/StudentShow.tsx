@@ -13,6 +13,7 @@ import {
 
 import { STUDENT_TITLE_FIELD } from "./StudentTitle";
 import { SCHOOL_TITLE_FIELD } from "../school/SchoolTitle";
+import { USER_TITLE_FIELD } from "../user/UserTitle";
 
 export const StudentShow = (props: ShowProps): React.ReactElement => {
   return (
@@ -27,6 +28,9 @@ export const StudentShow = (props: ShowProps): React.ReactElement => {
         </ReferenceField>
         <TextField label="Student Id" source="studentId" />
         <DateField source="updatedAt" label="Updated At" />
+        <ReferenceField label="user" source="user.id" reference="User">
+          <TextField source={USER_TITLE_FIELD} />
+        </ReferenceField>
         <ReferenceManyField
           reference="Record"
           target="StudentId"

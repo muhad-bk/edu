@@ -52,6 +52,12 @@ export class StafControllerBase {
       data: {
         ...data,
 
+        schoolDistricts: data.schoolDistricts
+          ? {
+              connect: data.schoolDistricts,
+            }
+          : undefined,
+
         user: {
           connect: data.user,
         },
@@ -59,6 +65,13 @@ export class StafControllerBase {
       select: {
         createdAt: true,
         id: true,
+
+        schoolDistricts: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
 
         user: {
@@ -87,6 +100,13 @@ export class StafControllerBase {
       select: {
         createdAt: true,
         id: true,
+
+        schoolDistricts: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
 
         user: {
@@ -116,6 +136,13 @@ export class StafControllerBase {
       select: {
         createdAt: true,
         id: true,
+
+        schoolDistricts: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
 
         user: {
@@ -153,6 +180,12 @@ export class StafControllerBase {
         data: {
           ...data,
 
+          schoolDistricts: data.schoolDistricts
+            ? {
+                connect: data.schoolDistricts,
+              }
+            : undefined,
+
           user: {
             connect: data.user,
           },
@@ -160,6 +193,13 @@ export class StafControllerBase {
         select: {
           createdAt: true,
           id: true,
+
+          schoolDistricts: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
 
           user: {
@@ -197,6 +237,13 @@ export class StafControllerBase {
         select: {
           createdAt: true,
           id: true,
+
+          schoolDistricts: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
 
           user: {
@@ -241,7 +288,19 @@ export class StafControllerBase {
         createdAt: true,
         id: true,
         name: true,
-        schoolDistrict: true,
+
+        parent: {
+          select: {
+            id: true,
+          },
+        },
+
+        schoolDistrict: {
+          select: {
+            id: true,
+          },
+        },
+
         state: true,
         township: true,
         updatedAt: true,

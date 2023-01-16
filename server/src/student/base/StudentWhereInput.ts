@@ -15,8 +15,10 @@ import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
 import { StringFilter } from "../../util/StringFilter";
+import { ParentListRelationFilter } from "../../parent/base/ParentListRelationFilter";
 import { RecordListRelationFilter } from "../../record/base/RecordListRelationFilter";
 import { SchoolWhereUniqueInput } from "../../school/base/SchoolWhereUniqueInput";
+import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 
 @InputType()
 class StudentWhereInput {
@@ -55,6 +57,18 @@ class StudentWhereInput {
 
   @ApiProperty({
     required: false,
+    type: () => ParentListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ParentListRelationFilter)
+  @IsOptional()
+  @Field(() => ParentListRelationFilter, {
+    nullable: true,
+  })
+  parent?: ParentListRelationFilter;
+
+  @ApiProperty({
+    required: false,
     type: () => RecordListRelationFilter,
   })
   @ValidateNested()
@@ -87,6 +101,18 @@ class StudentWhereInput {
     nullable: true,
   })
   studentId?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => UserWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => UserWhereUniqueInput)
+  @IsOptional()
+  @Field(() => UserWhereUniqueInput, {
+    nullable: true,
+  })
+  user?: UserWhereUniqueInput;
 }
 
 export { StudentWhereInput };

@@ -9,12 +9,13 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-import { registerEnumType } from "@nestjs/graphql";
+import { ArgsType, Field } from "@nestjs/graphql";
+import { SchoolDistrictWhereUniqueInput } from "./SchoolDistrictWhereUniqueInput";
 
-export enum EnumSchoolSchoolDistrict {
-  A = "A",
+@ArgsType()
+class SchoolDistrictFindUniqueArgs {
+  @Field(() => SchoolDistrictWhereUniqueInput, { nullable: false })
+  where!: SchoolDistrictWhereUniqueInput;
 }
 
-registerEnumType(EnumSchoolSchoolDistrict, {
-  name: "EnumSchoolSchoolDistrict",
-});
+export { SchoolDistrictFindUniqueArgs };

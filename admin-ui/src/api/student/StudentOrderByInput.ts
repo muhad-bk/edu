@@ -8,4 +8,5 @@ export type StudentOrderByInput = {
   schoolId?: SortOrder;
   studentId?: SortOrder;
   updatedAt?: SortOrder;
+  userId?: SortOrder;
 };

@@ -372,7 +372,19 @@ export class SubscriptionControllerBase {
         createdAt: true,
         id: true,
         name: true,
-        schoolDistrict: true,
+
+        parent: {
+          select: {
+            id: true,
+          },
+        },
+
+        schoolDistrict: {
+          select: {
+            id: true,
+          },
+        },
+
         state: true,
         township: true,
         updatedAt: true,

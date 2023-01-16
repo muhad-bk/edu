@@ -25,9 +25,12 @@ import { DeleteStudentArgs } from "./DeleteStudentArgs";
 import { StudentFindManyArgs } from "./StudentFindManyArgs";
 import { StudentFindUniqueArgs } from "./StudentFindUniqueArgs";
 import { Student } from "./Student";
+import { ParentFindManyArgs } from "../../parent/base/ParentFindManyArgs";
+import { Parent } from "../../parent/base/Parent";
 import { RecordFindManyArgs } from "../../record/base/RecordFindManyArgs";
 import { Record } from "../../record/base/Record";
 import { School } from "../../school/base/School";
+import { User } from "../../user/base/User";
 import { StudentService } from "../student.service";
 
 @graphql.Resolver(() => Student)
@@ -102,11 +105,13 @@ export class StudentResolverBase {
       data: {
         ...args.data,
 
-        school: args.data.school
-          ? {
-              connect: args.data.school,
-            }
-          : undefined,
+        school: {
+          connect: args.data.school,
+        },
+
+        user: {
+          connect: args.data.user,
+        },
       },
     });
   }
@@ -127,11 +132,13 @@ export class StudentResolverBase {
         data: {
           ...args.data,
 
-          school: args.data.school
-            ? {
-                connect: args.data.school,
-              }
-            : undefined,
+          school: {
+            connect: args.data.school,
+          },
+
+          user: {
+            connect: args.data.user,
+          },
         },
       });
     } catch (error) {
@@ -166,6 +173,26 @@ export class StudentResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Parent])
+  @nestAccessControl.UseRoles({
+    resource: "Parent",
+    action: "read",
+    possession: "any",
+  })
+  async parent(
+    @graphql.Parent() parent: Student,
+    @graphql.Args() args: ParentFindManyArgs
+  ): Promise<Parent[]> {
+    const results = await this.service.findParent(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
   @graphql.ResolveField(() => [Record])
   @nestAccessControl.UseRoles({
     resource: "Record",
@@ -194,6 +221,22 @@ export class StudentResolverBase {
   })
   async school(@graphql.Parent() parent: Student): Promise<School | null> {
     const result = await this.service.getSchool(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => User, { nullable: true })
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "read",
+    possession: "any",
+  })
+  async user(@graphql.Parent() parent: Student): Promise<User | null> {
+    const result = await this.service.getUser(parent.id);
 
     if (!result) {
       return null;

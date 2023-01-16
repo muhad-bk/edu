@@ -20,8 +20,9 @@ import {
   IsEnum,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { Parent } from "../../parent/base/Parent";
 import { Role } from "../../role/base/Role";
-import { EnumSchoolSchoolDistrict } from "./EnumSchoolSchoolDistrict";
+import { SchoolDistrict } from "../../schoolDistrict/base/SchoolDistrict";
 import { Staf } from "../../staf/base/Staf";
 import { EnumSchoolState } from "./EnumSchoolState";
 import { Student } from "../../student/base/Student";
@@ -67,6 +68,15 @@ class School {
 
   @ApiProperty({
     required: false,
+    type: () => Parent,
+  })
+  @ValidateNested()
+  @Type(() => Parent)
+  @IsOptional()
+  parent?: Parent | null;
+
+  @ApiProperty({
+    required: false,
     type: () => [Role],
   })
   @ValidateNested()
@@ -76,14 +86,12 @@ class School {
 
   @ApiProperty({
     required: false,
-    enum: EnumSchoolSchoolDistrict,
+    type: () => SchoolDistrict,
   })
-  @IsEnum(EnumSchoolSchoolDistrict)
+  @ValidateNested()
+  @Type(() => SchoolDistrict)
   @IsOptional()
-  @Field(() => EnumSchoolSchoolDistrict, {
-    nullable: true,
-  })
-  schoolDistrict?: "A" | null;
+  schoolDistrict?: SchoolDistrict | null;
 
   @ApiProperty({
     required: false,

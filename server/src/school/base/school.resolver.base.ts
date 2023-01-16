@@ -33,6 +33,8 @@ import { StudentFindManyArgs } from "../../student/base/StudentFindManyArgs";
 import { Student } from "../../student/base/Student";
 import { SubscriptionFindManyArgs } from "../../subscription/base/SubscriptionFindManyArgs";
 import { Subscription } from "../../subscription/base/Subscription";
+import { Parent } from "../../parent/base/Parent";
+import { SchoolDistrict } from "../../schoolDistrict/base/SchoolDistrict";
 import { SchoolService } from "../school.service";
 
 @graphql.Resolver(() => School)
@@ -108,6 +110,18 @@ export class SchoolResolverBase {
               connect: args.data.activeSuscription,
             }
           : undefined,
+
+        parent: args.data.parent
+          ? {
+              connect: args.data.parent,
+            }
+          : undefined,
+
+        schoolDistrict: args.data.schoolDistrict
+          ? {
+              connect: args.data.schoolDistrict,
+            }
+          : undefined,
       },
     });
   }
@@ -131,6 +145,18 @@ export class SchoolResolverBase {
           activeSuscription: args.data.activeSuscription
             ? {
                 connect: args.data.activeSuscription,
+              }
+            : undefined,
+
+          parent: args.data.parent
+            ? {
+                connect: args.data.parent,
+              }
+            : undefined,
+
+          schoolDistrict: args.data.schoolDistrict
+            ? {
+                connect: args.data.schoolDistrict,
               }
             : undefined,
         },
@@ -257,6 +283,40 @@ export class SchoolResolverBase {
     @graphql.Parent() parent: School
   ): Promise<Subscription | null> {
     const result = await this.service.getActiveSuscription(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Parent, { nullable: true })
+  @nestAccessControl.UseRoles({
+    resource: "Parent",
+    action: "read",
+    possession: "any",
+  })
+  async parent(@graphql.Parent() parent: School): Promise<Parent | null> {
+    const result = await this.service.getParent(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => SchoolDistrict, { nullable: true })
+  @nestAccessControl.UseRoles({
+    resource: "SchoolDistrict",
+    action: "read",
+    possession: "any",
+  })
+  async schoolDistrict(
+    @graphql.Parent() parent: School
+  ): Promise<SchoolDistrict | null> {
+    const result = await this.service.getSchoolDistrict(parent.id);
 
     if (!result) {
       return null;

@@ -17,6 +17,8 @@ import {
   Staf,
   Student,
   Subscription,
+  Parent,
+  SchoolDistrict,
 } from "@prisma/client";
 
 export class SchoolServiceBase {
@@ -104,5 +106,21 @@ export class SchoolServiceBase {
         where: { id: parentId },
       })
       .activeSuscription();
+  }
+
+  async getParent(parentId: string): Promise<Parent | null> {
+    return this.prisma.school
+      .findUnique({
+        where: { id: parentId },
+      })
+      .parent();
+  }
+
+  async getSchoolDistrict(parentId: string): Promise<SchoolDistrict | null> {
+    return this.prisma.school
+      .findUnique({
+        where: { id: parentId },
+      })
+      .schoolDistrict();
   }
 }

@@ -12,9 +12,11 @@ https://docs.amplication.com/how-to/custom-code
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { IsString, IsOptional, ValidateNested } from "class-validator";
-import { RecordCreateNestedManyWithoutStudentsInput } from "./RecordCreateNestedManyWithoutStudentsInput";
+import { ParentCreateNestedManyWithoutStudentsInput } from "./ParentCreateNestedManyWithoutStudentsInput";
 import { Type } from "class-transformer";
+import { RecordCreateNestedManyWithoutStudentsInput } from "./RecordCreateNestedManyWithoutStudentsInput";
 import { SchoolWhereUniqueInput } from "../../school/base/SchoolWhereUniqueInput";
+import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 
 @InputType()
 class StudentCreateInput {
@@ -39,6 +41,18 @@ class StudentCreateInput {
 
   @ApiProperty({
     required: false,
+    type: () => ParentCreateNestedManyWithoutStudentsInput,
+  })
+  @ValidateNested()
+  @Type(() => ParentCreateNestedManyWithoutStudentsInput)
+  @IsOptional()
+  @Field(() => ParentCreateNestedManyWithoutStudentsInput, {
+    nullable: true,
+  })
+  parent?: ParentCreateNestedManyWithoutStudentsInput;
+
+  @ApiProperty({
+    required: false,
     type: () => RecordCreateNestedManyWithoutStudentsInput,
   })
   @ValidateNested()
@@ -50,16 +64,13 @@ class StudentCreateInput {
   records?: RecordCreateNestedManyWithoutStudentsInput;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: () => SchoolWhereUniqueInput,
   })
   @ValidateNested()
   @Type(() => SchoolWhereUniqueInput)
-  @IsOptional()
-  @Field(() => SchoolWhereUniqueInput, {
-    nullable: true,
-  })
-  school?: SchoolWhereUniqueInput | null;
+  @Field(() => SchoolWhereUniqueInput)
+  school!: SchoolWhereUniqueInput;
 
   @ApiProperty({
     required: false,
@@ -71,6 +82,15 @@ class StudentCreateInput {
     nullable: true,
   })
   studentId?: string | null;
+
+  @ApiProperty({
+    required: true,
+    type: () => UserWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => UserWhereUniqueInput)
+  @Field(() => UserWhereUniqueInput)
+  user!: UserWhereUniqueInput;
 }
 
 export { StudentCreateInput };

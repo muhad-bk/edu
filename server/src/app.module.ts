@@ -10,6 +10,8 @@ import { RoleModule } from "./role/role.module";
 import { PermissionModule } from "./permission/permission.module";
 import { StudentModule } from "./student/student.module";
 import { RecordModule } from "./record/record.module";
+import { ParentModule } from "./parent/parent.module";
+import { SchoolDistrictModule } from "./schoolDistrict/schoolDistrict.module";
 import { ACLModule } from "./auth/acl.module";
 import { AuthModule } from "./auth/auth.module";
 import { HealthModule } from "./health/health.module";
@@ -33,6 +35,8 @@ import { GraphQLModule } from "@nestjs/graphql";
     PermissionModule,
     StudentModule,
     RecordModule,
+    ParentModule,
+    SchoolDistrictModule,
     ACLModule,
     AuthModule,
     HealthModule,
