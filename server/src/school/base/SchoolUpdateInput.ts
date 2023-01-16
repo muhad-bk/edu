@@ -18,6 +18,7 @@ import { RoleUpdateManyWithoutSchoolsInput } from "./RoleUpdateManyWithoutSchool
 import { EnumSchoolSchoolDistrict } from "./EnumSchoolSchoolDistrict";
 import { StafUpdateManyWithoutSchoolsInput } from "./StafUpdateManyWithoutSchoolsInput";
 import { EnumSchoolState } from "./EnumSchoolState";
+import { StudentUpdateManyWithoutSchoolsInput } from "./StudentUpdateManyWithoutSchoolsInput";
 import { SubscriptionUpdateManyWithoutSchoolsInput } from "./SubscriptionUpdateManyWithoutSchoolsInput";
 import { EnumSchoolTownship } from "./EnumSchoolTownship";
 
@@ -91,6 +92,18 @@ class SchoolUpdateInput {
     nullable: true,
   })
   state?: "Sate_1" | "State_2";
+
+  @ApiProperty({
+    required: false,
+    type: () => StudentUpdateManyWithoutSchoolsInput,
+  })
+  @ValidateNested()
+  @Type(() => StudentUpdateManyWithoutSchoolsInput)
+  @IsOptional()
+  @Field(() => StudentUpdateManyWithoutSchoolsInput, {
+    nullable: true,
+  })
+  students?: StudentUpdateManyWithoutSchoolsInput;
 
   @ApiProperty({
     required: false,

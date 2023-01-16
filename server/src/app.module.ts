@@ -8,6 +8,8 @@ import { ConfigurableModuleModule } from "./configurableModule/configurableModul
 import { StafModule } from "./staf/staf.module";
 import { RoleModule } from "./role/role.module";
 import { PermissionModule } from "./permission/permission.module";
+import { StudentModule } from "./student/student.module";
+import { RecordModule } from "./record/record.module";
 import { ACLModule } from "./auth/acl.module";
 import { AuthModule } from "./auth/auth.module";
 import { HealthModule } from "./health/health.module";
@@ -29,6 +31,8 @@ import { GraphQLModule } from "@nestjs/graphql";
     StafModule,
     RoleModule,
     PermissionModule,
+    StudentModule,
+    RecordModule,
     ACLModule,
     AuthModule,
     HealthModule,

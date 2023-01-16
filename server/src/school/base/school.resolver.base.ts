@@ -29,6 +29,8 @@ import { RoleFindManyArgs } from "../../role/base/RoleFindManyArgs";
 import { Role } from "../../role/base/Role";
 import { StafFindManyArgs } from "../../staf/base/StafFindManyArgs";
 import { Staf } from "../../staf/base/Staf";
+import { StudentFindManyArgs } from "../../student/base/StudentFindManyArgs";
+import { Student } from "../../student/base/Student";
 import { SubscriptionFindManyArgs } from "../../subscription/base/SubscriptionFindManyArgs";
 import { Subscription } from "../../subscription/base/Subscription";
 import { SchoolService } from "../school.service";
@@ -196,6 +198,26 @@ export class SchoolResolverBase {
     @graphql.Args() args: StafFindManyArgs
   ): Promise<Staf[]> {
     const results = await this.service.findStafs(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Student])
+  @nestAccessControl.UseRoles({
+    resource: "Student",
+    action: "read",
+    possession: "any",
+  })
+  async students(
+    @graphql.Parent() parent: School,
+    @graphql.Args() args: StudentFindManyArgs
+  ): Promise<Student[]> {
+    const results = await this.service.findStudents(parent.id, args);
 
     if (!results) {
       return [];

@@ -33,6 +33,9 @@ import { RoleWhereUniqueInput } from "../../role/base/RoleWhereUniqueInput";
 import { StafFindManyArgs } from "../../staf/base/StafFindManyArgs";
 import { Staf } from "../../staf/base/Staf";
 import { StafWhereUniqueInput } from "../../staf/base/StafWhereUniqueInput";
+import { StudentFindManyArgs } from "../../student/base/StudentFindManyArgs";
+import { Student } from "../../student/base/Student";
+import { StudentWhereUniqueInput } from "../../student/base/StudentWhereUniqueInput";
 import { SubscriptionFindManyArgs } from "../../subscription/base/SubscriptionFindManyArgs";
 import { Subscription } from "../../subscription/base/Subscription";
 import { SubscriptionWhereUniqueInput } from "../../subscription/base/SubscriptionWhereUniqueInput";
@@ -433,6 +436,111 @@ export class SchoolControllerBase {
   ): Promise<void> {
     const data = {
       stafs: {
+        disconnect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @nestAccessControl.UseRoles({
+    resource: "Student",
+    action: "read",
+    possession: "any",
+  })
+  @common.Get("/:id/students")
+  @ApiNestedQuery(StudentFindManyArgs)
+  async findManyStudents(
+    @common.Req() request: Request,
+    @common.Param() params: SchoolWhereUniqueInput
+  ): Promise<Student[]> {
+    const query = plainToClass(StudentFindManyArgs, request.query);
+    const results = await this.service.findStudents(params.id, {
+      ...query,
+      select: {
+        address: true,
+        createdAt: true,
+        id: true,
+        name: true,
+
+        school: {
+          select: {
+            id: true,
+          },
+        },
+
+        studentId: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "School",
+    action: "update",
+    possession: "any",
+  })
+  @common.Post("/:id/students")
+  async connectStudents(
+    @common.Param() params: SchoolWhereUniqueInput,
+    @common.Body() body: StudentWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      students: {
+        connect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "School",
+    action: "update",
+    possession: "any",
+  })
+  @common.Patch("/:id/students")
+  async updateStudents(
+    @common.Param() params: SchoolWhereUniqueInput,
+    @common.Body() body: StudentWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      students: {
+        set: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "School",
+    action: "update",
+    possession: "any",
+  })
+  @common.Delete("/:id/students")
+  async disconnectStudents(
+    @common.Param() params: SchoolWhereUniqueInput,
+    @common.Body() body: StudentWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      students: {
         disconnect: body,
       },
     };

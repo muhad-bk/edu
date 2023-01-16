@@ -11,7 +11,14 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsOptional, IsJSON, ValidateNested } from "class-validator";
+import {
+  IsString,
+  IsOptional,
+  IsEnum,
+  IsJSON,
+  ValidateNested,
+} from "class-validator";
+import { EnumUserLanguage } from "./EnumUserLanguage";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
 import { StafUpdateManyWithoutUsersInput } from "./StafUpdateManyWithoutUsersInput";
@@ -28,7 +35,7 @@ class UserUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  firstName?: string | null;
+  email?: string | null;
 
   @ApiProperty({
     required: false,
@@ -39,7 +46,18 @@ class UserUpdateInput {
   @Field(() => String, {
     nullable: true,
   })
-  lastName?: string | null;
+  fullName?: string | null;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumUserLanguage,
+  })
+  @IsEnum(EnumUserLanguage)
+  @IsOptional()
+  @Field(() => EnumUserLanguage, {
+    nullable: true,
+  })
+  language?: "English" | null;
 
   @ApiProperty({
     required: false,
@@ -51,6 +69,17 @@ class UserUpdateInput {
     nullable: true,
   })
   password?: string;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  profilePicUrl?: string | null;
 
   @ApiProperty({
     required: false,

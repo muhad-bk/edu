@@ -24,6 +24,7 @@ import { Role } from "../../role/base/Role";
 import { EnumSchoolSchoolDistrict } from "./EnumSchoolSchoolDistrict";
 import { Staf } from "../../staf/base/Staf";
 import { EnumSchoolState } from "./EnumSchoolState";
+import { Student } from "../../student/base/Student";
 import { EnumSchoolTownship } from "./EnumSchoolTownship";
 
 @ObjectType()
@@ -102,6 +103,15 @@ class School {
     nullable: true,
   })
   state?: "Sate_1" | "State_2";
+
+  @ApiProperty({
+    required: false,
+    type: () => [Student],
+  })
+  @ValidateNested()
+  @Type(() => Student)
+  @IsOptional()
+  students?: Array<Student>;
 
   @ApiProperty({
     required: false,

@@ -13,8 +13,9 @@ import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
-import { IsOptional, ValidateNested } from "class-validator";
+import { IsOptional, IsEnum, ValidateNested } from "class-validator";
 import { StringFilter } from "../../util/StringFilter";
+import { EnumUserLanguage } from "./EnumUserLanguage";
 import { StafListRelationFilter } from "../../staf/base/StafListRelationFilter";
 
 @InputType()
@@ -28,7 +29,18 @@ class UserWhereInput {
   @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  firstName?: StringNullableFilter;
+  email?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  fullName?: StringNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -43,6 +55,17 @@ class UserWhereInput {
 
   @ApiProperty({
     required: false,
+    enum: EnumUserLanguage,
+  })
+  @IsEnum(EnumUserLanguage)
+  @IsOptional()
+  @Field(() => EnumUserLanguage, {
+    nullable: true,
+  })
+  language?: "English";
+
+  @ApiProperty({
+    required: false,
     type: StringNullableFilter,
   })
   @Type(() => StringNullableFilter)
@@ -50,7 +73,7 @@ class UserWhereInput {
   @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  lastName?: StringNullableFilter;
+  profilePicUrl?: StringNullableFilter;
 
   @ApiProperty({
     required: false,
