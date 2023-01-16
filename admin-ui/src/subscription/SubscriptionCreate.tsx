@@ -15,6 +15,7 @@ import {
 
 import { ConfigurableModuleTitle } from "../configurableModule/ConfigurableModuleTitle";
 import { SchoolTitle } from "../school/SchoolTitle";
+import { SubscriptionPlanTitle } from "../subscriptionPlan/SubscriptionPlanTitle";
 
 export const SubscriptionCreate = (props: CreateProps): React.ReactElement => {
   return (
@@ -57,6 +58,14 @@ export const SubscriptionCreate = (props: CreateProps): React.ReactElement => {
         >
           <SelectInput optionText={SchoolTitle} />
         </ReferenceInput>
+        <ReferenceArrayInput
+          source="subscriptionPlans"
+          reference="SubscriptionPlan"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={SubscriptionPlanTitle} />
+        </ReferenceArrayInput>
       </SimpleForm>
     </Create>
   );

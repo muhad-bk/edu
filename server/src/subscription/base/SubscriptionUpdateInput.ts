@@ -24,6 +24,7 @@ import { Type } from "class-transformer";
 import { EnumSubscriptionPeriod } from "./EnumSubscriptionPeriod";
 import { SchoolUpdateManyWithoutSubscriptionsInput } from "./SchoolUpdateManyWithoutSubscriptionsInput";
 import { SchoolWhereUniqueInput } from "../../school/base/SchoolWhereUniqueInput";
+import { SubscriptionPlanUpdateManyWithoutSubscriptionsInput } from "./SubscriptionPlanUpdateManyWithoutSubscriptionsInput";
 
 @InputType()
 class SubscriptionUpdateInput {
@@ -106,6 +107,18 @@ class SubscriptionUpdateInput {
     nullable: true,
   })
   schoolSubscriptionHistory?: SchoolWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SubscriptionPlanUpdateManyWithoutSubscriptionsInput,
+  })
+  @ValidateNested()
+  @Type(() => SubscriptionPlanUpdateManyWithoutSubscriptionsInput)
+  @IsOptional()
+  @Field(() => SubscriptionPlanUpdateManyWithoutSubscriptionsInput, {
+    nullable: true,
+  })
+  subscriptionPlans?: SubscriptionPlanUpdateManyWithoutSubscriptionsInput;
 }
 
 export { SubscriptionUpdateInput };

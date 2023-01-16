@@ -25,6 +25,8 @@ import { DeleteParentArgs } from "./DeleteParentArgs";
 import { ParentFindManyArgs } from "./ParentFindManyArgs";
 import { ParentFindUniqueArgs } from "./ParentFindUniqueArgs";
 import { Parent } from "./Parent";
+import { ApprovalFindManyArgs } from "../../approval/base/ApprovalFindManyArgs";
+import { Approval } from "../../approval/base/Approval";
 import { SchoolFindManyArgs } from "../../school/base/SchoolFindManyArgs";
 import { School } from "../../school/base/School";
 import { StudentFindManyArgs } from "../../student/base/StudentFindManyArgs";
@@ -161,6 +163,26 @@ export class ParentResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Approval])
+  @nestAccessControl.UseRoles({
+    resource: "Approval",
+    action: "read",
+    possession: "any",
+  })
+  async approvals(
+    @graphql.Parent() parent: Parent,
+    @graphql.Args() args: ApprovalFindManyArgs
+  ): Promise<Approval[]> {
+    const results = await this.service.findApprovals(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

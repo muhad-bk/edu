@@ -11,11 +11,20 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsOptional, IsDate, ValidateNested } from "class-validator";
+import {
+  IsString,
+  IsOptional,
+  ValidateNested,
+  IsDate,
+  IsEnum,
+} from "class-validator";
+import { Approval } from "../../approval/base/Approval";
 import { Type } from "class-transformer";
+import { ChartVist } from "../../chartVist/base/ChartVist";
 import { Parent } from "../../parent/base/Parent";
-import { Record } from "../../record/base/Record";
+import { Treatment } from "../../treatment/base/Treatment";
 import { School } from "../../school/base/School";
+import { EnumStudentStatus } from "./EnumStudentStatus";
 import { User } from "../../user/base/User";
 
 @ObjectType()
@@ -30,6 +39,24 @@ class Student {
     nullable: true,
   })
   address!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Approval],
+  })
+  @ValidateNested()
+  @Type(() => Approval)
+  @IsOptional()
+  approvals?: Array<Approval>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [ChartVist],
+  })
+  @ValidateNested()
+  @Type(() => ChartVist)
+  @IsOptional()
+  chartVists?: Array<ChartVist>;
 
   @ApiProperty({
     required: true,
@@ -66,12 +93,12 @@ class Student {
 
   @ApiProperty({
     required: false,
-    type: () => [Record],
+    type: () => [Treatment],
   })
   @ValidateNested()
-  @Type(() => Record)
+  @Type(() => Treatment)
   @IsOptional()
-  records?: Array<Record>;
+  records?: Array<Treatment>;
 
   @ApiProperty({
     required: true,
@@ -80,6 +107,17 @@ class Student {
   @ValidateNested()
   @Type(() => School)
   school?: School;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumStudentStatus,
+  })
+  @IsEnum(EnumStudentStatus)
+  @IsOptional()
+  @Field(() => EnumStudentStatus, {
+    nullable: true,
+  })
+  status?: "Active" | "Deactivate" | "Pending" | null;
 
   @ApiProperty({
     required: false,

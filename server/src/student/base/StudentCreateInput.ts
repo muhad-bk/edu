@@ -11,11 +11,14 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsOptional, ValidateNested } from "class-validator";
-import { ParentCreateNestedManyWithoutStudentsInput } from "./ParentCreateNestedManyWithoutStudentsInput";
+import { IsString, IsOptional, ValidateNested, IsEnum } from "class-validator";
+import { ApprovalCreateNestedManyWithoutStudentsInput } from "./ApprovalCreateNestedManyWithoutStudentsInput";
 import { Type } from "class-transformer";
-import { RecordCreateNestedManyWithoutStudentsInput } from "./RecordCreateNestedManyWithoutStudentsInput";
+import { ChartVistCreateNestedManyWithoutStudentsInput } from "./ChartVistCreateNestedManyWithoutStudentsInput";
+import { ParentCreateNestedManyWithoutStudentsInput } from "./ParentCreateNestedManyWithoutStudentsInput";
+import { TreatmentCreateNestedManyWithoutStudentsInput } from "./TreatmentCreateNestedManyWithoutStudentsInput";
 import { SchoolWhereUniqueInput } from "../../school/base/SchoolWhereUniqueInput";
+import { EnumStudentStatus } from "./EnumStudentStatus";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 
 @InputType()
@@ -30,6 +33,30 @@ class StudentCreateInput {
     nullable: true,
   })
   address?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => ApprovalCreateNestedManyWithoutStudentsInput,
+  })
+  @ValidateNested()
+  @Type(() => ApprovalCreateNestedManyWithoutStudentsInput)
+  @IsOptional()
+  @Field(() => ApprovalCreateNestedManyWithoutStudentsInput, {
+    nullable: true,
+  })
+  approvals?: ApprovalCreateNestedManyWithoutStudentsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ChartVistCreateNestedManyWithoutStudentsInput,
+  })
+  @ValidateNested()
+  @Type(() => ChartVistCreateNestedManyWithoutStudentsInput)
+  @IsOptional()
+  @Field(() => ChartVistCreateNestedManyWithoutStudentsInput, {
+    nullable: true,
+  })
+  chartVists?: ChartVistCreateNestedManyWithoutStudentsInput;
 
   @ApiProperty({
     required: true,
@@ -53,15 +80,15 @@ class StudentCreateInput {
 
   @ApiProperty({
     required: false,
-    type: () => RecordCreateNestedManyWithoutStudentsInput,
+    type: () => TreatmentCreateNestedManyWithoutStudentsInput,
   })
   @ValidateNested()
-  @Type(() => RecordCreateNestedManyWithoutStudentsInput)
+  @Type(() => TreatmentCreateNestedManyWithoutStudentsInput)
   @IsOptional()
-  @Field(() => RecordCreateNestedManyWithoutStudentsInput, {
+  @Field(() => TreatmentCreateNestedManyWithoutStudentsInput, {
     nullable: true,
   })
-  records?: RecordCreateNestedManyWithoutStudentsInput;
+  records?: TreatmentCreateNestedManyWithoutStudentsInput;
 
   @ApiProperty({
     required: true,
@@ -71,6 +98,17 @@ class StudentCreateInput {
   @Type(() => SchoolWhereUniqueInput)
   @Field(() => SchoolWhereUniqueInput)
   school!: SchoolWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumStudentStatus,
+  })
+  @IsEnum(EnumStudentStatus)
+  @IsOptional()
+  @Field(() => EnumStudentStatus, {
+    nullable: true,
+  })
+  status?: "Active" | "Deactivate" | "Pending" | null;
 
   @ApiProperty({
     required: false,

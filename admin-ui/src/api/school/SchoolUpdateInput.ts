@@ -1,4 +1,5 @@
 import { SubscriptionWhereUniqueInput } from "../subscription/SubscriptionWhereUniqueInput";
+import { ChartVistUpdateManyWithoutSchoolsInput } from "./ChartVistUpdateManyWithoutSchoolsInput";
 import { ParentWhereUniqueInput } from "../parent/ParentWhereUniqueInput";
 import { RoleUpdateManyWithoutSchoolsInput } from "./RoleUpdateManyWithoutSchoolsInput";
 import { SchoolDistrictWhereUniqueInput } from "../schoolDistrict/SchoolDistrictWhereUniqueInput";
@@ -8,6 +9,7 @@ import { SubscriptionUpdateManyWithoutSchoolsInput } from "./SubscriptionUpdateM
 
 export type SchoolUpdateInput = {
   activeSuscription?: SubscriptionWhereUniqueInput | null;
+  chartVists?: ChartVistUpdateManyWithoutSchoolsInput;
   name?: string | null;
   parent?: ParentWhereUniqueInput | null;
   roles?: RoleUpdateManyWithoutSchoolsInput;

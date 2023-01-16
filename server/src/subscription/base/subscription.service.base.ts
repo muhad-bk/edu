@@ -15,6 +15,7 @@ import {
   Subscription,
   ConfigurableModule,
   School,
+  SubscriptionPlan,
 } from "@prisma/client";
 
 export class SubscriptionServiceBase {
@@ -72,6 +73,17 @@ export class SubscriptionServiceBase {
         where: { id: parentId },
       })
       .schools(args);
+  }
+
+  async findSubscriptionPlans(
+    parentId: string,
+    args: Prisma.SubscriptionPlanFindManyArgs
+  ): Promise<SubscriptionPlan[]> {
+    return this.prisma.subscription
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .subscriptionPlans(args);
   }
 
   async getSchoolSubscriptionHistory(parentId: string): Promise<School | null> {

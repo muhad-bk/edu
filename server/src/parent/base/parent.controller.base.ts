@@ -27,6 +27,9 @@ import { ParentWhereUniqueInput } from "./ParentWhereUniqueInput";
 import { ParentFindManyArgs } from "./ParentFindManyArgs";
 import { ParentUpdateInput } from "./ParentUpdateInput";
 import { Parent } from "./Parent";
+import { ApprovalFindManyArgs } from "../../approval/base/ApprovalFindManyArgs";
+import { Approval } from "../../approval/base/Approval";
+import { ApprovalWhereUniqueInput } from "../../approval/base/ApprovalWhereUniqueInput";
 import { SchoolFindManyArgs } from "../../school/base/SchoolFindManyArgs";
 import { School } from "../../school/base/School";
 import { SchoolWhereUniqueInput } from "../../school/base/SchoolWhereUniqueInput";
@@ -230,6 +233,116 @@ export class ParentControllerBase {
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
   @nestAccessControl.UseRoles({
+    resource: "Approval",
+    action: "read",
+    possession: "any",
+  })
+  @common.Get("/:id/approvals")
+  @ApiNestedQuery(ApprovalFindManyArgs)
+  async findManyApprovals(
+    @common.Req() request: Request,
+    @common.Param() params: ParentWhereUniqueInput
+  ): Promise<Approval[]> {
+    const query = plainToClass(ApprovalFindManyArgs, request.query);
+    const results = await this.service.findApprovals(params.id, {
+      ...query,
+      select: {
+        authorisationLetter: true,
+        createdAt: true,
+        description: true,
+        id: true,
+
+        record: {
+          select: {
+            id: true,
+          },
+        },
+
+        student: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "Parent",
+    action: "update",
+    possession: "any",
+  })
+  @common.Post("/:id/approvals")
+  async connectApprovals(
+    @common.Param() params: ParentWhereUniqueInput,
+    @common.Body() body: ApprovalWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      approvals: {
+        connect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "Parent",
+    action: "update",
+    possession: "any",
+  })
+  @common.Patch("/:id/approvals")
+  async updateApprovals(
+    @common.Param() params: ParentWhereUniqueInput,
+    @common.Body() body: ApprovalWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      approvals: {
+        set: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "Parent",
+    action: "update",
+    possession: "any",
+  })
+  @common.Delete("/:id/approvals")
+  async disconnectApprovals(
+    @common.Param() params: ParentWhereUniqueInput,
+    @common.Body() body: ApprovalWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      approvals: {
+        disconnect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @nestAccessControl.UseRoles({
     resource: "School",
     action: "read",
     possession: "any",
@@ -372,6 +485,7 @@ export class ParentControllerBase {
           },
         },
 
+        status: true,
         studentId: true,
         updatedAt: true,
 

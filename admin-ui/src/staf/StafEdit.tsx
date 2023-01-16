@@ -10,6 +10,7 @@ import {
   SelectInput,
 } from "react-admin";
 
+import { ChartVistTitle } from "../chartVist/ChartVistTitle";
 import { SchoolTitle } from "../school/SchoolTitle";
 import { SchoolDistrictTitle } from "../schoolDistrict/SchoolDistrictTitle";
 import { UserTitle } from "../user/UserTitle";
@@ -18,6 +19,14 @@ export const StafEdit = (props: EditProps): React.ReactElement => {
   return (
     <Edit {...props}>
       <SimpleForm>
+        <ReferenceArrayInput
+          source="chartVists"
+          reference="ChartVist"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={ChartVistTitle} />
+        </ReferenceArrayInput>
         <ReferenceArrayInput
           source="school"
           reference="School"

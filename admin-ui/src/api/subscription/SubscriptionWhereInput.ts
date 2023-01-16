@@ -4,6 +4,7 @@ import { StringFilter } from "../../util/StringFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
 import { SchoolListRelationFilter } from "../school/SchoolListRelationFilter";
 import { SchoolWhereUniqueInput } from "../school/SchoolWhereUniqueInput";
+import { SubscriptionPlanListRelationFilter } from "../subscriptionPlan/SubscriptionPlanListRelationFilter";
 
 export type SubscriptionWhereInput = {
   amount?: FloatFilter;
@@ -14,4 +15,5 @@ export type SubscriptionWhereInput = {
   period?: "Monthly" | "Yearly";
   schools?: SchoolListRelationFilter;
   schoolSubscriptionHistory?: SchoolWhereUniqueInput;
+  subscriptionPlans?: SubscriptionPlanListRelationFilter;
 };

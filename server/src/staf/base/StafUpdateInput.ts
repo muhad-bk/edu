@@ -11,14 +11,27 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { SchoolUpdateManyWithoutStafsInput } from "./SchoolUpdateManyWithoutStafsInput";
+import { ChartVistUpdateManyWithoutStafsInput } from "./ChartVistUpdateManyWithoutStafsInput";
 import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
+import { SchoolUpdateManyWithoutStafsInput } from "./SchoolUpdateManyWithoutStafsInput";
 import { SchoolDistrictWhereUniqueInput } from "../../schoolDistrict/base/SchoolDistrictWhereUniqueInput";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 
 @InputType()
 class StafUpdateInput {
+  @ApiProperty({
+    required: false,
+    type: () => ChartVistUpdateManyWithoutStafsInput,
+  })
+  @ValidateNested()
+  @Type(() => ChartVistUpdateManyWithoutStafsInput)
+  @IsOptional()
+  @Field(() => ChartVistUpdateManyWithoutStafsInput, {
+    nullable: true,
+  })
+  chartVists?: ChartVistUpdateManyWithoutStafsInput;
+
   @ApiProperty({
     required: false,
     type: () => SchoolUpdateManyWithoutStafsInput,

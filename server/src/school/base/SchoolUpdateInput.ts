@@ -14,6 +14,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { SubscriptionWhereUniqueInput } from "../../subscription/base/SubscriptionWhereUniqueInput";
 import { ValidateNested, IsOptional, IsString, IsEnum } from "class-validator";
 import { Type } from "class-transformer";
+import { ChartVistUpdateManyWithoutSchoolsInput } from "./ChartVistUpdateManyWithoutSchoolsInput";
 import { ParentWhereUniqueInput } from "../../parent/base/ParentWhereUniqueInput";
 import { RoleUpdateManyWithoutSchoolsInput } from "./RoleUpdateManyWithoutSchoolsInput";
 import { SchoolDistrictWhereUniqueInput } from "../../schoolDistrict/base/SchoolDistrictWhereUniqueInput";
@@ -36,6 +37,18 @@ class SchoolUpdateInput {
     nullable: true,
   })
   activeSuscription?: SubscriptionWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => ChartVistUpdateManyWithoutSchoolsInput,
+  })
+  @ValidateNested()
+  @Type(() => ChartVistUpdateManyWithoutSchoolsInput)
+  @IsOptional()
+  @Field(() => ChartVistUpdateManyWithoutSchoolsInput, {
+    nullable: true,
+  })
+  chartVists?: ChartVistUpdateManyWithoutSchoolsInput;
 
   @ApiProperty({
     required: false,

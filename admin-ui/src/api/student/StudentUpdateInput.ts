@@ -1,14 +1,19 @@
+import { ApprovalUpdateManyWithoutStudentsInput } from "./ApprovalUpdateManyWithoutStudentsInput";
+import { ChartVistUpdateManyWithoutStudentsInput } from "./ChartVistUpdateManyWithoutStudentsInput";
 import { ParentUpdateManyWithoutStudentsInput } from "./ParentUpdateManyWithoutStudentsInput";
-import { RecordUpdateManyWithoutStudentsInput } from "./RecordUpdateManyWithoutStudentsInput";
+import { TreatmentUpdateManyWithoutStudentsInput } from "./TreatmentUpdateManyWithoutStudentsInput";
 import { SchoolWhereUniqueInput } from "../school/SchoolWhereUniqueInput";
 import { UserWhereUniqueInput } from "../user/UserWhereUniqueInput";
 
 export type StudentUpdateInput = {
   address?: string | null;
+  approvals?: ApprovalUpdateManyWithoutStudentsInput;
+  chartVists?: ChartVistUpdateManyWithoutStudentsInput;
   name?: string;
   parent?: ParentUpdateManyWithoutStudentsInput;
-  records?: RecordUpdateManyWithoutStudentsInput;
+  records?: TreatmentUpdateManyWithoutStudentsInput;
   school?: SchoolWhereUniqueInput;
+  status?: "Active" | "Deactivate" | "Pending" | null;
   studentId?: string | null;
   user?: UserWhereUniqueInput;
 };

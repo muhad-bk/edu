@@ -11,14 +11,27 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsOptional, ValidateNested } from "class-validator";
-import { SchoolUpdateManyWithoutParentsInput } from "./SchoolUpdateManyWithoutParentsInput";
+import { ApprovalUpdateManyWithoutParentsInput } from "./ApprovalUpdateManyWithoutParentsInput";
+import { ValidateNested, IsOptional, IsString } from "class-validator";
 import { Type } from "class-transformer";
+import { SchoolUpdateManyWithoutParentsInput } from "./SchoolUpdateManyWithoutParentsInput";
 import { StudentUpdateManyWithoutParentsInput } from "./StudentUpdateManyWithoutParentsInput";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 
 @InputType()
 class ParentUpdateInput {
+  @ApiProperty({
+    required: false,
+    type: () => ApprovalUpdateManyWithoutParentsInput,
+  })
+  @ValidateNested()
+  @Type(() => ApprovalUpdateManyWithoutParentsInput)
+  @IsOptional()
+  @Field(() => ApprovalUpdateManyWithoutParentsInput, {
+    nullable: true,
+  })
+  approvals?: ApprovalUpdateManyWithoutParentsInput;
+
   @ApiProperty({
     required: false,
     type: String,

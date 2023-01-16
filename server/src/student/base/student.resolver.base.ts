@@ -25,10 +25,14 @@ import { DeleteStudentArgs } from "./DeleteStudentArgs";
 import { StudentFindManyArgs } from "./StudentFindManyArgs";
 import { StudentFindUniqueArgs } from "./StudentFindUniqueArgs";
 import { Student } from "./Student";
+import { ApprovalFindManyArgs } from "../../approval/base/ApprovalFindManyArgs";
+import { Approval } from "../../approval/base/Approval";
+import { ChartVistFindManyArgs } from "../../chartVist/base/ChartVistFindManyArgs";
+import { ChartVist } from "../../chartVist/base/ChartVist";
 import { ParentFindManyArgs } from "../../parent/base/ParentFindManyArgs";
 import { Parent } from "../../parent/base/Parent";
-import { RecordFindManyArgs } from "../../record/base/RecordFindManyArgs";
-import { Record } from "../../record/base/Record";
+import { TreatmentFindManyArgs } from "../../treatment/base/TreatmentFindManyArgs";
+import { Treatment } from "../../treatment/base/Treatment";
 import { School } from "../../school/base/School";
 import { User } from "../../user/base/User";
 import { StudentService } from "../student.service";
@@ -173,6 +177,46 @@ export class StudentResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Approval])
+  @nestAccessControl.UseRoles({
+    resource: "Approval",
+    action: "read",
+    possession: "any",
+  })
+  async approvals(
+    @graphql.Parent() parent: Student,
+    @graphql.Args() args: ApprovalFindManyArgs
+  ): Promise<Approval[]> {
+    const results = await this.service.findApprovals(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [ChartVist])
+  @nestAccessControl.UseRoles({
+    resource: "ChartVist",
+    action: "read",
+    possession: "any",
+  })
+  async chartVists(
+    @graphql.Parent() parent: Student,
+    @graphql.Args() args: ChartVistFindManyArgs
+  ): Promise<ChartVist[]> {
+    const results = await this.service.findChartVists(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
   @graphql.ResolveField(() => [Parent])
   @nestAccessControl.UseRoles({
     resource: "Parent",
@@ -193,16 +237,16 @@ export class StudentResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [Record])
+  @graphql.ResolveField(() => [Treatment])
   @nestAccessControl.UseRoles({
-    resource: "Record",
+    resource: "Treatment",
     action: "read",
     possession: "any",
   })
   async records(
     @graphql.Parent() parent: Student,
-    @graphql.Args() args: RecordFindManyArgs
-  ): Promise<Record[]> {
+    @graphql.Args() args: TreatmentFindManyArgs
+  ): Promise<Treatment[]> {
     const results = await this.service.findRecords(parent.id, args);
 
     if (!results) {

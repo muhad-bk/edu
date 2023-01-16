@@ -6,12 +6,13 @@ import {
   CreateProps,
   ReferenceInput,
   SelectInput,
-  TextInput,
   ReferenceArrayInput,
   SelectArrayInput,
+  TextInput,
 } from "react-admin";
 
 import { SubscriptionTitle } from "../subscription/SubscriptionTitle";
+import { ChartVistTitle } from "../chartVist/ChartVistTitle";
 import { ParentTitle } from "../parent/ParentTitle";
 import { RoleTitle } from "../role/RoleTitle";
 import { SchoolDistrictTitle } from "../schoolDistrict/SchoolDistrictTitle";
@@ -29,6 +30,14 @@ export const SchoolCreate = (props: CreateProps): React.ReactElement => {
         >
           <SelectInput optionText={SubscriptionTitle} />
         </ReferenceInput>
+        <ReferenceArrayInput
+          source="chartVists"
+          reference="ChartVist"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={ChartVistTitle} />
+        </ReferenceArrayInput>
         <TextInput label="Name" source="name" />
         <ReferenceInput source="parent.id" reference="Parent" label="Parents">
           <SelectInput optionText={ParentTitle} />

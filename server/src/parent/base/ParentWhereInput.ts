@@ -11,15 +11,28 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { StringFilter } from "../../util/StringFilter";
+import { ApprovalListRelationFilter } from "../../approval/base/ApprovalListRelationFilter";
+import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
-import { IsOptional, ValidateNested } from "class-validator";
+import { StringFilter } from "../../util/StringFilter";
 import { SchoolListRelationFilter } from "../../school/base/SchoolListRelationFilter";
 import { StudentListRelationFilter } from "../../student/base/StudentListRelationFilter";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 
 @InputType()
 class ParentWhereInput {
+  @ApiProperty({
+    required: false,
+    type: () => ApprovalListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ApprovalListRelationFilter)
+  @IsOptional()
+  @Field(() => ApprovalListRelationFilter, {
+    nullable: true,
+  })
+  approvals?: ApprovalListRelationFilter;
+
   @ApiProperty({
     required: false,
     type: StringFilter,

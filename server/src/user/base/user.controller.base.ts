@@ -447,6 +447,7 @@ export class UserControllerBase {
           },
         },
 
+        status: true,
         studentId: true,
         updatedAt: true,
 
