@@ -27,8 +27,8 @@ import { SubscriptionFindUniqueArgs } from "./SubscriptionFindUniqueArgs";
 import { Subscription } from "./Subscription";
 import { ConfigurableModuleFindManyArgs } from "../../configurableModule/base/ConfigurableModuleFindManyArgs";
 import { ConfigurableModule } from "../../configurableModule/base/ConfigurableModule";
-import { SchoolFindManyArgs } from "../../school/base/SchoolFindManyArgs";
-import { School } from "../../school/base/School";
+import { SchoolDistrictFindManyArgs } from "../../schoolDistrict/base/SchoolDistrictFindManyArgs";
+import { SchoolDistrict } from "../../schoolDistrict/base/SchoolDistrict";
 import { SubscriptionPlanFindManyArgs } from "../../subscriptionPlan/base/SubscriptionPlanFindManyArgs";
 import { SubscriptionPlan } from "../../subscriptionPlan/base/SubscriptionPlan";
 import { SubscriptionService } from "../subscription.service";
@@ -102,15 +102,7 @@ export class SubscriptionResolverBase {
   ): Promise<Subscription> {
     return await this.service.create({
       ...args,
-      data: {
-        ...args.data,
-
-        schoolSubscriptionHistory: args.data.schoolSubscriptionHistory
-          ? {
-              connect: args.data.schoolSubscriptionHistory,
-            }
-          : undefined,
-      },
+      data: args.data,
     });
   }
 
@@ -127,15 +119,7 @@ export class SubscriptionResolverBase {
     try {
       return await this.service.update({
         ...args,
-        data: {
-          ...args.data,
-
-          schoolSubscriptionHistory: args.data.schoolSubscriptionHistory
-            ? {
-                connect: args.data.schoolSubscriptionHistory,
-              }
-            : undefined,
-        },
+        data: args.data,
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -189,17 +173,17 @@ export class SubscriptionResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [School])
+  @graphql.ResolveField(() => [SchoolDistrict])
   @nestAccessControl.UseRoles({
-    resource: "School",
+    resource: "SchoolDistrict",
     action: "read",
     possession: "any",
   })
-  async schools(
+  async schoolDistricts(
     @graphql.Parent() parent: Subscription,
-    @graphql.Args() args: SchoolFindManyArgs
-  ): Promise<School[]> {
-    const results = await this.service.findSchools(parent.id, args);
+    @graphql.Args() args: SchoolDistrictFindManyArgs
+  ): Promise<SchoolDistrict[]> {
+    const results = await this.service.findSchoolDistricts(parent.id, args);
 
     if (!results) {
       return [];
@@ -226,23 +210,5 @@ export class SubscriptionResolverBase {
     }
 
     return results;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => School, { nullable: true })
-  @nestAccessControl.UseRoles({
-    resource: "School",
-    action: "read",
-    possession: "any",
-  })
-  async schoolSubscriptionHistory(
-    @graphql.Parent() parent: Subscription
-  ): Promise<School | null> {
-    const result = await this.service.getSchoolSubscriptionHistory(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return result;
   }
 }

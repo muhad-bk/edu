@@ -34,6 +34,15 @@ class TreatmentOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  category?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   chartVistId?: SortOrder;
 
   @ApiProperty({

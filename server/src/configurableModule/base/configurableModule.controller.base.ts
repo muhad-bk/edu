@@ -212,13 +212,6 @@ export class ConfigurableModuleControllerBase {
           isStanderd: true,
           name: true,
           period: true,
-
-          schoolSubscriptionHistory: {
-            select: {
-              id: true,
-            },
-          },
-
           updatedAt: true,
         },
       }

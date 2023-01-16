@@ -18,8 +18,7 @@ import { ConfigurableModuleListRelationFilter } from "../../configurableModule/b
 import { StringFilter } from "../../util/StringFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
 import { EnumSubscriptionPeriod } from "./EnumSubscriptionPeriod";
-import { SchoolListRelationFilter } from "../../school/base/SchoolListRelationFilter";
-import { SchoolWhereUniqueInput } from "../../school/base/SchoolWhereUniqueInput";
+import { SchoolDistrictListRelationFilter } from "../../schoolDistrict/base/SchoolDistrictListRelationFilter";
 import { SubscriptionPlanListRelationFilter } from "../../subscriptionPlan/base/SubscriptionPlanListRelationFilter";
 
 @InputType()
@@ -93,27 +92,15 @@ class SubscriptionWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => SchoolListRelationFilter,
+    type: () => SchoolDistrictListRelationFilter,
   })
   @ValidateNested()
-  @Type(() => SchoolListRelationFilter)
+  @Type(() => SchoolDistrictListRelationFilter)
   @IsOptional()
-  @Field(() => SchoolListRelationFilter, {
+  @Field(() => SchoolDistrictListRelationFilter, {
     nullable: true,
   })
-  schools?: SchoolListRelationFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => SchoolWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => SchoolWhereUniqueInput)
-  @IsOptional()
-  @Field(() => SchoolWhereUniqueInput, {
-    nullable: true,
-  })
-  schoolSubscriptionHistory?: SchoolWhereUniqueInput;
+  schoolDistricts?: SchoolDistrictListRelationFilter;
 
   @ApiProperty({
     required: false,

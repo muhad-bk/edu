@@ -16,6 +16,7 @@ import { Type } from "class-transformer";
 import { IsOptional, ValidateNested, IsEnum } from "class-validator";
 import { ApprovalListRelationFilter } from "../../approval/base/ApprovalListRelationFilter";
 import { ChartVistListRelationFilter } from "../../chartVist/base/ChartVistListRelationFilter";
+import { JsonFilter } from "../../util/JsonFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { ParentListRelationFilter } from "../../parent/base/ParentListRelationFilter";
 import { TreatmentListRelationFilter } from "../../treatment/base/TreatmentListRelationFilter";
@@ -59,6 +60,28 @@ class StudentWhereInput {
     nullable: true,
   })
   chartVists?: ChartVistListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: JsonFilter,
+  })
+  @Type(() => JsonFilter)
+  @IsOptional()
+  @Field(() => JsonFilter, {
+    nullable: true,
+  })
+  contactDetails?: JsonFilter;
+
+  @ApiProperty({
+    required: false,
+    type: JsonFilter,
+  })
+  @Type(() => JsonFilter)
+  @IsOptional()
+  @Field(() => JsonFilter, {
+    nullable: true,
+  })
+  generalDetails?: JsonFilter;
 
   @ApiProperty({
     required: false,

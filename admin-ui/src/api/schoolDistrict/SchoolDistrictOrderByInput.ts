@@ -4,5 +4,6 @@ export type SchoolDistrictOrderByInput = {
   createdAt?: SortOrder;
   id?: SortOrder;
   name?: SortOrder;
+  subscriptionId?: SortOrder;
   updatedAt?: SortOrder;
 };

@@ -22,8 +22,7 @@ import {
 import { ConfigurableModuleUpdateManyWithoutSubscriptionsInput } from "./ConfigurableModuleUpdateManyWithoutSubscriptionsInput";
 import { Type } from "class-transformer";
 import { EnumSubscriptionPeriod } from "./EnumSubscriptionPeriod";
-import { SchoolUpdateManyWithoutSubscriptionsInput } from "./SchoolUpdateManyWithoutSubscriptionsInput";
-import { SchoolWhereUniqueInput } from "../../school/base/SchoolWhereUniqueInput";
+import { SchoolDistrictUpdateManyWithoutSubscriptionsInput } from "./SchoolDistrictUpdateManyWithoutSubscriptionsInput";
 import { SubscriptionPlanUpdateManyWithoutSubscriptionsInput } from "./SubscriptionPlanUpdateManyWithoutSubscriptionsInput";
 
 @InputType()
@@ -86,27 +85,15 @@ class SubscriptionUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: () => SchoolUpdateManyWithoutSubscriptionsInput,
+    type: () => SchoolDistrictUpdateManyWithoutSubscriptionsInput,
   })
   @ValidateNested()
-  @Type(() => SchoolUpdateManyWithoutSubscriptionsInput)
+  @Type(() => SchoolDistrictUpdateManyWithoutSubscriptionsInput)
   @IsOptional()
-  @Field(() => SchoolUpdateManyWithoutSubscriptionsInput, {
+  @Field(() => SchoolDistrictUpdateManyWithoutSubscriptionsInput, {
     nullable: true,
   })
-  schools?: SchoolUpdateManyWithoutSubscriptionsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => SchoolWhereUniqueInput,
-  })
-  @ValidateNested()
-  @Type(() => SchoolWhereUniqueInput)
-  @IsOptional()
-  @Field(() => SchoolWhereUniqueInput, {
-    nullable: true,
-  })
-  schoolSubscriptionHistory?: SchoolWhereUniqueInput | null;
+  schoolDistricts?: SchoolDistrictUpdateManyWithoutSubscriptionsInput;
 
   @ApiProperty({
     required: false,

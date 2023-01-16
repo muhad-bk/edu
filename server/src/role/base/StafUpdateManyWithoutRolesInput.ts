@@ -10,37 +10,37 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { InputType, Field } from "@nestjs/graphql";
-import { SchoolWhereUniqueInput } from "../../school/base/SchoolWhereUniqueInput";
+import { StafWhereUniqueInput } from "../../staf/base/StafWhereUniqueInput";
 import { ApiProperty } from "@nestjs/swagger";
 
 @InputType()
-class SchoolUpdateManyWithoutSubscriptionsInput {
-  @Field(() => [SchoolWhereUniqueInput], {
+class StafUpdateManyWithoutRolesInput {
+  @Field(() => [StafWhereUniqueInput], {
     nullable: true,
   })
   @ApiProperty({
     required: false,
-    type: () => [SchoolWhereUniqueInput],
+    type: () => [StafWhereUniqueInput],
   })
-  connect?: Array<SchoolWhereUniqueInput>;
+  connect?: Array<StafWhereUniqueInput>;
 
-  @Field(() => [SchoolWhereUniqueInput], {
+  @Field(() => [StafWhereUniqueInput], {
     nullable: true,
   })
   @ApiProperty({
     required: false,
-    type: () => [SchoolWhereUniqueInput],
+    type: () => [StafWhereUniqueInput],
   })
-  disconnect?: Array<SchoolWhereUniqueInput>;
+  disconnect?: Array<StafWhereUniqueInput>;
 
-  @Field(() => [SchoolWhereUniqueInput], {
+  @Field(() => [StafWhereUniqueInput], {
     nullable: true,
   })
   @ApiProperty({
     required: false,
-    type: () => [SchoolWhereUniqueInput],
+    type: () => [StafWhereUniqueInput],
   })
-  set?: Array<SchoolWhereUniqueInput>;
+  set?: Array<StafWhereUniqueInput>;
 }
 
-export { SchoolUpdateManyWithoutSubscriptionsInput };
+export { StafUpdateManyWithoutRolesInput };

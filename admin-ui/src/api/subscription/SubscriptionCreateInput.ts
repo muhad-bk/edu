@@ -1,6 +1,5 @@
 import { ConfigurableModuleCreateNestedManyWithoutSubscriptionsInput } from "./ConfigurableModuleCreateNestedManyWithoutSubscriptionsInput";
-import { SchoolCreateNestedManyWithoutSubscriptionsInput } from "./SchoolCreateNestedManyWithoutSubscriptionsInput";
-import { SchoolWhereUniqueInput } from "../school/SchoolWhereUniqueInput";
+import { SchoolDistrictCreateNestedManyWithoutSubscriptionsInput } from "./SchoolDistrictCreateNestedManyWithoutSubscriptionsInput";
 import { SubscriptionPlanCreateNestedManyWithoutSubscriptionsInput } from "./SubscriptionPlanCreateNestedManyWithoutSubscriptionsInput";
 
 export type SubscriptionCreateInput = {
@@ -9,7 +8,6 @@ export type SubscriptionCreateInput = {
   isStanderd: boolean;
   name: string;
   period?: "Monthly" | "Yearly" | null;
-  schools?: SchoolCreateNestedManyWithoutSubscriptionsInput;
-  schoolSubscriptionHistory?: SchoolWhereUniqueInput | null;
+  schoolDistricts?: SchoolDistrictCreateNestedManyWithoutSubscriptionsInput;
   subscriptionPlans?: SubscriptionPlanCreateNestedManyWithoutSubscriptionsInput;
 };

@@ -12,9 +12,11 @@ https://docs.amplication.com/how-to/custom-code
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { IsString, ValidateNested, IsOptional } from "class-validator";
-import { SchoolCreateNestedManyWithoutSchoolDistrictsInput } from "./SchoolCreateNestedManyWithoutSchoolDistrictsInput";
+import { RoleCreateNestedManyWithoutSchoolDistrictsInput } from "./RoleCreateNestedManyWithoutSchoolDistrictsInput";
 import { Type } from "class-transformer";
+import { SchoolCreateNestedManyWithoutSchoolDistrictsInput } from "./SchoolCreateNestedManyWithoutSchoolDistrictsInput";
 import { StafCreateNestedManyWithoutSchoolDistrictsInput } from "./StafCreateNestedManyWithoutSchoolDistrictsInput";
+import { SubscriptionWhereUniqueInput } from "../../subscription/base/SubscriptionWhereUniqueInput";
 
 @InputType()
 class SchoolDistrictCreateInput {
@@ -25,6 +27,18 @@ class SchoolDistrictCreateInput {
   @IsString()
   @Field(() => String)
   name!: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => RoleCreateNestedManyWithoutSchoolDistrictsInput,
+  })
+  @ValidateNested()
+  @Type(() => RoleCreateNestedManyWithoutSchoolDistrictsInput)
+  @IsOptional()
+  @Field(() => RoleCreateNestedManyWithoutSchoolDistrictsInput, {
+    nullable: true,
+  })
+  roles?: RoleCreateNestedManyWithoutSchoolDistrictsInput;
 
   @ApiProperty({
     required: false,
@@ -49,6 +63,18 @@ class SchoolDistrictCreateInput {
     nullable: true,
   })
   stafs?: StafCreateNestedManyWithoutSchoolDistrictsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SubscriptionWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SubscriptionWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SubscriptionWhereUniqueInput, {
+    nullable: true,
+  })
+  subscription?: SubscriptionWhereUniqueInput | null;
 }
 
 export { SchoolDistrictCreateInput };

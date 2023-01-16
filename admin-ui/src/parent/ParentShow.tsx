@@ -11,7 +11,6 @@ import {
   Datagrid,
 } from "react-admin";
 
-import { SUBSCRIPTION_TITLE_FIELD } from "../subscription/SubscriptionTitle";
 import { PARENT_TITLE_FIELD } from "./ParentTitle";
 import { SCHOOLDISTRICT_TITLE_FIELD } from "../schoolDistrict/SchoolDistrictTitle";
 import { USER_TITLE_FIELD } from "../user/UserTitle";
@@ -33,15 +32,11 @@ export const ParentShow = (props: ShowProps): React.ReactElement => {
           label="schools"
         >
           <Datagrid rowClick="show">
-            <ReferenceField
-              label="ActiveSubscription"
-              source="subscription.id"
-              reference="Subscription"
-            >
-              <TextField source={SUBSCRIPTION_TITLE_FIELD} />
-            </ReferenceField>
+            <TextField label="Abbreviation" source="abbreviation" />
+            <TextField label="Address" source="address" />
             <DateField source="createdAt" label="Created At" />
             <TextField label="ID" source="id" />
+            <TextField label="Logo URL" source="logoUrl" />
             <TextField label="Name" source="name" />
             <ReferenceField
               label="Parents"
@@ -50,14 +45,16 @@ export const ParentShow = (props: ShowProps): React.ReactElement => {
             >
               <TextField source={PARENT_TITLE_FIELD} />
             </ReferenceField>
+            <TextField label="School Code" source="schoolCode" />
             <ReferenceField
-              label="school district"
+              label="School district"
               source="schooldistrict.id"
               reference="SchoolDistrict"
             >
               <TextField source={SCHOOLDISTRICT_TITLE_FIELD} />
             </ReferenceField>
             <TextField label="State" source="state" />
+            <TextField label="Status" source="status" />
             <TextField label="Township" source="township" />
             <DateField source="updatedAt" label="Updated At" />
           </Datagrid>

@@ -4,14 +4,13 @@ import {
   Create,
   SimpleForm,
   CreateProps,
-  ReferenceInput,
-  SelectInput,
+  TextInput,
   ReferenceArrayInput,
   SelectArrayInput,
-  TextInput,
+  ReferenceInput,
+  SelectInput,
 } from "react-admin";
 
-import { SubscriptionTitle } from "../subscription/SubscriptionTitle";
 import { ChartVistTitle } from "../chartVist/ChartVistTitle";
 import { ParentTitle } from "../parent/ParentTitle";
 import { RoleTitle } from "../role/RoleTitle";
@@ -23,13 +22,8 @@ export const SchoolCreate = (props: CreateProps): React.ReactElement => {
   return (
     <Create {...props}>
       <SimpleForm>
-        <ReferenceInput
-          source="subscription.id"
-          reference="Subscription"
-          label="ActiveSubscription"
-        >
-          <SelectInput optionText={SubscriptionTitle} />
-        </ReferenceInput>
+        <TextInput label="Abbreviation" source="abbreviation" />
+        <TextInput label="Address" source="address" />
         <ReferenceArrayInput
           source="chartVists"
           reference="ChartVist"
@@ -38,6 +32,7 @@ export const SchoolCreate = (props: CreateProps): React.ReactElement => {
         >
           <SelectArrayInput optionText={ChartVistTitle} />
         </ReferenceArrayInput>
+        <TextInput label="Logo URL" source="logoUrl" />
         <TextInput label="Name" source="name" />
         <ReferenceInput source="parent.id" reference="Parent" label="Parents">
           <SelectInput optionText={ParentTitle} />
@@ -50,10 +45,11 @@ export const SchoolCreate = (props: CreateProps): React.ReactElement => {
         >
           <SelectArrayInput optionText={RoleTitle} />
         </ReferenceArrayInput>
+        <TextInput label="School Code" source="schoolCode" />
         <ReferenceInput
           source="schooldistrict.id"
           reference="SchoolDistrict"
-          label="school district"
+          label="School district"
         >
           <SelectInput optionText={SchoolDistrictTitle} />
         </ReferenceInput>
@@ -75,6 +71,18 @@ export const SchoolCreate = (props: CreateProps): React.ReactElement => {
           optionText="label"
           optionValue="value"
         />
+        <SelectInput
+          source="status"
+          label="Status"
+          choices={[
+            { label: "Active", value: "Active" },
+            { label: "Deactivate", value: "Deactivate" },
+            { label: "Pending", value: "Pending" },
+          ]}
+          optionText="label"
+          allowEmpty
+          optionValue="value"
+        />
         <ReferenceArrayInput
           source="students"
           reference="Student"
@@ -82,14 +90,6 @@ export const SchoolCreate = (props: CreateProps): React.ReactElement => {
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
           <SelectArrayInput optionText={StudentTitle} />
-        </ReferenceArrayInput>
-        <ReferenceArrayInput
-          source="SubscriptionHistory"
-          reference="Subscription"
-          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
-          format={(value: any) => value && value.map((v: any) => v.id)}
-        >
-          <SelectArrayInput optionText={SubscriptionTitle} />
         </ReferenceArrayInput>
         <SelectInput
           source="township"

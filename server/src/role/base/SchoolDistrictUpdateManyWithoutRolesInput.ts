@@ -10,37 +10,37 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { InputType, Field } from "@nestjs/graphql";
-import { SubscriptionWhereUniqueInput } from "../../subscription/base/SubscriptionWhereUniqueInput";
+import { SchoolDistrictWhereUniqueInput } from "../../schoolDistrict/base/SchoolDistrictWhereUniqueInput";
 import { ApiProperty } from "@nestjs/swagger";
 
 @InputType()
-class SubscriptionUpdateManyWithoutSchoolsInput {
-  @Field(() => [SubscriptionWhereUniqueInput], {
+class SchoolDistrictUpdateManyWithoutRolesInput {
+  @Field(() => [SchoolDistrictWhereUniqueInput], {
     nullable: true,
   })
   @ApiProperty({
     required: false,
-    type: () => [SubscriptionWhereUniqueInput],
+    type: () => [SchoolDistrictWhereUniqueInput],
   })
-  connect?: Array<SubscriptionWhereUniqueInput>;
+  connect?: Array<SchoolDistrictWhereUniqueInput>;
 
-  @Field(() => [SubscriptionWhereUniqueInput], {
+  @Field(() => [SchoolDistrictWhereUniqueInput], {
     nullable: true,
   })
   @ApiProperty({
     required: false,
-    type: () => [SubscriptionWhereUniqueInput],
+    type: () => [SchoolDistrictWhereUniqueInput],
   })
-  disconnect?: Array<SubscriptionWhereUniqueInput>;
+  disconnect?: Array<SchoolDistrictWhereUniqueInput>;
 
-  @Field(() => [SubscriptionWhereUniqueInput], {
+  @Field(() => [SchoolDistrictWhereUniqueInput], {
     nullable: true,
   })
   @ApiProperty({
     required: false,
-    type: () => [SubscriptionWhereUniqueInput],
+    type: () => [SchoolDistrictWhereUniqueInput],
   })
-  set?: Array<SubscriptionWhereUniqueInput>;
+  set?: Array<SchoolDistrictWhereUniqueInput>;
 }
 
-export { SubscriptionUpdateManyWithoutSchoolsInput };
+export { SchoolDistrictUpdateManyWithoutRolesInput };

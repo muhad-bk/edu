@@ -27,8 +27,12 @@ import { RoleFindUniqueArgs } from "./RoleFindUniqueArgs";
 import { Role } from "./Role";
 import { PermissionFindManyArgs } from "../../permission/base/PermissionFindManyArgs";
 import { Permission } from "../../permission/base/Permission";
+import { SchoolDistrictFindManyArgs } from "../../schoolDistrict/base/SchoolDistrictFindManyArgs";
+import { SchoolDistrict } from "../../schoolDistrict/base/SchoolDistrict";
 import { SchoolFindManyArgs } from "../../school/base/SchoolFindManyArgs";
 import { School } from "../../school/base/School";
+import { StafFindManyArgs } from "../../staf/base/StafFindManyArgs";
+import { Staf } from "../../staf/base/Staf";
 import { RoleService } from "../role.service";
 
 @graphql.Resolver(() => Role)
@@ -161,17 +165,57 @@ export class RoleResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [SchoolDistrict])
+  @nestAccessControl.UseRoles({
+    resource: "SchoolDistrict",
+    action: "read",
+    possession: "any",
+  })
+  async schoolDistricts(
+    @graphql.Parent() parent: Role,
+    @graphql.Args() args: SchoolDistrictFindManyArgs
+  ): Promise<SchoolDistrict[]> {
+    const results = await this.service.findSchoolDistricts(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
   @graphql.ResolveField(() => [School])
   @nestAccessControl.UseRoles({
     resource: "School",
     action: "read",
     possession: "any",
   })
-  async school(
+  async schools(
     @graphql.Parent() parent: Role,
     @graphql.Args() args: SchoolFindManyArgs
   ): Promise<School[]> {
-    const results = await this.service.findSchool(parent.id, args);
+    const results = await this.service.findSchools(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Staf])
+  @nestAccessControl.UseRoles({
+    resource: "Staf",
+    action: "read",
+    possession: "any",
+  })
+  async stafs(
+    @graphql.Parent() parent: Role,
+    @graphql.Args() args: StafFindManyArgs
+  ): Promise<Staf[]> {
+    const results = await this.service.findStafs(parent.id, args);
 
     if (!results) {
       return [];

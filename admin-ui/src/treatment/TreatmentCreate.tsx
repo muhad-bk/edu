@@ -21,6 +21,19 @@ export const TreatmentCreate = (props: CreateProps): React.ReactElement => {
         >
           <SelectInput optionText={ApprovalTitle} />
         </ReferenceInput>
+        <SelectInput
+          source="category"
+          label="Category"
+          choices={[
+            { label: "Immunisation", value: "Immunisation" },
+            { label: "Treatment", value: "Treatment" },
+            { label: "Medication", value: "Medication" },
+            { label: "Mandatory Screening", value: "MandatoryScreening" },
+          ]}
+          optionText="label"
+          allowEmpty
+          optionValue="value"
+        />
         <ReferenceInput
           source="chartvist.id"
           reference="ChartVist"

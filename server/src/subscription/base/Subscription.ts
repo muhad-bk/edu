@@ -23,7 +23,7 @@ import {
 import { ConfigurableModule } from "../../configurableModule/base/ConfigurableModule";
 import { Type } from "class-transformer";
 import { EnumSubscriptionPeriod } from "./EnumSubscriptionPeriod";
-import { School } from "../../school/base/School";
+import { SchoolDistrict } from "../../schoolDistrict/base/SchoolDistrict";
 import { SubscriptionPlan } from "../../subscriptionPlan/base/SubscriptionPlan";
 
 @ObjectType()
@@ -90,21 +90,12 @@ class Subscription {
 
   @ApiProperty({
     required: false,
-    type: () => [School],
+    type: () => [SchoolDistrict],
   })
   @ValidateNested()
-  @Type(() => School)
+  @Type(() => SchoolDistrict)
   @IsOptional()
-  schools?: Array<School>;
-
-  @ApiProperty({
-    required: false,
-    type: () => School,
-  })
-  @ValidateNested()
-  @Type(() => School)
-  @IsOptional()
-  schoolSubscriptionHistory?: School | null;
+  schoolDistricts?: Array<SchoolDistrict>;
 
   @ApiProperty({
     required: false,

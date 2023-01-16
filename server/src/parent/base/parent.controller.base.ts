@@ -357,14 +357,11 @@ export class ParentControllerBase {
     const results = await this.service.findSchools(params.id, {
       ...query,
       select: {
-        activeSuscription: {
-          select: {
-            id: true,
-          },
-        },
-
+        abbreviation: true,
+        address: true,
         createdAt: true,
         id: true,
+        logoUrl: true,
         name: true,
 
         parent: {
@@ -373,6 +370,8 @@ export class ParentControllerBase {
           },
         },
 
+        schoolCode: true,
+
         schoolDistrict: {
           select: {
             id: true,
@@ -380,6 +379,7 @@ export class ParentControllerBase {
         },
 
         state: true,
+        status: true,
         township: true,
         updatedAt: true,
       },
@@ -475,7 +475,9 @@ export class ParentControllerBase {
       ...query,
       select: {
         address: true,
+        contactDetails: true,
         createdAt: true,
+        generalDetails: true,
         id: true,
         name: true,
 

@@ -33,8 +33,6 @@ import { StafFindManyArgs } from "../../staf/base/StafFindManyArgs";
 import { Staf } from "../../staf/base/Staf";
 import { StudentFindManyArgs } from "../../student/base/StudentFindManyArgs";
 import { Student } from "../../student/base/Student";
-import { SubscriptionFindManyArgs } from "../../subscription/base/SubscriptionFindManyArgs";
-import { Subscription } from "../../subscription/base/Subscription";
 import { Parent } from "../../parent/base/Parent";
 import { SchoolDistrict } from "../../schoolDistrict/base/SchoolDistrict";
 import { SchoolService } from "../school.service";
@@ -107,12 +105,6 @@ export class SchoolResolverBase {
       data: {
         ...args.data,
 
-        activeSuscription: args.data.activeSuscription
-          ? {
-              connect: args.data.activeSuscription,
-            }
-          : undefined,
-
         parent: args.data.parent
           ? {
               connect: args.data.parent,
@@ -143,12 +135,6 @@ export class SchoolResolverBase {
         ...args,
         data: {
           ...args.data,
-
-          activeSuscription: args.data.activeSuscription
-            ? {
-                connect: args.data.activeSuscription,
-              }
-            : undefined,
 
           parent: args.data.parent
             ? {
@@ -272,44 +258,6 @@ export class SchoolResolverBase {
     }
 
     return results;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [Subscription])
-  @nestAccessControl.UseRoles({
-    resource: "Subscription",
-    action: "read",
-    possession: "any",
-  })
-  async subscriptionHistory(
-    @graphql.Parent() parent: School,
-    @graphql.Args() args: SubscriptionFindManyArgs
-  ): Promise<Subscription[]> {
-    const results = await this.service.findSubscriptionHistory(parent.id, args);
-
-    if (!results) {
-      return [];
-    }
-
-    return results;
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => Subscription, { nullable: true })
-  @nestAccessControl.UseRoles({
-    resource: "Subscription",
-    action: "read",
-    possession: "any",
-  })
-  async activeSuscription(
-    @graphql.Parent() parent: School
-  ): Promise<Subscription | null> {
-    const result = await this.service.getActiveSuscription(parent.id);
-
-    if (!result) {
-      return null;
-    }
-    return result;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

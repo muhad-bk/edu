@@ -74,6 +74,8 @@ export class TreatmentControllerBase {
           },
         },
 
+        category: true,
+
         chartVist: {
           select: {
             id: true,
@@ -118,6 +120,8 @@ export class TreatmentControllerBase {
             id: true,
           },
         },
+
+        category: true,
 
         chartVist: {
           select: {
@@ -164,6 +168,8 @@ export class TreatmentControllerBase {
             id: true,
           },
         },
+
+        category: true,
 
         chartVist: {
           select: {
@@ -240,6 +246,8 @@ export class TreatmentControllerBase {
             },
           },
 
+          category: true,
+
           chartVist: {
             select: {
               id: true,
@@ -293,6 +301,8 @@ export class TreatmentControllerBase {
               id: true,
             },
           },
+
+          category: true,
 
           chartVist: {
             select: {

@@ -19,25 +19,53 @@ import { StafService } from "../staf.service";
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
+  address: "exampleAddress",
+  contactDetails: "exampleContactDetails",
   createdAt: new Date(),
+  destignation: "exampleDestignation",
+  fullName: "exampleFullName",
   id: "exampleId",
+  idNumber: "exampleIdNumber",
+  officialEmail: "exampleOfficialEmail",
+  race: "exampleRace",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
+  address: "exampleAddress",
+  contactDetails: "exampleContactDetails",
   createdAt: new Date(),
+  destignation: "exampleDestignation",
+  fullName: "exampleFullName",
   id: "exampleId",
+  idNumber: "exampleIdNumber",
+  officialEmail: "exampleOfficialEmail",
+  race: "exampleRace",
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
+    address: "exampleAddress",
+    contactDetails: "exampleContactDetails",
     createdAt: new Date(),
+    destignation: "exampleDestignation",
+    fullName: "exampleFullName",
     id: "exampleId",
+    idNumber: "exampleIdNumber",
+    officialEmail: "exampleOfficialEmail",
+    race: "exampleRace",
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
+  address: "exampleAddress",
+  contactDetails: "exampleContactDetails",
   createdAt: new Date(),
+  destignation: "exampleDestignation",
+  fullName: "exampleFullName",
   id: "exampleId",
+  idNumber: "exampleIdNumber",
+  officialEmail: "exampleOfficialEmail",
+  race: "exampleRace",
   updatedAt: new Date(),
 };
 

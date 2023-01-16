@@ -24,10 +24,12 @@ export const StudentShow = (props: ShowProps): React.ReactElement => {
     <Show {...props}>
       <SimpleShowLayout>
         <TextField label="Address " source="address" />
+        <TextField label="Contact Details" source="contactDetails" />
         <DateField source="createdAt" label="Created At" />
+        <TextField label="General Details" source="generalDetails" />
         <TextField label="ID" source="id" />
         <TextField label="Name" source="name" />
-        <ReferenceField label="school" source="school.id" reference="School">
+        <ReferenceField label="School" source="school.id" reference="School">
           <TextField source={SCHOOL_TITLE_FIELD} />
         </ReferenceField>
         <TextField label="status" source="status" />
@@ -110,6 +112,7 @@ export const StudentShow = (props: ShowProps): React.ReactElement => {
             >
               <TextField source={APPROVAL_TITLE_FIELD} />
             </ReferenceField>
+            <TextField label="Category" source="category" />
             <ReferenceField
               label="Chart Vist"
               source="chartvist.id"

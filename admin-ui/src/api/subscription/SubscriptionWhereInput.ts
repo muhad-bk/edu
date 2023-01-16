@@ -2,8 +2,7 @@ import { FloatFilter } from "../../util/FloatFilter";
 import { ConfigurableModuleListRelationFilter } from "../configurableModule/ConfigurableModuleListRelationFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { BooleanFilter } from "../../util/BooleanFilter";
-import { SchoolListRelationFilter } from "../school/SchoolListRelationFilter";
-import { SchoolWhereUniqueInput } from "../school/SchoolWhereUniqueInput";
+import { SchoolDistrictListRelationFilter } from "../schoolDistrict/SchoolDistrictListRelationFilter";
 import { SubscriptionPlanListRelationFilter } from "../subscriptionPlan/SubscriptionPlanListRelationFilter";
 
 export type SubscriptionWhereInput = {
@@ -13,7 +12,6 @@ export type SubscriptionWhereInput = {
   isStanderd?: BooleanFilter;
   name?: StringFilter;
   period?: "Monthly" | "Yearly";
-  schools?: SchoolListRelationFilter;
-  schoolSubscriptionHistory?: SchoolWhereUniqueInput;
+  schoolDistricts?: SchoolDistrictListRelationFilter;
   subscriptionPlans?: SubscriptionPlanListRelationFilter;
 };

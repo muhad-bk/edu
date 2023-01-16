@@ -1,5 +1,6 @@
 import { ApprovalUpdateManyWithoutStudentsInput } from "./ApprovalUpdateManyWithoutStudentsInput";
 import { ChartVistUpdateManyWithoutStudentsInput } from "./ChartVistUpdateManyWithoutStudentsInput";
+import { InputJsonValue } from "../../types";
 import { ParentUpdateManyWithoutStudentsInput } from "./ParentUpdateManyWithoutStudentsInput";
 import { TreatmentUpdateManyWithoutStudentsInput } from "./TreatmentUpdateManyWithoutStudentsInput";
 import { SchoolWhereUniqueInput } from "../school/SchoolWhereUniqueInput";
@@ -9,6 +10,8 @@ export type StudentUpdateInput = {
   address?: string | null;
   approvals?: ApprovalUpdateManyWithoutStudentsInput;
   chartVists?: ChartVistUpdateManyWithoutStudentsInput;
+  contactDetails?: InputJsonValue;
+  generalDetails?: InputJsonValue;
   name?: string;
   parent?: ParentUpdateManyWithoutStudentsInput;
   records?: TreatmentUpdateManyWithoutStudentsInput;

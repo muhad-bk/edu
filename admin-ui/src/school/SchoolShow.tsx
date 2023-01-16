@@ -4,9 +4,9 @@ import {
   Show,
   SimpleShowLayout,
   ShowProps,
-  ReferenceField,
   TextField,
   DateField,
+  ReferenceField,
   ReferenceManyField,
   Datagrid,
 } from "react-admin";
@@ -15,7 +15,6 @@ import { SCHOOL_TITLE_FIELD } from "./SchoolTitle";
 import { STAF_TITLE_FIELD } from "../staf/StafTitle";
 import { STUDENT_TITLE_FIELD } from "../student/StudentTitle";
 import { USER_TITLE_FIELD } from "../user/UserTitle";
-import { SUBSCRIPTION_TITLE_FIELD } from "../subscription/SubscriptionTitle";
 import { PARENT_TITLE_FIELD } from "../parent/ParentTitle";
 import { SCHOOLDISTRICT_TITLE_FIELD } from "../schoolDistrict/SchoolDistrictTitle";
 
@@ -23,27 +22,25 @@ export const SchoolShow = (props: ShowProps): React.ReactElement => {
   return (
     <Show {...props}>
       <SimpleShowLayout>
-        <ReferenceField
-          label="ActiveSubscription"
-          source="subscription.id"
-          reference="Subscription"
-        >
-          <TextField source={SUBSCRIPTION_TITLE_FIELD} />
-        </ReferenceField>
+        <TextField label="Abbreviation" source="abbreviation" />
+        <TextField label="Address" source="address" />
         <DateField source="createdAt" label="Created At" />
         <TextField label="ID" source="id" />
+        <TextField label="Logo URL" source="logoUrl" />
         <TextField label="Name" source="name" />
         <ReferenceField label="Parents" source="parent.id" reference="Parent">
           <TextField source={PARENT_TITLE_FIELD} />
         </ReferenceField>
+        <TextField label="School Code" source="schoolCode" />
         <ReferenceField
-          label="school district"
+          label="School district"
           source="schooldistrict.id"
           reference="SchoolDistrict"
         >
           <TextField source={SCHOOLDISTRICT_TITLE_FIELD} />
         </ReferenceField>
         <TextField label="State" source="state" />
+        <TextField label="Status" source="status" />
         <TextField label="Township" source="township" />
         <DateField source="updatedAt" label="Updated At" />
         <ReferenceManyField
@@ -84,11 +81,13 @@ export const SchoolShow = (props: ShowProps): React.ReactElement => {
         >
           <Datagrid rowClick="show">
             <TextField label="Address " source="address" />
+            <TextField label="Contact Details" source="contactDetails" />
             <DateField source="createdAt" label="Created At" />
+            <TextField label="General Details" source="generalDetails" />
             <TextField label="ID" source="id" />
             <TextField label="Name" source="name" />
             <ReferenceField
-              label="school"
+              label="School"
               source="school.id"
               reference="School"
             >

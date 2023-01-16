@@ -2,6 +2,7 @@ import { SortOrder } from "../../util/SortOrder";
 
 export type TreatmentOrderByInput = {
   approvalId?: SortOrder;
+  category?: SortOrder;
   chartVistId?: SortOrder;
   createdAt?: SortOrder;
   generalDetails?: SortOrder;

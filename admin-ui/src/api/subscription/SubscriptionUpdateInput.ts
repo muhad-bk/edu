@@ -1,6 +1,5 @@
 import { ConfigurableModuleUpdateManyWithoutSubscriptionsInput } from "./ConfigurableModuleUpdateManyWithoutSubscriptionsInput";
-import { SchoolUpdateManyWithoutSubscriptionsInput } from "./SchoolUpdateManyWithoutSubscriptionsInput";
-import { SchoolWhereUniqueInput } from "../school/SchoolWhereUniqueInput";
+import { SchoolDistrictUpdateManyWithoutSubscriptionsInput } from "./SchoolDistrictUpdateManyWithoutSubscriptionsInput";
 import { SubscriptionPlanUpdateManyWithoutSubscriptionsInput } from "./SubscriptionPlanUpdateManyWithoutSubscriptionsInput";
 
 export type SubscriptionUpdateInput = {
@@ -9,7 +8,6 @@ export type SubscriptionUpdateInput = {
   isStanderd?: boolean;
   name?: string;
   period?: "Monthly" | "Yearly" | null;
-  schools?: SchoolUpdateManyWithoutSubscriptionsInput;
-  schoolSubscriptionHistory?: SchoolWhereUniqueInput | null;
+  schoolDistricts?: SchoolDistrictUpdateManyWithoutSubscriptionsInput;
   subscriptionPlans?: SubscriptionPlanUpdateManyWithoutSubscriptionsInput;
 };

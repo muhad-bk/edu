@@ -12,8 +12,9 @@ https://docs.amplication.com/how-to/custom-code
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { ApprovalWhereUniqueInput } from "../../approval/base/ApprovalWhereUniqueInput";
-import { ValidateNested, IsOptional } from "class-validator";
+import { ValidateNested, IsOptional, IsEnum } from "class-validator";
 import { Type } from "class-transformer";
+import { EnumTreatmentCategory } from "./EnumTreatmentCategory";
 import { ChartVistWhereUniqueInput } from "../../chartVist/base/ChartVistWhereUniqueInput";
 import { JsonFilter } from "../../util/JsonFilter";
 import { StringFilter } from "../../util/StringFilter";
@@ -32,6 +33,17 @@ class TreatmentWhereInput {
     nullable: true,
   })
   approval?: ApprovalWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumTreatmentCategory,
+  })
+  @IsEnum(EnumTreatmentCategory)
+  @IsOptional()
+  @Field(() => EnumTreatmentCategory, {
+    nullable: true,
+  })
+  category?: "Immunisation" | "Treatment" | "Medication" | "MandatoryScreening";
 
   @ApiProperty({
     required: false,

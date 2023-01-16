@@ -11,32 +11,41 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { SubscriptionWhereUniqueInput } from "../../subscription/base/SubscriptionWhereUniqueInput";
-import { ValidateNested, IsOptional, IsString, IsEnum } from "class-validator";
-import { Type } from "class-transformer";
+import { IsString, IsOptional, ValidateNested, IsEnum } from "class-validator";
 import { ChartVistUpdateManyWithoutSchoolsInput } from "./ChartVistUpdateManyWithoutSchoolsInput";
+import { Type } from "class-transformer";
 import { ParentWhereUniqueInput } from "../../parent/base/ParentWhereUniqueInput";
 import { RoleUpdateManyWithoutSchoolsInput } from "./RoleUpdateManyWithoutSchoolsInput";
 import { SchoolDistrictWhereUniqueInput } from "../../schoolDistrict/base/SchoolDistrictWhereUniqueInput";
 import { StafUpdateManyWithoutSchoolsInput } from "./StafUpdateManyWithoutSchoolsInput";
 import { EnumSchoolState } from "./EnumSchoolState";
+import { EnumSchoolStatus } from "./EnumSchoolStatus";
 import { StudentUpdateManyWithoutSchoolsInput } from "./StudentUpdateManyWithoutSchoolsInput";
-import { SubscriptionUpdateManyWithoutSchoolsInput } from "./SubscriptionUpdateManyWithoutSchoolsInput";
 import { EnumSchoolTownship } from "./EnumSchoolTownship";
 
 @InputType()
 class SchoolUpdateInput {
   @ApiProperty({
     required: false,
-    type: () => SubscriptionWhereUniqueInput,
+    type: String,
   })
-  @ValidateNested()
-  @Type(() => SubscriptionWhereUniqueInput)
+  @IsString()
   @IsOptional()
-  @Field(() => SubscriptionWhereUniqueInput, {
+  @Field(() => String, {
     nullable: true,
   })
-  activeSuscription?: SubscriptionWhereUniqueInput | null;
+  abbreviation?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  address?: string | null;
 
   @ApiProperty({
     required: false,
@@ -49,6 +58,17 @@ class SchoolUpdateInput {
     nullable: true,
   })
   chartVists?: ChartVistUpdateManyWithoutSchoolsInput;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  logoUrl?: string | null;
 
   @ApiProperty({
     required: false,
@@ -87,6 +107,17 @@ class SchoolUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  schoolCode?: string;
+
+  @ApiProperty({
+    required: false,
     type: () => SchoolDistrictWhereUniqueInput,
   })
   @ValidateNested()
@@ -122,6 +153,17 @@ class SchoolUpdateInput {
 
   @ApiProperty({
     required: false,
+    enum: EnumSchoolStatus,
+  })
+  @IsEnum(EnumSchoolStatus)
+  @IsOptional()
+  @Field(() => EnumSchoolStatus, {
+    nullable: true,
+  })
+  status?: "Active" | "Deactivate" | "Pending" | null;
+
+  @ApiProperty({
+    required: false,
     type: () => StudentUpdateManyWithoutSchoolsInput,
   })
   @ValidateNested()
@@ -131,18 +173,6 @@ class SchoolUpdateInput {
     nullable: true,
   })
   students?: StudentUpdateManyWithoutSchoolsInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => SubscriptionUpdateManyWithoutSchoolsInput,
-  })
-  @ValidateNested()
-  @Type(() => SubscriptionUpdateManyWithoutSchoolsInput)
-  @IsOptional()
-  @Field(() => SubscriptionUpdateManyWithoutSchoolsInput, {
-    nullable: true,
-  })
-  SubscriptionHistory?: SubscriptionUpdateManyWithoutSchoolsInput;
 
   @ApiProperty({
     required: false,
