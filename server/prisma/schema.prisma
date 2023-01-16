@@ -26,6 +26,7 @@ model User {
 model School {
   activeSuscription      Subscription?      @relation(name: "activeSuscription", fields: [activeSuscriptionId], references: [id])
   activeSuscriptionId    String?            @unique
+  chartVists             ChartVist[]
   createdAt              DateTime           @default(now())
   id                     String             @id @default(auto()) @map("_id") @mongo.ObjectId
   name                   String?            @unique
@@ -57,6 +58,8 @@ model Subscription {
   schools                   School[]                @relation(name: "SubscriptionHistory", fields: [schoolsIds], references: [id])
   schoolsIds                String[]                @mongo.ObjectId
   schoolSubscriptionHistory School?                 @relation(name: "activeSuscription")
+  subscriptionPlans         SubscriptionPlan[]      @relation(fields: [subscriptionPlansIds], references: [id])
+  subscriptionPlansIds      String[]                @mongo.ObjectId
   updatedAt                 DateTime                @updatedAt
 }
 
@@ -71,6 +74,7 @@ model ConfigurableModule {
 }
 
 model Staf {
+  chartVists        ChartVist[]
   createdAt         DateTime        @default(now())
   id                String          @id @default(auto()) @map("_id") @mongo.ObjectId
   school            School[]        @relation(fields: [schoolIds], references: [id])
@@ -103,39 +107,52 @@ model Permission {
 }
 
 model Student {
-  address   String?
-  createdAt DateTime @default(now())
-  id        String   @id @default(auto()) @map("_id") @mongo.ObjectId
-  name      String
-  parent    Parent[] @relation(fields: [parentIds], references: [id])
-  parentIds String[] @mongo.ObjectId
-  records   Record[]
-  school    School   @relation(fields: [schoolId], references: [id])
-  schoolId  String
-  studentId String?
-  updatedAt DateTime @updatedAt
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String
+  address    String?
+  approvals  Approval[]
+  chartVists ChartVist[]
+  createdAt  DateTime           @default(now())
+  id         String             @id @default(auto()) @map("_id") @mongo.ObjectId
+  name       String
+  parent     Parent[]           @relation(fields: [parentIds], references: [id])
+  parentIds  String[]           @mongo.ObjectId
+  records    Treatment[]
+  school     School             @relation(fields: [schoolId], references: [id])
+  schoolId   String
+  status     EnumStudentStatus?
+  studentId  String?
+  updatedAt  DateTime           @updatedAt
+  user       User               @relation(fields: [userId], references: [id])
+  userId     String
 }
 
-model Record {
-  createdAt DateTime @default(now())
-  id        String   @id @default(auto()) @map("_id") @mongo.ObjectId
-  student   Student? @relation(fields: [studentId], references: [id])
-  studentId String?
-  updatedAt DateTime @updatedAt
+model Treatment {
+  approval          Approval?  @relation(fields: [approvalId], references: [id])
+  approvalId        String?    @unique
+  chartVist         ChartVist? @relation(fields: [chartVistId], references: [id])
+  chartVistId       String?
+  createdAt         DateTime   @default(now())
+  generalDetails    Json
+  id                String     @id @default(auto()) @map("_id") @mongo.ObjectId
+  medicationDetails Json?
+  student           Student?   @relation(fields: [studentId], references: [id])
+  studentId         String?
+  timingDetails     Json?
+  treatmentDetails  Json
+  updatedAt         DateTime   @updatedAt
 }
 
 model Parent {
-  createdAt   DateTime  @default(now())
-  id          String    @id @default(auto()) @map("_id") @mongo.ObjectId
-  name        String
-  schools     School[]
-  students    Student[] @relation(fields: [studentsIds], references: [id])
-  studentsIds String[]  @mongo.ObjectId
-  updatedAt   DateTime  @updatedAt
-  user        User?     @relation(fields: [userId], references: [id])
-  userId      String?
+  approvals    Approval[] @relation(fields: [approvalsIds], references: [id])
+  approvalsIds String[]   @mongo.ObjectId
+  createdAt    DateTime   @default(now())
+  id           String     @id @default(auto()) @map("_id") @mongo.ObjectId
+  name         String
+  schools      School[]
+  students     Student[]  @relation(fields: [studentsIds], references: [id])
+  studentsIds  String[]   @mongo.ObjectId
+  updatedAt    DateTime   @updatedAt
+  user         User?      @relation(fields: [userId], references: [id])
+  userId       String?
 }
 
 model SchoolDistrict {
@@ -145,6 +162,43 @@ model SchoolDistrict {
   schools   School[]
   stafs     Staf[]
   updatedAt DateTime @updatedAt
+}
+
+model Approval {
+  approvedBy          Parent[]   @relation(fields: [approvedByIds], references: [id])
+  approvedByIds       String[]   @mongo.ObjectId
+  authorisationLetter String?
+  createdAt           DateTime   @default(now())
+  description         String?
+  id                  String     @id @default(auto()) @map("_id") @mongo.ObjectId
+  record              Treatment?
+  student             Student?   @relation(fields: [studentId], references: [id])
+  studentId           String?
+  updatedAt           DateTime   @updatedAt
+}
+
+model ChartVist {
+  chartType  EnumChartVistChartType
+  createdAt  DateTime               @default(now())
+  endTime    String?
+  id         String                 @id @default(auto()) @map("_id") @mongo.ObjectId
+  school     School?                @relation(fields: [schoolId], references: [id])
+  schoolId   String?
+  staf       Staf?                  @relation(fields: [stafId], references: [id])
+  stafId     String?
+  startTime  DateTime?
+  student    Student?               @relation(fields: [studentId], references: [id])
+  studentId  String?
+  treatments Treatment[]
+  updatedAt  DateTime               @updatedAt
+}
+
+model SubscriptionPlan {
+  createdAt        DateTime       @default(now())
+  id               String         @id @default(auto()) @map("_id") @mongo.ObjectId
+  subscriptions    Subscription[] @relation(fields: [subscriptionsIds], references: [id])
+  subscriptionsIds String[]       @mongo.ObjectId
+  updatedAt        DateTime       @updatedAt
 }
 
 enum EnumUserLanguage {
@@ -164,4 +218,15 @@ enum EnumSchoolTownship {
 enum EnumSubscriptionPeriod {
   Monthly
   Yearly
+}
+
+enum EnumStudentStatus {
+  Active
+  Deactivate
+  Pending
+}
+
+enum EnumChartVistChartType {
+  Type_1
+  Type_2
 }

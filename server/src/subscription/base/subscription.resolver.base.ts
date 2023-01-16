@@ -29,6 +29,8 @@ import { ConfigurableModuleFindManyArgs } from "../../configurableModule/base/Co
 import { ConfigurableModule } from "../../configurableModule/base/ConfigurableModule";
 import { SchoolFindManyArgs } from "../../school/base/SchoolFindManyArgs";
 import { School } from "../../school/base/School";
+import { SubscriptionPlanFindManyArgs } from "../../subscriptionPlan/base/SubscriptionPlanFindManyArgs";
+import { SubscriptionPlan } from "../../subscriptionPlan/base/SubscriptionPlan";
 import { SubscriptionService } from "../subscription.service";
 
 @graphql.Resolver(() => Subscription)
@@ -198,6 +200,26 @@ export class SubscriptionResolverBase {
     @graphql.Args() args: SchoolFindManyArgs
   ): Promise<School[]> {
     const results = await this.service.findSchools(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [SubscriptionPlan])
+  @nestAccessControl.UseRoles({
+    resource: "SubscriptionPlan",
+    action: "read",
+    possession: "any",
+  })
+  async subscriptionPlans(
+    @graphql.Parent() parent: Subscription,
+    @graphql.Args() args: SubscriptionPlanFindManyArgs
+  ): Promise<SubscriptionPlan[]> {
+    const results = await this.service.findSubscriptionPlans(parent.id, args);
 
     if (!results) {
       return [];

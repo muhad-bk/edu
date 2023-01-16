@@ -10,7 +10,14 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-import { Prisma, Staf, School, SchoolDistrict, User } from "@prisma/client";
+import {
+  Prisma,
+  Staf,
+  ChartVist,
+  School,
+  SchoolDistrict,
+  User,
+} from "@prisma/client";
 
 export class StafServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -45,6 +52,17 @@ export class StafServiceBase {
     args: Prisma.SelectSubset<T, Prisma.StafDeleteArgs>
   ): Promise<Staf> {
     return this.prisma.staf.delete(args);
+  }
+
+  async findChartVists(
+    parentId: string,
+    args: Prisma.ChartVistFindManyArgs
+  ): Promise<ChartVist[]> {
+    return this.prisma.staf
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .chartVists(args);
   }
 
   async findSchool(

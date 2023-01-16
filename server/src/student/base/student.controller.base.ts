@@ -27,12 +27,18 @@ import { StudentWhereUniqueInput } from "./StudentWhereUniqueInput";
 import { StudentFindManyArgs } from "./StudentFindManyArgs";
 import { StudentUpdateInput } from "./StudentUpdateInput";
 import { Student } from "./Student";
+import { ApprovalFindManyArgs } from "../../approval/base/ApprovalFindManyArgs";
+import { Approval } from "../../approval/base/Approval";
+import { ApprovalWhereUniqueInput } from "../../approval/base/ApprovalWhereUniqueInput";
+import { ChartVistFindManyArgs } from "../../chartVist/base/ChartVistFindManyArgs";
+import { ChartVist } from "../../chartVist/base/ChartVist";
+import { ChartVistWhereUniqueInput } from "../../chartVist/base/ChartVistWhereUniqueInput";
 import { ParentFindManyArgs } from "../../parent/base/ParentFindManyArgs";
 import { Parent } from "../../parent/base/Parent";
 import { ParentWhereUniqueInput } from "../../parent/base/ParentWhereUniqueInput";
-import { RecordFindManyArgs } from "../../record/base/RecordFindManyArgs";
-import { Record } from "../../record/base/Record";
-import { RecordWhereUniqueInput } from "../../record/base/RecordWhereUniqueInput";
+import { TreatmentFindManyArgs } from "../../treatment/base/TreatmentFindManyArgs";
+import { Treatment } from "../../treatment/base/Treatment";
+import { TreatmentWhereUniqueInput } from "../../treatment/base/TreatmentWhereUniqueInput";
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
 export class StudentControllerBase {
@@ -75,6 +81,7 @@ export class StudentControllerBase {
           },
         },
 
+        status: true,
         studentId: true,
         updatedAt: true,
 
@@ -113,6 +120,7 @@ export class StudentControllerBase {
           },
         },
 
+        status: true,
         studentId: true,
         updatedAt: true,
 
@@ -152,6 +160,7 @@ export class StudentControllerBase {
           },
         },
 
+        status: true,
         studentId: true,
         updatedAt: true,
 
@@ -210,6 +219,7 @@ export class StudentControllerBase {
             },
           },
 
+          status: true,
           studentId: true,
           updatedAt: true,
 
@@ -257,6 +267,7 @@ export class StudentControllerBase {
             },
           },
 
+          status: true,
           studentId: true,
           updatedAt: true,
 
@@ -275,6 +286,234 @@ export class StudentControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @nestAccessControl.UseRoles({
+    resource: "Approval",
+    action: "read",
+    possession: "any",
+  })
+  @common.Get("/:id/approvals")
+  @ApiNestedQuery(ApprovalFindManyArgs)
+  async findManyApprovals(
+    @common.Req() request: Request,
+    @common.Param() params: StudentWhereUniqueInput
+  ): Promise<Approval[]> {
+    const query = plainToClass(ApprovalFindManyArgs, request.query);
+    const results = await this.service.findApprovals(params.id, {
+      ...query,
+      select: {
+        authorisationLetter: true,
+        createdAt: true,
+        description: true,
+        id: true,
+
+        record: {
+          select: {
+            id: true,
+          },
+        },
+
+        student: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "Student",
+    action: "update",
+    possession: "any",
+  })
+  @common.Post("/:id/approvals")
+  async connectApprovals(
+    @common.Param() params: StudentWhereUniqueInput,
+    @common.Body() body: ApprovalWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      approvals: {
+        connect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "Student",
+    action: "update",
+    possession: "any",
+  })
+  @common.Patch("/:id/approvals")
+  async updateApprovals(
+    @common.Param() params: StudentWhereUniqueInput,
+    @common.Body() body: ApprovalWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      approvals: {
+        set: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "Student",
+    action: "update",
+    possession: "any",
+  })
+  @common.Delete("/:id/approvals")
+  async disconnectApprovals(
+    @common.Param() params: StudentWhereUniqueInput,
+    @common.Body() body: ApprovalWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      approvals: {
+        disconnect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @nestAccessControl.UseRoles({
+    resource: "ChartVist",
+    action: "read",
+    possession: "any",
+  })
+  @common.Get("/:id/chartVists")
+  @ApiNestedQuery(ChartVistFindManyArgs)
+  async findManyChartVists(
+    @common.Req() request: Request,
+    @common.Param() params: StudentWhereUniqueInput
+  ): Promise<ChartVist[]> {
+    const query = plainToClass(ChartVistFindManyArgs, request.query);
+    const results = await this.service.findChartVists(params.id, {
+      ...query,
+      select: {
+        chartType: true,
+        createdAt: true,
+        endTime: true,
+        id: true,
+
+        school: {
+          select: {
+            id: true,
+          },
+        },
+
+        staf: {
+          select: {
+            id: true,
+          },
+        },
+
+        startTime: true,
+
+        student: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "Student",
+    action: "update",
+    possession: "any",
+  })
+  @common.Post("/:id/chartVists")
+  async connectChartVists(
+    @common.Param() params: StudentWhereUniqueInput,
+    @common.Body() body: ChartVistWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      chartVists: {
+        connect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "Student",
+    action: "update",
+    possession: "any",
+  })
+  @common.Patch("/:id/chartVists")
+  async updateChartVists(
+    @common.Param() params: StudentWhereUniqueInput,
+    @common.Body() body: ChartVistWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      chartVists: {
+        set: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "Student",
+    action: "update",
+    possession: "any",
+  })
+  @common.Delete("/:id/chartVists")
+  async disconnectChartVists(
+    @common.Param() params: StudentWhereUniqueInput,
+    @common.Body() body: ChartVistWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      chartVists: {
+        disconnect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
@@ -381,22 +620,36 @@ export class StudentControllerBase {
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
   @nestAccessControl.UseRoles({
-    resource: "Record",
+    resource: "Treatment",
     action: "read",
     possession: "any",
   })
   @common.Get("/:id/records")
-  @ApiNestedQuery(RecordFindManyArgs)
+  @ApiNestedQuery(TreatmentFindManyArgs)
   async findManyRecords(
     @common.Req() request: Request,
     @common.Param() params: StudentWhereUniqueInput
-  ): Promise<Record[]> {
-    const query = plainToClass(RecordFindManyArgs, request.query);
+  ): Promise<Treatment[]> {
+    const query = plainToClass(TreatmentFindManyArgs, request.query);
     const results = await this.service.findRecords(params.id, {
       ...query,
       select: {
+        approval: {
+          select: {
+            id: true,
+          },
+        },
+
+        chartVist: {
+          select: {
+            id: true,
+          },
+        },
+
         createdAt: true,
+        generalDetails: true,
         id: true,
+        medicationDetails: true,
 
         student: {
           select: {
@@ -404,6 +657,8 @@ export class StudentControllerBase {
           },
         },
 
+        timingDetails: true,
+        treatmentDetails: true,
         updatedAt: true,
       },
     });
@@ -423,7 +678,7 @@ export class StudentControllerBase {
   @common.Post("/:id/records")
   async connectRecords(
     @common.Param() params: StudentWhereUniqueInput,
-    @common.Body() body: RecordWhereUniqueInput[]
+    @common.Body() body: TreatmentWhereUniqueInput[]
   ): Promise<void> {
     const data = {
       records: {
@@ -445,7 +700,7 @@ export class StudentControllerBase {
   @common.Patch("/:id/records")
   async updateRecords(
     @common.Param() params: StudentWhereUniqueInput,
-    @common.Body() body: RecordWhereUniqueInput[]
+    @common.Body() body: TreatmentWhereUniqueInput[]
   ): Promise<void> {
     const data = {
       records: {
@@ -467,7 +722,7 @@ export class StudentControllerBase {
   @common.Delete("/:id/records")
   async disconnectRecords(
     @common.Param() params: StudentWhereUniqueInput,
-    @common.Body() body: RecordWhereUniqueInput[]
+    @common.Body() body: TreatmentWhereUniqueInput[]
   ): Promise<void> {
     const data = {
       records: {

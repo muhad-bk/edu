@@ -20,6 +20,7 @@ import {
   IsEnum,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { ChartVist } from "../../chartVist/base/ChartVist";
 import { Parent } from "../../parent/base/Parent";
 import { Role } from "../../role/base/Role";
 import { SchoolDistrict } from "../../schoolDistrict/base/SchoolDistrict";
@@ -38,6 +39,15 @@ class School {
   @Type(() => Subscription)
   @IsOptional()
   activeSuscription?: Subscription | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [ChartVist],
+  })
+  @ValidateNested()
+  @Type(() => ChartVist)
+  @IsOptional()
+  chartVists?: Array<ChartVist>;
 
   @ApiProperty({
     required: true,

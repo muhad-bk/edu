@@ -37,10 +37,10 @@ import { StudentList } from "./student/StudentList";
 import { StudentCreate } from "./student/StudentCreate";
 import { StudentEdit } from "./student/StudentEdit";
 import { StudentShow } from "./student/StudentShow";
-import { RecordList } from "./record/RecordList";
-import { RecordCreate } from "./record/RecordCreate";
-import { RecordEdit } from "./record/RecordEdit";
-import { RecordShow } from "./record/RecordShow";
+import { TreatmentList } from "./treatment/TreatmentList";
+import { TreatmentCreate } from "./treatment/TreatmentCreate";
+import { TreatmentEdit } from "./treatment/TreatmentEdit";
+import { TreatmentShow } from "./treatment/TreatmentShow";
 import { ParentList } from "./parent/ParentList";
 import { ParentCreate } from "./parent/ParentCreate";
 import { ParentEdit } from "./parent/ParentEdit";
@@ -49,6 +49,18 @@ import { SchoolDistrictList } from "./schoolDistrict/SchoolDistrictList";
 import { SchoolDistrictCreate } from "./schoolDistrict/SchoolDistrictCreate";
 import { SchoolDistrictEdit } from "./schoolDistrict/SchoolDistrictEdit";
 import { SchoolDistrictShow } from "./schoolDistrict/SchoolDistrictShow";
+import { ApprovalList } from "./approval/ApprovalList";
+import { ApprovalCreate } from "./approval/ApprovalCreate";
+import { ApprovalEdit } from "./approval/ApprovalEdit";
+import { ApprovalShow } from "./approval/ApprovalShow";
+import { ChartVistList } from "./chartVist/ChartVistList";
+import { ChartVistCreate } from "./chartVist/ChartVistCreate";
+import { ChartVistEdit } from "./chartVist/ChartVistEdit";
+import { ChartVistShow } from "./chartVist/ChartVistShow";
+import { SubscriptionPlanList } from "./subscriptionPlan/SubscriptionPlanList";
+import { SubscriptionPlanCreate } from "./subscriptionPlan/SubscriptionPlanCreate";
+import { SubscriptionPlanEdit } from "./subscriptionPlan/SubscriptionPlanEdit";
+import { SubscriptionPlanShow } from "./subscriptionPlan/SubscriptionPlanShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -132,11 +144,11 @@ const App = (): React.ReactElement => {
           show={StudentShow}
         />
         <Resource
-          name="Record"
-          list={RecordList}
-          edit={RecordEdit}
-          create={RecordCreate}
-          show={RecordShow}
+          name="Treatment"
+          list={TreatmentList}
+          edit={TreatmentEdit}
+          create={TreatmentCreate}
+          show={TreatmentShow}
         />
         <Resource
           name="Parent"
@@ -151,6 +163,27 @@ const App = (): React.ReactElement => {
           edit={SchoolDistrictEdit}
           create={SchoolDistrictCreate}
           show={SchoolDistrictShow}
+        />
+        <Resource
+          name="Approval"
+          list={ApprovalList}
+          edit={ApprovalEdit}
+          create={ApprovalCreate}
+          show={ApprovalShow}
+        />
+        <Resource
+          name="ChartVist"
+          list={ChartVistList}
+          edit={ChartVistEdit}
+          create={ChartVistCreate}
+          show={ChartVistShow}
+        />
+        <Resource
+          name="SubscriptionPlan"
+          list={SubscriptionPlanList}
+          edit={SubscriptionPlanEdit}
+          create={SubscriptionPlanCreate}
+          show={SubscriptionPlanShow}
         />
       </Admin>
     </div>

@@ -13,11 +13,14 @@ import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
-import { IsOptional, ValidateNested } from "class-validator";
+import { IsOptional, ValidateNested, IsEnum } from "class-validator";
+import { ApprovalListRelationFilter } from "../../approval/base/ApprovalListRelationFilter";
+import { ChartVistListRelationFilter } from "../../chartVist/base/ChartVistListRelationFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { ParentListRelationFilter } from "../../parent/base/ParentListRelationFilter";
-import { RecordListRelationFilter } from "../../record/base/RecordListRelationFilter";
+import { TreatmentListRelationFilter } from "../../treatment/base/TreatmentListRelationFilter";
 import { SchoolWhereUniqueInput } from "../../school/base/SchoolWhereUniqueInput";
+import { EnumStudentStatus } from "./EnumStudentStatus";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 
 @InputType()
@@ -32,6 +35,30 @@ class StudentWhereInput {
     nullable: true,
   })
   address?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => ApprovalListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ApprovalListRelationFilter)
+  @IsOptional()
+  @Field(() => ApprovalListRelationFilter, {
+    nullable: true,
+  })
+  approvals?: ApprovalListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => ChartVistListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ChartVistListRelationFilter)
+  @IsOptional()
+  @Field(() => ChartVistListRelationFilter, {
+    nullable: true,
+  })
+  chartVists?: ChartVistListRelationFilter;
 
   @ApiProperty({
     required: false,
@@ -69,15 +96,15 @@ class StudentWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => RecordListRelationFilter,
+    type: () => TreatmentListRelationFilter,
   })
   @ValidateNested()
-  @Type(() => RecordListRelationFilter)
+  @Type(() => TreatmentListRelationFilter)
   @IsOptional()
-  @Field(() => RecordListRelationFilter, {
+  @Field(() => TreatmentListRelationFilter, {
     nullable: true,
   })
-  records?: RecordListRelationFilter;
+  records?: TreatmentListRelationFilter;
 
   @ApiProperty({
     required: false,
@@ -90,6 +117,17 @@ class StudentWhereInput {
     nullable: true,
   })
   school?: SchoolWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumStudentStatus,
+  })
+  @IsEnum(EnumStudentStatus)
+  @IsOptional()
+  @Field(() => EnumStudentStatus, {
+    nullable: true,
+  })
+  status?: "Active" | "Deactivate" | "Pending";
 
   @ApiProperty({
     required: false,

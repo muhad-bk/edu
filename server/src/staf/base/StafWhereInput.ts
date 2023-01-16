@@ -11,15 +11,28 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { StringFilter } from "../../util/StringFilter";
+import { ChartVistListRelationFilter } from "../../chartVist/base/ChartVistListRelationFilter";
+import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
-import { IsOptional, ValidateNested } from "class-validator";
+import { StringFilter } from "../../util/StringFilter";
 import { SchoolListRelationFilter } from "../../school/base/SchoolListRelationFilter";
 import { SchoolDistrictWhereUniqueInput } from "../../schoolDistrict/base/SchoolDistrictWhereUniqueInput";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 
 @InputType()
 class StafWhereInput {
+  @ApiProperty({
+    required: false,
+    type: () => ChartVistListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ChartVistListRelationFilter)
+  @IsOptional()
+  @Field(() => ChartVistListRelationFilter, {
+    nullable: true,
+  })
+  chartVists?: ChartVistListRelationFilter;
+
   @ApiProperty({
     required: false,
     type: StringFilter,

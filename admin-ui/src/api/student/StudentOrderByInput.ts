@@ -6,6 +6,7 @@ export type StudentOrderByInput = {
   id?: SortOrder;
   name?: SortOrder;
   schoolId?: SortOrder;
+  status?: SortOrder;
   studentId?: SortOrder;
   updatedAt?: SortOrder;
   userId?: SortOrder;

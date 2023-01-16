@@ -4,13 +4,14 @@ import {
   Create,
   SimpleForm,
   CreateProps,
-  TextInput,
   ReferenceArrayInput,
   SelectArrayInput,
+  TextInput,
   ReferenceInput,
   SelectInput,
 } from "react-admin";
 
+import { ApprovalTitle } from "../approval/ApprovalTitle";
 import { SchoolTitle } from "../school/SchoolTitle";
 import { StudentTitle } from "../student/StudentTitle";
 import { UserTitle } from "../user/UserTitle";
@@ -19,6 +20,14 @@ export const ParentCreate = (props: CreateProps): React.ReactElement => {
   return (
     <Create {...props}>
       <SimpleForm>
+        <ReferenceArrayInput
+          source="approvals"
+          reference="Approval"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={ApprovalTitle} />
+        </ReferenceArrayInput>
         <TextInput label="Name" source="name" />
         <ReferenceArrayInput
           source="schools"

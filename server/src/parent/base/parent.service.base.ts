@@ -10,7 +10,14 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-import { Prisma, Parent, School, Student, User } from "@prisma/client";
+import {
+  Prisma,
+  Parent,
+  Approval,
+  School,
+  Student,
+  User,
+} from "@prisma/client";
 
 export class ParentServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -45,6 +52,17 @@ export class ParentServiceBase {
     args: Prisma.SelectSubset<T, Prisma.ParentDeleteArgs>
   ): Promise<Parent> {
     return this.prisma.parent.delete(args);
+  }
+
+  async findApprovals(
+    parentId: string,
+    args: Prisma.ApprovalFindManyArgs
+  ): Promise<Approval[]> {
+    return this.prisma.parent
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .approvals(args);
   }
 
   async findSchools(

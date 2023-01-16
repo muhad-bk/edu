@@ -11,11 +11,14 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsOptional, ValidateNested } from "class-validator";
-import { ParentUpdateManyWithoutStudentsInput } from "./ParentUpdateManyWithoutStudentsInput";
+import { IsString, IsOptional, ValidateNested, IsEnum } from "class-validator";
+import { ApprovalUpdateManyWithoutStudentsInput } from "./ApprovalUpdateManyWithoutStudentsInput";
 import { Type } from "class-transformer";
-import { RecordUpdateManyWithoutStudentsInput } from "./RecordUpdateManyWithoutStudentsInput";
+import { ChartVistUpdateManyWithoutStudentsInput } from "./ChartVistUpdateManyWithoutStudentsInput";
+import { ParentUpdateManyWithoutStudentsInput } from "./ParentUpdateManyWithoutStudentsInput";
+import { TreatmentUpdateManyWithoutStudentsInput } from "./TreatmentUpdateManyWithoutStudentsInput";
 import { SchoolWhereUniqueInput } from "../../school/base/SchoolWhereUniqueInput";
+import { EnumStudentStatus } from "./EnumStudentStatus";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 
 @InputType()
@@ -30,6 +33,30 @@ class StudentUpdateInput {
     nullable: true,
   })
   address?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => ApprovalUpdateManyWithoutStudentsInput,
+  })
+  @ValidateNested()
+  @Type(() => ApprovalUpdateManyWithoutStudentsInput)
+  @IsOptional()
+  @Field(() => ApprovalUpdateManyWithoutStudentsInput, {
+    nullable: true,
+  })
+  approvals?: ApprovalUpdateManyWithoutStudentsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ChartVistUpdateManyWithoutStudentsInput,
+  })
+  @ValidateNested()
+  @Type(() => ChartVistUpdateManyWithoutStudentsInput)
+  @IsOptional()
+  @Field(() => ChartVistUpdateManyWithoutStudentsInput, {
+    nullable: true,
+  })
+  chartVists?: ChartVistUpdateManyWithoutStudentsInput;
 
   @ApiProperty({
     required: false,
@@ -56,15 +83,15 @@ class StudentUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: () => RecordUpdateManyWithoutStudentsInput,
+    type: () => TreatmentUpdateManyWithoutStudentsInput,
   })
   @ValidateNested()
-  @Type(() => RecordUpdateManyWithoutStudentsInput)
+  @Type(() => TreatmentUpdateManyWithoutStudentsInput)
   @IsOptional()
-  @Field(() => RecordUpdateManyWithoutStudentsInput, {
+  @Field(() => TreatmentUpdateManyWithoutStudentsInput, {
     nullable: true,
   })
-  records?: RecordUpdateManyWithoutStudentsInput;
+  records?: TreatmentUpdateManyWithoutStudentsInput;
 
   @ApiProperty({
     required: false,
@@ -77,6 +104,17 @@ class StudentUpdateInput {
     nullable: true,
   })
   school?: SchoolWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumStudentStatus,
+  })
+  @IsEnum(EnumStudentStatus)
+  @IsOptional()
+  @Field(() => EnumStudentStatus, {
+    nullable: true,
+  })
+  status?: "Active" | "Deactivate" | "Pending" | null;
 
   @ApiProperty({
     required: false,

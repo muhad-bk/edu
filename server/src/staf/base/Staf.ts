@@ -11,7 +11,8 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsString, ValidateNested, IsOptional } from "class-validator";
+import { ChartVist } from "../../chartVist/base/ChartVist";
+import { ValidateNested, IsOptional, IsDate, IsString } from "class-validator";
 import { Type } from "class-transformer";
 import { School } from "../../school/base/School";
 import { SchoolDistrict } from "../../schoolDistrict/base/SchoolDistrict";
@@ -19,6 +20,15 @@ import { User } from "../../user/base/User";
 
 @ObjectType()
 class Staf {
+  @ApiProperty({
+    required: false,
+    type: () => [ChartVist],
+  })
+  @ValidateNested()
+  @Type(() => ChartVist)
+  @IsOptional()
+  chartVists?: Array<ChartVist>;
+
   @ApiProperty({
     required: true,
   })

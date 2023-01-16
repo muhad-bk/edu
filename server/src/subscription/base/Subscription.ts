@@ -24,6 +24,7 @@ import { ConfigurableModule } from "../../configurableModule/base/ConfigurableMo
 import { Type } from "class-transformer";
 import { EnumSubscriptionPeriod } from "./EnumSubscriptionPeriod";
 import { School } from "../../school/base/School";
+import { SubscriptionPlan } from "../../subscriptionPlan/base/SubscriptionPlan";
 
 @ObjectType()
 class Subscription {
@@ -104,6 +105,15 @@ class Subscription {
   @Type(() => School)
   @IsOptional()
   schoolSubscriptionHistory?: School | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => [SubscriptionPlan],
+  })
+  @ValidateNested()
+  @Type(() => SubscriptionPlan)
+  @IsOptional()
+  subscriptionPlans?: Array<SubscriptionPlan>;
 
   @ApiProperty({
     required: true,

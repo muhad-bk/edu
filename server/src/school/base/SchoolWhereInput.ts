@@ -14,6 +14,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { SubscriptionWhereUniqueInput } from "../../subscription/base/SubscriptionWhereUniqueInput";
 import { ValidateNested, IsOptional, IsEnum } from "class-validator";
 import { Type } from "class-transformer";
+import { ChartVistListRelationFilter } from "../../chartVist/base/ChartVistListRelationFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { ParentWhereUniqueInput } from "../../parent/base/ParentWhereUniqueInput";
@@ -38,6 +39,18 @@ class SchoolWhereInput {
     nullable: true,
   })
   activeSuscription?: SubscriptionWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => ChartVistListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ChartVistListRelationFilter)
+  @IsOptional()
+  @Field(() => ChartVistListRelationFilter, {
+    nullable: true,
+  })
+  chartVists?: ChartVistListRelationFilter;
 
   @ApiProperty({
     required: false,

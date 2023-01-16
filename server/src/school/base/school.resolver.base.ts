@@ -25,6 +25,8 @@ import { DeleteSchoolArgs } from "./DeleteSchoolArgs";
 import { SchoolFindManyArgs } from "./SchoolFindManyArgs";
 import { SchoolFindUniqueArgs } from "./SchoolFindUniqueArgs";
 import { School } from "./School";
+import { ChartVistFindManyArgs } from "../../chartVist/base/ChartVistFindManyArgs";
+import { ChartVist } from "../../chartVist/base/ChartVist";
 import { RoleFindManyArgs } from "../../role/base/RoleFindManyArgs";
 import { Role } from "../../role/base/Role";
 import { StafFindManyArgs } from "../../staf/base/StafFindManyArgs";
@@ -190,6 +192,26 @@ export class SchoolResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [ChartVist])
+  @nestAccessControl.UseRoles({
+    resource: "ChartVist",
+    action: "read",
+    possession: "any",
+  })
+  async chartVists(
+    @graphql.Parent() parent: School,
+    @graphql.Args() args: ChartVistFindManyArgs
+  ): Promise<ChartVist[]> {
+    const results = await this.service.findChartVists(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

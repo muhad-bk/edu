@@ -1,4 +1,5 @@
 import { SubscriptionWhereUniqueInput } from "../subscription/SubscriptionWhereUniqueInput";
+import { ChartVistCreateNestedManyWithoutSchoolsInput } from "./ChartVistCreateNestedManyWithoutSchoolsInput";
 import { ParentWhereUniqueInput } from "../parent/ParentWhereUniqueInput";
 import { RoleCreateNestedManyWithoutSchoolsInput } from "./RoleCreateNestedManyWithoutSchoolsInput";
 import { SchoolDistrictWhereUniqueInput } from "../schoolDistrict/SchoolDistrictWhereUniqueInput";
@@ -8,6 +9,7 @@ import { SubscriptionCreateNestedManyWithoutSchoolsInput } from "./SubscriptionC
 
 export type SchoolCreateInput = {
   activeSuscription?: SubscriptionWhereUniqueInput | null;
+  chartVists?: ChartVistCreateNestedManyWithoutSchoolsInput;
   name?: string | null;
   parent?: ParentWhereUniqueInput | null;
   roles?: RoleCreateNestedManyWithoutSchoolsInput;

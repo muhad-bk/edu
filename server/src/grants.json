@@ -799,121 +799,121 @@
   },
   {
     "role": "parent",
-    "resource": "Record",
+    "resource": "Treatment",
     "action": "read:own",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Record",
+    "resource": "Treatment",
     "action": "read:own",
     "attributes": "*"
   },
   {
     "role": "superAdmin",
-    "resource": "Record",
+    "resource": "Treatment",
     "action": "read:own",
     "attributes": "*"
   },
   {
     "role": "admin",
-    "resource": "Record",
+    "resource": "Treatment",
     "action": "read:own",
     "attributes": "*"
   },
   {
     "role": "parent",
-    "resource": "Record",
+    "resource": "Treatment",
     "action": "create:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Record",
+    "resource": "Treatment",
     "action": "create:any",
     "attributes": "*"
   },
   {
     "role": "superAdmin",
-    "resource": "Record",
+    "resource": "Treatment",
     "action": "create:any",
     "attributes": "*"
   },
   {
     "role": "admin",
-    "resource": "Record",
+    "resource": "Treatment",
     "action": "create:any",
     "attributes": "*"
   },
   {
     "role": "parent",
-    "resource": "Record",
+    "resource": "Treatment",
     "action": "update:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Record",
+    "resource": "Treatment",
     "action": "update:any",
     "attributes": "*"
   },
   {
     "role": "superAdmin",
-    "resource": "Record",
+    "resource": "Treatment",
     "action": "update:any",
     "attributes": "*"
   },
   {
     "role": "admin",
-    "resource": "Record",
+    "resource": "Treatment",
     "action": "update:any",
     "attributes": "*"
   },
   {
     "role": "parent",
-    "resource": "Record",
+    "resource": "Treatment",
     "action": "delete:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Record",
+    "resource": "Treatment",
     "action": "delete:any",
     "attributes": "*"
   },
   {
     "role": "superAdmin",
-    "resource": "Record",
+    "resource": "Treatment",
     "action": "delete:any",
     "attributes": "*"
   },
   {
     "role": "admin",
-    "resource": "Record",
+    "resource": "Treatment",
     "action": "delete:any",
     "attributes": "*"
   },
   {
     "role": "parent",
-    "resource": "Record",
+    "resource": "Treatment",
     "action": "read:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Record",
+    "resource": "Treatment",
     "action": "read:any",
     "attributes": "*"
   },
   {
     "role": "superAdmin",
-    "resource": "Record",
+    "resource": "Treatment",
     "action": "read:any",
     "attributes": "*"
   },
   {
     "role": "admin",
-    "resource": "Record",
+    "resource": "Treatment",
     "action": "read:any",
     "attributes": "*"
   },
@@ -1154,6 +1154,366 @@
   {
     "role": "admin",
     "resource": "SchoolDistrict",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "parent",
+    "resource": "Approval",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Approval",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "superAdmin",
+    "resource": "Approval",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Approval",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "parent",
+    "resource": "Approval",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Approval",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "superAdmin",
+    "resource": "Approval",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Approval",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "parent",
+    "resource": "Approval",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Approval",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "superAdmin",
+    "resource": "Approval",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Approval",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "parent",
+    "resource": "Approval",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Approval",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "superAdmin",
+    "resource": "Approval",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Approval",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "parent",
+    "resource": "Approval",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "Approval",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "superAdmin",
+    "resource": "Approval",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Approval",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "parent",
+    "resource": "ChartVist",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "ChartVist",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "superAdmin",
+    "resource": "ChartVist",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "ChartVist",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "parent",
+    "resource": "ChartVist",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "ChartVist",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "superAdmin",
+    "resource": "ChartVist",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "ChartVist",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "parent",
+    "resource": "ChartVist",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "ChartVist",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "superAdmin",
+    "resource": "ChartVist",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "ChartVist",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "parent",
+    "resource": "ChartVist",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "ChartVist",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "superAdmin",
+    "resource": "ChartVist",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "ChartVist",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "parent",
+    "resource": "ChartVist",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "ChartVist",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "superAdmin",
+    "resource": "ChartVist",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "ChartVist",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "parent",
+    "resource": "SubscriptionPlan",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "SubscriptionPlan",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "superAdmin",
+    "resource": "SubscriptionPlan",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "SubscriptionPlan",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "parent",
+    "resource": "SubscriptionPlan",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "SubscriptionPlan",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "superAdmin",
+    "resource": "SubscriptionPlan",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "SubscriptionPlan",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "parent",
+    "resource": "SubscriptionPlan",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "SubscriptionPlan",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "superAdmin",
+    "resource": "SubscriptionPlan",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "SubscriptionPlan",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "parent",
+    "resource": "SubscriptionPlan",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "SubscriptionPlan",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "superAdmin",
+    "resource": "SubscriptionPlan",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "SubscriptionPlan",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "parent",
+    "resource": "SubscriptionPlan",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "user",
+    "resource": "SubscriptionPlan",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "superAdmin",
+    "resource": "SubscriptionPlan",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "SubscriptionPlan",
     "action": "read:any",
     "attributes": "*"
   }

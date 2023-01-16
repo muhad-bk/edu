@@ -27,6 +27,9 @@ import { StafWhereUniqueInput } from "./StafWhereUniqueInput";
 import { StafFindManyArgs } from "./StafFindManyArgs";
 import { StafUpdateInput } from "./StafUpdateInput";
 import { Staf } from "./Staf";
+import { ChartVistFindManyArgs } from "../../chartVist/base/ChartVistFindManyArgs";
+import { ChartVist } from "../../chartVist/base/ChartVist";
+import { ChartVistWhereUniqueInput } from "../../chartVist/base/ChartVistWhereUniqueInput";
 import { SchoolFindManyArgs } from "../../school/base/SchoolFindManyArgs";
 import { School } from "../../school/base/School";
 import { SchoolWhereUniqueInput } from "../../school/base/SchoolWhereUniqueInput";
@@ -261,6 +264,124 @@ export class StafControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @nestAccessControl.UseRoles({
+    resource: "ChartVist",
+    action: "read",
+    possession: "any",
+  })
+  @common.Get("/:id/chartVists")
+  @ApiNestedQuery(ChartVistFindManyArgs)
+  async findManyChartVists(
+    @common.Req() request: Request,
+    @common.Param() params: StafWhereUniqueInput
+  ): Promise<ChartVist[]> {
+    const query = plainToClass(ChartVistFindManyArgs, request.query);
+    const results = await this.service.findChartVists(params.id, {
+      ...query,
+      select: {
+        chartType: true,
+        createdAt: true,
+        endTime: true,
+        id: true,
+
+        school: {
+          select: {
+            id: true,
+          },
+        },
+
+        staf: {
+          select: {
+            id: true,
+          },
+        },
+
+        startTime: true,
+
+        student: {
+          select: {
+            id: true,
+          },
+        },
+
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "Staf",
+    action: "update",
+    possession: "any",
+  })
+  @common.Post("/:id/chartVists")
+  async connectChartVists(
+    @common.Param() params: StafWhereUniqueInput,
+    @common.Body() body: ChartVistWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      chartVists: {
+        connect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "Staf",
+    action: "update",
+    possession: "any",
+  })
+  @common.Patch("/:id/chartVists")
+  async updateChartVists(
+    @common.Param() params: StafWhereUniqueInput,
+    @common.Body() body: ChartVistWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      chartVists: {
+        set: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "Staf",
+    action: "update",
+    possession: "any",
+  })
+  @common.Delete("/:id/chartVists")
+  async disconnectChartVists(
+    @common.Param() params: StafWhereUniqueInput,
+    @common.Body() body: ChartVistWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      chartVists: {
+        disconnect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

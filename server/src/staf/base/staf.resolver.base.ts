@@ -25,6 +25,8 @@ import { DeleteStafArgs } from "./DeleteStafArgs";
 import { StafFindManyArgs } from "./StafFindManyArgs";
 import { StafFindUniqueArgs } from "./StafFindUniqueArgs";
 import { Staf } from "./Staf";
+import { ChartVistFindManyArgs } from "../../chartVist/base/ChartVistFindManyArgs";
+import { ChartVist } from "../../chartVist/base/ChartVist";
 import { SchoolFindManyArgs } from "../../school/base/SchoolFindManyArgs";
 import { School } from "../../school/base/School";
 import { SchoolDistrict } from "../../schoolDistrict/base/SchoolDistrict";
@@ -162,6 +164,26 @@ export class StafResolverBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [ChartVist])
+  @nestAccessControl.UseRoles({
+    resource: "ChartVist",
+    action: "read",
+    possession: "any",
+  })
+  async chartVists(
+    @graphql.Parent() parent: Staf,
+    @graphql.Args() args: ChartVistFindManyArgs
+  ): Promise<ChartVist[]> {
+    const results = await this.service.findChartVists(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

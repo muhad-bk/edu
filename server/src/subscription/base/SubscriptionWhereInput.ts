@@ -20,6 +20,7 @@ import { BooleanFilter } from "../../util/BooleanFilter";
 import { EnumSubscriptionPeriod } from "./EnumSubscriptionPeriod";
 import { SchoolListRelationFilter } from "../../school/base/SchoolListRelationFilter";
 import { SchoolWhereUniqueInput } from "../../school/base/SchoolWhereUniqueInput";
+import { SubscriptionPlanListRelationFilter } from "../../subscriptionPlan/base/SubscriptionPlanListRelationFilter";
 
 @InputType()
 class SubscriptionWhereInput {
@@ -113,6 +114,18 @@ class SubscriptionWhereInput {
     nullable: true,
   })
   schoolSubscriptionHistory?: SchoolWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SubscriptionPlanListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => SubscriptionPlanListRelationFilter)
+  @IsOptional()
+  @Field(() => SubscriptionPlanListRelationFilter, {
+    nullable: true,
+  })
+  subscriptionPlans?: SubscriptionPlanListRelationFilter;
 }
 
 export { SubscriptionWhereInput };

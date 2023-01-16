@@ -11,7 +11,8 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsString, ValidateNested, IsOptional } from "class-validator";
+import { Approval } from "../../approval/base/Approval";
+import { ValidateNested, IsOptional, IsDate, IsString } from "class-validator";
 import { Type } from "class-transformer";
 import { School } from "../../school/base/School";
 import { Student } from "../../student/base/Student";
@@ -19,6 +20,15 @@ import { User } from "../../user/base/User";
 
 @ObjectType()
 class Parent {
+  @ApiProperty({
+    required: false,
+    type: () => [Approval],
+  })
+  @ValidateNested()
+  @Type(() => Approval)
+  @IsOptional()
+  approvals?: Array<Approval>;
+
   @ApiProperty({
     required: true,
   })

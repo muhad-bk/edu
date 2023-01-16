@@ -1,4 +1,5 @@
 import { SubscriptionWhereUniqueInput } from "../subscription/SubscriptionWhereUniqueInput";
+import { ChartVistListRelationFilter } from "../chartVist/ChartVistListRelationFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { ParentWhereUniqueInput } from "../parent/ParentWhereUniqueInput";
@@ -10,6 +11,7 @@ import { SubscriptionListRelationFilter } from "../subscription/SubscriptionList
 
 export type SchoolWhereInput = {
   activeSuscription?: SubscriptionWhereUniqueInput;
+  chartVists?: ChartVistListRelationFilter;
   id?: StringFilter;
   name?: StringNullableFilter;
   parent?: ParentWhereUniqueInput;

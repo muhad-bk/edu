@@ -1,5 +1,6 @@
 import { ConfigurableModule } from "../configurableModule/ConfigurableModule";
 import { School } from "../school/School";
+import { SubscriptionPlan } from "../subscriptionPlan/SubscriptionPlan";
 
 export type Subscription = {
   amount: number;
@@ -11,5 +12,6 @@ export type Subscription = {
   period?: "Monthly" | "Yearly" | null;
   schools?: Array<School>;
   schoolSubscriptionHistory?: School | null;
+  subscriptionPlans?: Array<SubscriptionPlan>;
   updatedAt: Date;
 };

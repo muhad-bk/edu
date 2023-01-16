@@ -33,6 +33,9 @@ import { ConfigurableModuleWhereUniqueInput } from "../../configurableModule/bas
 import { SchoolFindManyArgs } from "../../school/base/SchoolFindManyArgs";
 import { School } from "../../school/base/School";
 import { SchoolWhereUniqueInput } from "../../school/base/SchoolWhereUniqueInput";
+import { SubscriptionPlanFindManyArgs } from "../../subscriptionPlan/base/SubscriptionPlanFindManyArgs";
+import { SubscriptionPlan } from "../../subscriptionPlan/base/SubscriptionPlan";
+import { SubscriptionPlanWhereUniqueInput } from "../../subscriptionPlan/base/SubscriptionPlanWhereUniqueInput";
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
 export class SubscriptionControllerBase {
@@ -454,6 +457,101 @@ export class SubscriptionControllerBase {
   ): Promise<void> {
     const data = {
       schools: {
+        disconnect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @nestAccessControl.UseRoles({
+    resource: "SubscriptionPlan",
+    action: "read",
+    possession: "any",
+  })
+  @common.Get("/:id/subscriptionPlans")
+  @ApiNestedQuery(SubscriptionPlanFindManyArgs)
+  async findManySubscriptionPlans(
+    @common.Req() request: Request,
+    @common.Param() params: SubscriptionWhereUniqueInput
+  ): Promise<SubscriptionPlan[]> {
+    const query = plainToClass(SubscriptionPlanFindManyArgs, request.query);
+    const results = await this.service.findSubscriptionPlans(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+        id: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "Subscription",
+    action: "update",
+    possession: "any",
+  })
+  @common.Post("/:id/subscriptionPlans")
+  async connectSubscriptionPlans(
+    @common.Param() params: SubscriptionWhereUniqueInput,
+    @common.Body() body: SubscriptionPlanWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      subscriptionPlans: {
+        connect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "Subscription",
+    action: "update",
+    possession: "any",
+  })
+  @common.Patch("/:id/subscriptionPlans")
+  async updateSubscriptionPlans(
+    @common.Param() params: SubscriptionWhereUniqueInput,
+    @common.Body() body: SubscriptionPlanWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      subscriptionPlans: {
+        set: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "Subscription",
+    action: "update",
+    possession: "any",
+  })
+  @common.Delete("/:id/subscriptionPlans")
+  async disconnectSubscriptionPlans(
+    @common.Param() params: SubscriptionWhereUniqueInput,
+    @common.Body() body: SubscriptionPlanWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      subscriptionPlans: {
         disconnect: body,
       },
     };

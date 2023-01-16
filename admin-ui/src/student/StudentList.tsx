@@ -28,6 +28,7 @@ export const StudentList = (props: ListProps): React.ReactElement => {
         <ReferenceField label="school" source="school.id" reference="School">
           <TextField source={SCHOOL_TITLE_FIELD} />
         </ReferenceField>
+        <TextField label="status" source="status" />
         <TextField label="Student Id" source="studentId" />
         <DateField source="updatedAt" label="Updated At" />
         <ReferenceField label="user" source="user.id" reference="User">
