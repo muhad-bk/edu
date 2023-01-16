@@ -15,6 +15,7 @@ import { StringFilter } from "../../util/StringFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
 import { SchoolListRelationFilter } from "../../school/base/SchoolListRelationFilter";
+import { SchoolDistrictWhereUniqueInput } from "../../schoolDistrict/base/SchoolDistrictWhereUniqueInput";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 
 @InputType()
@@ -41,6 +42,18 @@ class StafWhereInput {
     nullable: true,
   })
   school?: SchoolListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SchoolDistrictWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SchoolDistrictWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SchoolDistrictWhereUniqueInput, {
+    nullable: true,
+  })
+  schoolDistricts?: SchoolDistrictWhereUniqueInput;
 
   @ApiProperty({
     required: false,

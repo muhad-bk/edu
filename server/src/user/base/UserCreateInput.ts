@@ -15,14 +15,16 @@ import {
   IsString,
   IsOptional,
   IsEnum,
-  IsJSON,
   ValidateNested,
+  IsJSON,
 } from "class-validator";
 import { EnumUserLanguage } from "./EnumUserLanguage";
+import { ParentCreateNestedManyWithoutUsersInput } from "./ParentCreateNestedManyWithoutUsersInput";
+import { Type } from "class-transformer";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
 import { StafCreateNestedManyWithoutUsersInput } from "./StafCreateNestedManyWithoutUsersInput";
-import { Type } from "class-transformer";
+import { StudentCreateNestedManyWithoutUsersInput } from "./StudentCreateNestedManyWithoutUsersInput";
 
 @InputType()
 class UserCreateInput {
@@ -58,6 +60,18 @@ class UserCreateInput {
     nullable: true,
   })
   language?: "English" | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => ParentCreateNestedManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => ParentCreateNestedManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => ParentCreateNestedManyWithoutUsersInput, {
+    nullable: true,
+  })
+  parents?: ParentCreateNestedManyWithoutUsersInput;
 
   @ApiProperty({
     required: true,
@@ -96,6 +110,18 @@ class UserCreateInput {
     nullable: true,
   })
   stafs?: StafCreateNestedManyWithoutUsersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => StudentCreateNestedManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => StudentCreateNestedManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => StudentCreateNestedManyWithoutUsersInput, {
+    nullable: true,
+  })
+  students?: StudentCreateNestedManyWithoutUsersInput;
 
   @ApiProperty({
     required: true,

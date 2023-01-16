@@ -12,9 +12,11 @@ https://docs.amplication.com/how-to/custom-code
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { IsString, IsOptional, ValidateNested } from "class-validator";
-import { RecordUpdateManyWithoutStudentsInput } from "./RecordUpdateManyWithoutStudentsInput";
+import { ParentUpdateManyWithoutStudentsInput } from "./ParentUpdateManyWithoutStudentsInput";
 import { Type } from "class-transformer";
+import { RecordUpdateManyWithoutStudentsInput } from "./RecordUpdateManyWithoutStudentsInput";
 import { SchoolWhereUniqueInput } from "../../school/base/SchoolWhereUniqueInput";
+import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 
 @InputType()
 class StudentUpdateInput {
@@ -42,6 +44,18 @@ class StudentUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: () => ParentUpdateManyWithoutStudentsInput,
+  })
+  @ValidateNested()
+  @Type(() => ParentUpdateManyWithoutStudentsInput)
+  @IsOptional()
+  @Field(() => ParentUpdateManyWithoutStudentsInput, {
+    nullable: true,
+  })
+  parent?: ParentUpdateManyWithoutStudentsInput;
+
+  @ApiProperty({
+    required: false,
     type: () => RecordUpdateManyWithoutStudentsInput,
   })
   @ValidateNested()
@@ -62,7 +76,7 @@ class StudentUpdateInput {
   @Field(() => SchoolWhereUniqueInput, {
     nullable: true,
   })
-  school?: SchoolWhereUniqueInput | null;
+  school?: SchoolWhereUniqueInput;
 
   @ApiProperty({
     required: false,
@@ -74,6 +88,18 @@ class StudentUpdateInput {
     nullable: true,
   })
   studentId?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => UserWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => UserWhereUniqueInput)
+  @IsOptional()
+  @Field(() => UserWhereUniqueInput, {
+    nullable: true,
+  })
+  user?: UserWhereUniqueInput;
 }
 
 export { StudentUpdateInput };

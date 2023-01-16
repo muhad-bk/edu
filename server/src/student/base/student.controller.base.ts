@@ -27,6 +27,9 @@ import { StudentWhereUniqueInput } from "./StudentWhereUniqueInput";
 import { StudentFindManyArgs } from "./StudentFindManyArgs";
 import { StudentUpdateInput } from "./StudentUpdateInput";
 import { Student } from "./Student";
+import { ParentFindManyArgs } from "../../parent/base/ParentFindManyArgs";
+import { Parent } from "../../parent/base/Parent";
+import { ParentWhereUniqueInput } from "../../parent/base/ParentWhereUniqueInput";
 import { RecordFindManyArgs } from "../../record/base/RecordFindManyArgs";
 import { Record } from "../../record/base/Record";
 import { RecordWhereUniqueInput } from "../../record/base/RecordWhereUniqueInput";
@@ -52,11 +55,13 @@ export class StudentControllerBase {
       data: {
         ...data,
 
-        school: data.school
-          ? {
-              connect: data.school,
-            }
-          : undefined,
+        school: {
+          connect: data.school,
+        },
+
+        user: {
+          connect: data.user,
+        },
       },
       select: {
         address: true,
@@ -72,6 +77,12 @@ export class StudentControllerBase {
 
         studentId: true,
         updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
   }
@@ -104,6 +115,12 @@ export class StudentControllerBase {
 
         studentId: true,
         updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
   }
@@ -137,6 +154,12 @@ export class StudentControllerBase {
 
         studentId: true,
         updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
     if (result === null) {
@@ -167,11 +190,13 @@ export class StudentControllerBase {
         data: {
           ...data,
 
-          school: data.school
-            ? {
-                connect: data.school,
-              }
-            : undefined,
+          school: {
+            connect: data.school,
+          },
+
+          user: {
+            connect: data.user,
+          },
         },
         select: {
           address: true,
@@ -187,6 +212,12 @@ export class StudentControllerBase {
 
           studentId: true,
           updatedAt: true,
+
+          user: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
     } catch (error) {
@@ -228,6 +259,12 @@ export class StudentControllerBase {
 
           studentId: true,
           updatedAt: true,
+
+          user: {
+            select: {
+              id: true,
+            },
+          },
         },
       });
     } catch (error) {
@@ -238,6 +275,108 @@ export class StudentControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @nestAccessControl.UseRoles({
+    resource: "Parent",
+    action: "read",
+    possession: "any",
+  })
+  @common.Get("/:id/parent")
+  @ApiNestedQuery(ParentFindManyArgs)
+  async findManyParent(
+    @common.Req() request: Request,
+    @common.Param() params: StudentWhereUniqueInput
+  ): Promise<Parent[]> {
+    const query = plainToClass(ParentFindManyArgs, request.query);
+    const results = await this.service.findParent(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+        id: true,
+        name: true,
+        updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "Student",
+    action: "update",
+    possession: "any",
+  })
+  @common.Post("/:id/parent")
+  async connectParent(
+    @common.Param() params: StudentWhereUniqueInput,
+    @common.Body() body: ParentWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      parent: {
+        connect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "Student",
+    action: "update",
+    possession: "any",
+  })
+  @common.Patch("/:id/parent")
+  async updateParent(
+    @common.Param() params: StudentWhereUniqueInput,
+    @common.Body() body: ParentWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      parent: {
+        set: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "Student",
+    action: "update",
+    possession: "any",
+  })
+  @common.Delete("/:id/parent")
+  async disconnectParent(
+    @common.Param() params: StudentWhereUniqueInput,
+    @common.Body() body: ParentWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      parent: {
+        disconnect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

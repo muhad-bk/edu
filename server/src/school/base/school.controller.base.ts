@@ -66,6 +66,18 @@ export class SchoolControllerBase {
               connect: data.activeSuscription,
             }
           : undefined,
+
+        parent: data.parent
+          ? {
+              connect: data.parent,
+            }
+          : undefined,
+
+        schoolDistrict: data.schoolDistrict
+          ? {
+              connect: data.schoolDistrict,
+            }
+          : undefined,
       },
       select: {
         activeSuscription: {
@@ -77,7 +89,19 @@ export class SchoolControllerBase {
         createdAt: true,
         id: true,
         name: true,
-        schoolDistrict: true,
+
+        parent: {
+          select: {
+            id: true,
+          },
+        },
+
+        schoolDistrict: {
+          select: {
+            id: true,
+          },
+        },
+
         state: true,
         township: true,
         updatedAt: true,
@@ -109,7 +133,19 @@ export class SchoolControllerBase {
         createdAt: true,
         id: true,
         name: true,
-        schoolDistrict: true,
+
+        parent: {
+          select: {
+            id: true,
+          },
+        },
+
+        schoolDistrict: {
+          select: {
+            id: true,
+          },
+        },
+
         state: true,
         township: true,
         updatedAt: true,
@@ -142,7 +178,19 @@ export class SchoolControllerBase {
         createdAt: true,
         id: true,
         name: true,
-        schoolDistrict: true,
+
+        parent: {
+          select: {
+            id: true,
+          },
+        },
+
+        schoolDistrict: {
+          select: {
+            id: true,
+          },
+        },
+
         state: true,
         township: true,
         updatedAt: true,
@@ -181,6 +229,18 @@ export class SchoolControllerBase {
                 connect: data.activeSuscription,
               }
             : undefined,
+
+          parent: data.parent
+            ? {
+                connect: data.parent,
+              }
+            : undefined,
+
+          schoolDistrict: data.schoolDistrict
+            ? {
+                connect: data.schoolDistrict,
+              }
+            : undefined,
         },
         select: {
           activeSuscription: {
@@ -192,7 +252,19 @@ export class SchoolControllerBase {
           createdAt: true,
           id: true,
           name: true,
-          schoolDistrict: true,
+
+          parent: {
+            select: {
+              id: true,
+            },
+          },
+
+          schoolDistrict: {
+            select: {
+              id: true,
+            },
+          },
+
           state: true,
           township: true,
           updatedAt: true,
@@ -233,7 +305,19 @@ export class SchoolControllerBase {
           createdAt: true,
           id: true,
           name: true,
-          schoolDistrict: true,
+
+          parent: {
+            select: {
+              id: true,
+            },
+          },
+
+          schoolDistrict: {
+            select: {
+              id: true,
+            },
+          },
+
           state: true,
           township: true,
           updatedAt: true,
@@ -363,6 +447,13 @@ export class SchoolControllerBase {
       select: {
         createdAt: true,
         id: true,
+
+        schoolDistricts: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
 
         user: {
@@ -475,6 +566,12 @@ export class SchoolControllerBase {
 
         studentId: true,
         updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
       },
     });
     if (results === null) {

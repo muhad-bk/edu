@@ -27,9 +27,15 @@ import { UserWhereUniqueInput } from "./UserWhereUniqueInput";
 import { UserFindManyArgs } from "./UserFindManyArgs";
 import { UserUpdateInput } from "./UserUpdateInput";
 import { User } from "./User";
+import { ParentFindManyArgs } from "../../parent/base/ParentFindManyArgs";
+import { Parent } from "../../parent/base/Parent";
+import { ParentWhereUniqueInput } from "../../parent/base/ParentWhereUniqueInput";
 import { StafFindManyArgs } from "../../staf/base/StafFindManyArgs";
 import { Staf } from "../../staf/base/Staf";
 import { StafWhereUniqueInput } from "../../staf/base/StafWhereUniqueInput";
+import { StudentFindManyArgs } from "../../student/base/StudentFindManyArgs";
+import { Student } from "../../student/base/Student";
+import { StudentWhereUniqueInput } from "../../student/base/StudentWhereUniqueInput";
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
 export class UserControllerBase {
@@ -206,6 +212,108 @@ export class UserControllerBase {
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
   @nestAccessControl.UseRoles({
+    resource: "Parent",
+    action: "read",
+    possession: "any",
+  })
+  @common.Get("/:id/parents")
+  @ApiNestedQuery(ParentFindManyArgs)
+  async findManyParents(
+    @common.Req() request: Request,
+    @common.Param() params: UserWhereUniqueInput
+  ): Promise<Parent[]> {
+    const query = plainToClass(ParentFindManyArgs, request.query);
+    const results = await this.service.findParents(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+        id: true,
+        name: true,
+        updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "update",
+    possession: "any",
+  })
+  @common.Post("/:id/parents")
+  async connectParents(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: ParentWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      parents: {
+        connect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "update",
+    possession: "any",
+  })
+  @common.Patch("/:id/parents")
+  async updateParents(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: ParentWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      parents: {
+        set: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "update",
+    possession: "any",
+  })
+  @common.Delete("/:id/parents")
+  async disconnectParents(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: ParentWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      parents: {
+        disconnect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @nestAccessControl.UseRoles({
     resource: "Staf",
     action: "read",
     possession: "any",
@@ -222,6 +330,13 @@ export class UserControllerBase {
       select: {
         createdAt: true,
         id: true,
+
+        schoolDistricts: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
 
         user: {
@@ -295,6 +410,117 @@ export class UserControllerBase {
   ): Promise<void> {
     const data = {
       stafs: {
+        disconnect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @nestAccessControl.UseRoles({
+    resource: "Student",
+    action: "read",
+    possession: "any",
+  })
+  @common.Get("/:id/students")
+  @ApiNestedQuery(StudentFindManyArgs)
+  async findManyStudents(
+    @common.Req() request: Request,
+    @common.Param() params: UserWhereUniqueInput
+  ): Promise<Student[]> {
+    const query = plainToClass(StudentFindManyArgs, request.query);
+    const results = await this.service.findStudents(params.id, {
+      ...query,
+      select: {
+        address: true,
+        createdAt: true,
+        id: true,
+        name: true,
+
+        school: {
+          select: {
+            id: true,
+          },
+        },
+
+        studentId: true,
+        updatedAt: true,
+
+        user: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "update",
+    possession: "any",
+  })
+  @common.Post("/:id/students")
+  async connectStudents(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: StudentWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      students: {
+        connect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "update",
+    possession: "any",
+  })
+  @common.Patch("/:id/students")
+  async updateStudents(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: StudentWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      students: {
+        set: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "User",
+    action: "update",
+    possession: "any",
+  })
+  @common.Delete("/:id/students")
+  async disconnectStudents(
+    @common.Param() params: UserWhereUniqueInput,
+    @common.Body() body: StudentWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      students: {
         disconnect: body,
       },
     };

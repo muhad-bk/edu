@@ -14,6 +14,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { IsDate, IsString, ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 import { School } from "../../school/base/School";
+import { SchoolDistrict } from "../../schoolDistrict/base/SchoolDistrict";
 import { User } from "../../user/base/User";
 
 @ObjectType()
@@ -42,6 +43,15 @@ class Staf {
   @Type(() => School)
   @IsOptional()
   school?: Array<School>;
+
+  @ApiProperty({
+    required: false,
+    type: () => SchoolDistrict,
+  })
+  @ValidateNested()
+  @Type(() => SchoolDistrict)
+  @IsOptional()
+  schoolDistricts?: SchoolDistrict | null;
 
   @ApiProperty({
     required: true,

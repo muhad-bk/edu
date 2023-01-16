@@ -11,6 +11,7 @@ import {
 } from "react-admin";
 
 import { SchoolTitle } from "../school/SchoolTitle";
+import { SchoolDistrictTitle } from "../schoolDistrict/SchoolDistrictTitle";
 import { UserTitle } from "../user/UserTitle";
 
 export const StafEdit = (props: EditProps): React.ReactElement => {
@@ -25,6 +26,13 @@ export const StafEdit = (props: EditProps): React.ReactElement => {
         >
           <SelectArrayInput optionText={SchoolTitle} />
         </ReferenceArrayInput>
+        <ReferenceInput
+          source="schooldistrict.id"
+          reference="SchoolDistrict"
+          label="School Districts"
+        >
+          <SelectInput optionText={SchoolDistrictTitle} />
+        </ReferenceInput>
         <ReferenceInput source="user.id" reference="User" label="user">
           <SelectInput optionText={UserTitle} />
         </ReferenceInput>

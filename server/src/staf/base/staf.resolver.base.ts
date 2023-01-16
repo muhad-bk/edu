@@ -27,6 +27,7 @@ import { StafFindUniqueArgs } from "./StafFindUniqueArgs";
 import { Staf } from "./Staf";
 import { SchoolFindManyArgs } from "../../school/base/SchoolFindManyArgs";
 import { School } from "../../school/base/School";
+import { SchoolDistrict } from "../../schoolDistrict/base/SchoolDistrict";
 import { User } from "../../user/base/User";
 import { StafService } from "../staf.service";
 
@@ -96,6 +97,12 @@ export class StafResolverBase {
       data: {
         ...args.data,
 
+        schoolDistricts: args.data.schoolDistricts
+          ? {
+              connect: args.data.schoolDistricts,
+            }
+          : undefined,
+
         user: {
           connect: args.data.user,
         },
@@ -116,6 +123,12 @@ export class StafResolverBase {
         ...args,
         data: {
           ...args.data,
+
+          schoolDistricts: args.data.schoolDistricts
+            ? {
+                connect: args.data.schoolDistricts,
+              }
+            : undefined,
 
           user: {
             connect: args.data.user,
@@ -169,6 +182,24 @@ export class StafResolverBase {
     }
 
     return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => SchoolDistrict, { nullable: true })
+  @nestAccessControl.UseRoles({
+    resource: "SchoolDistrict",
+    action: "read",
+    possession: "any",
+  })
+  async schoolDistricts(
+    @graphql.Parent() parent: Staf
+  ): Promise<SchoolDistrict | null> {
+    const result = await this.service.getSchoolDistricts(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

@@ -6,12 +6,14 @@ import {
   CreateProps,
   TextInput,
   SelectInput,
-  PasswordInput,
-  SelectArrayInput,
   ReferenceArrayInput,
+  SelectArrayInput,
+  PasswordInput,
 } from "react-admin";
 
+import { ParentTitle } from "../parent/ParentTitle";
 import { StafTitle } from "../staf/StafTitle";
+import { StudentTitle } from "../student/StudentTitle";
 import { ROLES_OPTIONS } from "../user/RolesOptions";
 
 export const UserCreate = (props: CreateProps): React.ReactElement => {
@@ -28,6 +30,14 @@ export const UserCreate = (props: CreateProps): React.ReactElement => {
           allowEmpty
           optionValue="value"
         />
+        <ReferenceArrayInput
+          source="parents"
+          reference="Parent"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={ParentTitle} />
+        </ReferenceArrayInput>
         <PasswordInput label="Password" source="password" />
         <TextInput label="Profile Pic URL" source="profilePicUrl" />
         <SelectArrayInput
@@ -43,6 +53,14 @@ export const UserCreate = (props: CreateProps): React.ReactElement => {
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
           <SelectArrayInput optionText={StafTitle} />
+        </ReferenceArrayInput>
+        <ReferenceArrayInput
+          source="students"
+          reference="Student"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={StudentTitle} />
         </ReferenceArrayInput>
         <TextInput label="Username" source="username" />
       </SimpleForm>

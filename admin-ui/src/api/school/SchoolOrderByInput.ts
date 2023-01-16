@@ -5,7 +5,8 @@ export type SchoolOrderByInput = {
   createdAt?: SortOrder;
   id?: SortOrder;
   name?: SortOrder;
-  schoolDistrict?: SortOrder;
+  parentId?: SortOrder;
+  schoolDistrictId?: SortOrder;
   state?: SortOrder;
   township?: SortOrder;
   updatedAt?: SortOrder;

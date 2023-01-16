@@ -13,31 +13,36 @@ model User {
   fullName      String?
   id            String            @id @default(auto()) @map("_id") @mongo.ObjectId
   language      EnumUserLanguage?
+  parents       Parent[]
   password      String
   profilePicUrl String?
   roles         Json
   stafs         Staf[]
+  students      Student[]
   updatedAt     DateTime          @updatedAt
   username      String            @unique
 }
 
 model School {
-  activeSuscription      Subscription?             @relation(name: "activeSuscription", fields: [activeSuscriptionId], references: [id])
-  activeSuscriptionId    String?                   @unique
-  createdAt              DateTime                  @default(now())
-  id                     String                    @id @default(auto()) @map("_id") @mongo.ObjectId
-  name                   String?                   @unique
-  roles                  Role[]                    @relation(fields: [rolesIds], references: [id])
-  rolesIds               String[]                  @mongo.ObjectId
-  schoolDistrict         EnumSchoolSchoolDistrict?
-  stafs                  Staf[]                    @relation(fields: [stafsIds], references: [id])
-  stafsIds               String[]                  @mongo.ObjectId
+  activeSuscription      Subscription?      @relation(name: "activeSuscription", fields: [activeSuscriptionId], references: [id])
+  activeSuscriptionId    String?            @unique
+  createdAt              DateTime           @default(now())
+  id                     String             @id @default(auto()) @map("_id") @mongo.ObjectId
+  name                   String?            @unique
+  parent                 Parent?            @relation(fields: [parentId], references: [id])
+  parentId               String?
+  roles                  Role[]             @relation(fields: [rolesIds], references: [id])
+  rolesIds               String[]           @mongo.ObjectId
+  schoolDistrict         SchoolDistrict?    @relation(fields: [schoolDistrictId], references: [id])
+  schoolDistrictId       String?
+  stafs                  Staf[]             @relation(fields: [stafsIds], references: [id])
+  stafsIds               String[]           @mongo.ObjectId
   state                  EnumSchoolState
   students               Student[]
-  SubscriptionHistory    Subscription[]            @relation(name: "SubscriptionHistory", fields: [SubscriptionHistoryIds], references: [id])
-  SubscriptionHistoryIds String[]                  @mongo.ObjectId
+  SubscriptionHistory    Subscription[]     @relation(name: "SubscriptionHistory", fields: [SubscriptionHistoryIds], references: [id])
+  SubscriptionHistoryIds String[]           @mongo.ObjectId
   township               EnumSchoolTownship
-  updatedAt              DateTime                  @updatedAt
+  updatedAt              DateTime           @updatedAt
 }
 
 model Subscription {
@@ -66,13 +71,15 @@ model ConfigurableModule {
 }
 
 model Staf {
-  createdAt DateTime @default(now())
-  id        String   @id @default(auto()) @map("_id") @mongo.ObjectId
-  school    School[] @relation(fields: [schoolIds], references: [id])
-  schoolIds String[] @mongo.ObjectId
-  updatedAt DateTime @updatedAt
-  user      User     @relation(fields: [userId], references: [id])
-  userId    String   @unique
+  createdAt         DateTime        @default(now())
+  id                String          @id @default(auto()) @map("_id") @mongo.ObjectId
+  school            School[]        @relation(fields: [schoolIds], references: [id])
+  schoolIds         String[]        @mongo.ObjectId
+  schoolDistricts   SchoolDistrict? @relation(fields: [schoolDistrictsId], references: [id])
+  schoolDistrictsId String?
+  updatedAt         DateTime        @updatedAt
+  user              User            @relation(fields: [userId], references: [id])
+  userId            String          @unique
 }
 
 model Role {
@@ -100,11 +107,15 @@ model Student {
   createdAt DateTime @default(now())
   id        String   @id @default(auto()) @map("_id") @mongo.ObjectId
   name      String
+  parent    Parent[] @relation(fields: [parentIds], references: [id])
+  parentIds String[] @mongo.ObjectId
   records   Record[]
-  school    School?  @relation(fields: [schoolId], references: [id])
-  schoolId  String?
+  school    School   @relation(fields: [schoolId], references: [id])
+  schoolId  String
   studentId String?
   updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
 }
 
 model Record {
@@ -115,12 +126,29 @@ model Record {
   updatedAt DateTime @updatedAt
 }
 
-enum EnumUserLanguage {
-  English
+model Parent {
+  createdAt   DateTime  @default(now())
+  id          String    @id @default(auto()) @map("_id") @mongo.ObjectId
+  name        String
+  schools     School[]
+  students    Student[] @relation(fields: [studentsIds], references: [id])
+  studentsIds String[]  @mongo.ObjectId
+  updatedAt   DateTime  @updatedAt
+  user        User?     @relation(fields: [userId], references: [id])
+  userId      String?
 }
 
-enum EnumSchoolSchoolDistrict {
-  A
+model SchoolDistrict {
+  createdAt DateTime @default(now())
+  id        String   @id @default(auto()) @map("_id") @mongo.ObjectId
+  name      String
+  schools   School[]
+  stafs     Staf[]
+  updatedAt DateTime @updatedAt
+}
+
+enum EnumUserLanguage {
+  English
 }
 
 enum EnumSchoolState {

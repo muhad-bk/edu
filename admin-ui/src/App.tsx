@@ -41,6 +41,14 @@ import { RecordList } from "./record/RecordList";
 import { RecordCreate } from "./record/RecordCreate";
 import { RecordEdit } from "./record/RecordEdit";
 import { RecordShow } from "./record/RecordShow";
+import { ParentList } from "./parent/ParentList";
+import { ParentCreate } from "./parent/ParentCreate";
+import { ParentEdit } from "./parent/ParentEdit";
+import { ParentShow } from "./parent/ParentShow";
+import { SchoolDistrictList } from "./schoolDistrict/SchoolDistrictList";
+import { SchoolDistrictCreate } from "./schoolDistrict/SchoolDistrictCreate";
+import { SchoolDistrictEdit } from "./schoolDistrict/SchoolDistrictEdit";
+import { SchoolDistrictShow } from "./schoolDistrict/SchoolDistrictShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -129,6 +137,20 @@ const App = (): React.ReactElement => {
           edit={RecordEdit}
           create={RecordCreate}
           show={RecordShow}
+        />
+        <Resource
+          name="Parent"
+          list={ParentList}
+          edit={ParentEdit}
+          create={ParentCreate}
+          show={ParentShow}
+        />
+        <Resource
+          name="SchoolDistrict"
+          list={SchoolDistrictList}
+          edit={SchoolDistrictEdit}
+          create={SchoolDistrictCreate}
+          show={SchoolDistrictShow}
         />
       </Admin>
     </div>

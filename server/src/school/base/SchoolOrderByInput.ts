@@ -61,7 +61,16 @@ class SchoolOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  schoolDistrict?: SortOrder;
+  parentId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  schoolDistrictId?: SortOrder;
 
   @ApiProperty({
     required: false,

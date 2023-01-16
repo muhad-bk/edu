@@ -12,7 +12,9 @@ import {
 } from "react-admin";
 
 import { SubscriptionTitle } from "../subscription/SubscriptionTitle";
+import { ParentTitle } from "../parent/ParentTitle";
 import { RoleTitle } from "../role/RoleTitle";
+import { SchoolDistrictTitle } from "../schoolDistrict/SchoolDistrictTitle";
 import { StafTitle } from "../staf/StafTitle";
 import { StudentTitle } from "../student/StudentTitle";
 
@@ -28,6 +30,9 @@ export const SchoolCreate = (props: CreateProps): React.ReactElement => {
           <SelectInput optionText={SubscriptionTitle} />
         </ReferenceInput>
         <TextInput label="Name" source="name" />
+        <ReferenceInput source="parent.id" reference="Parent" label="Parents">
+          <SelectInput optionText={ParentTitle} />
+        </ReferenceInput>
         <ReferenceArrayInput
           source="roles"
           reference="Role"
@@ -36,14 +41,13 @@ export const SchoolCreate = (props: CreateProps): React.ReactElement => {
         >
           <SelectArrayInput optionText={RoleTitle} />
         </ReferenceArrayInput>
-        <SelectInput
-          source="schoolDistrict"
+        <ReferenceInput
+          source="schooldistrict.id"
+          reference="SchoolDistrict"
           label="school district"
-          choices={[{ label: "A", value: "A" }]}
-          optionText="label"
-          allowEmpty
-          optionValue="value"
-        />
+        >
+          <SelectInput optionText={SchoolDistrictTitle} />
+        </ReferenceInput>
         <ReferenceArrayInput
           source="stafs"
           reference="Staf"

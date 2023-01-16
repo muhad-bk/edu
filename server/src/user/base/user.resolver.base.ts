@@ -25,8 +25,12 @@ import { DeleteUserArgs } from "./DeleteUserArgs";
 import { UserFindManyArgs } from "./UserFindManyArgs";
 import { UserFindUniqueArgs } from "./UserFindUniqueArgs";
 import { User } from "./User";
+import { ParentFindManyArgs } from "../../parent/base/ParentFindManyArgs";
+import { Parent } from "../../parent/base/Parent";
 import { StafFindManyArgs } from "../../staf/base/StafFindManyArgs";
 import { Staf } from "../../staf/base/Staf";
+import { StudentFindManyArgs } from "../../student/base/StudentFindManyArgs";
+import { Student } from "../../student/base/Student";
 import { UserService } from "../user.service";
 
 @graphql.Resolver(() => User)
@@ -139,6 +143,26 @@ export class UserResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Parent])
+  @nestAccessControl.UseRoles({
+    resource: "Parent",
+    action: "read",
+    possession: "any",
+  })
+  async parents(
+    @graphql.Parent() parent: User,
+    @graphql.Args() args: ParentFindManyArgs
+  ): Promise<Parent[]> {
+    const results = await this.service.findParents(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
   @graphql.ResolveField(() => [Staf])
   @nestAccessControl.UseRoles({
     resource: "Staf",
@@ -150,6 +174,26 @@ export class UserResolverBase {
     @graphql.Args() args: StafFindManyArgs
   ): Promise<Staf[]> {
     const results = await this.service.findStafs(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => [Student])
+  @nestAccessControl.UseRoles({
+    resource: "Student",
+    action: "read",
+    possession: "any",
+  })
+  async students(
+    @graphql.Parent() parent: User,
+    @graphql.Args() args: StudentFindManyArgs
+  ): Promise<Student[]> {
+    const results = await this.service.findStudents(parent.id, args);
 
     if (!results) {
       return [];

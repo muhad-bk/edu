@@ -15,14 +15,16 @@ import {
   IsString,
   IsOptional,
   IsEnum,
-  IsJSON,
   ValidateNested,
+  IsJSON,
 } from "class-validator";
 import { EnumUserLanguage } from "./EnumUserLanguage";
+import { ParentUpdateManyWithoutUsersInput } from "./ParentUpdateManyWithoutUsersInput";
+import { Type } from "class-transformer";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
 import { StafUpdateManyWithoutUsersInput } from "./StafUpdateManyWithoutUsersInput";
-import { Type } from "class-transformer";
+import { StudentUpdateManyWithoutUsersInput } from "./StudentUpdateManyWithoutUsersInput";
 
 @InputType()
 class UserUpdateInput {
@@ -58,6 +60,18 @@ class UserUpdateInput {
     nullable: true,
   })
   language?: "English" | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => ParentUpdateManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => ParentUpdateManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => ParentUpdateManyWithoutUsersInput, {
+    nullable: true,
+  })
+  parents?: ParentUpdateManyWithoutUsersInput;
 
   @ApiProperty({
     required: false,
@@ -102,6 +116,18 @@ class UserUpdateInput {
     nullable: true,
   })
   stafs?: StafUpdateManyWithoutUsersInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => StudentUpdateManyWithoutUsersInput,
+  })
+  @ValidateNested()
+  @Type(() => StudentUpdateManyWithoutUsersInput)
+  @IsOptional()
+  @Field(() => StudentUpdateManyWithoutUsersInput, {
+    nullable: true,
+  })
+  students?: StudentUpdateManyWithoutUsersInput;
 
   @ApiProperty({
     required: false,

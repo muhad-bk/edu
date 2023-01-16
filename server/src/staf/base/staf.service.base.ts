@@ -10,7 +10,7 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-import { Prisma, Staf, School, User } from "@prisma/client";
+import { Prisma, Staf, School, SchoolDistrict, User } from "@prisma/client";
 
 export class StafServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -56,6 +56,14 @@ export class StafServiceBase {
         where: { id: parentId },
       })
       .school(args);
+  }
+
+  async getSchoolDistricts(parentId: string): Promise<SchoolDistrict | null> {
+    return this.prisma.staf
+      .findUnique({
+        where: { id: parentId },
+      })
+      .schoolDistricts();
   }
 
   async getUser(parentId: string): Promise<User | null> {

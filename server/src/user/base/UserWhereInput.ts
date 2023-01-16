@@ -16,7 +16,9 @@ import { Type } from "class-transformer";
 import { IsOptional, IsEnum, ValidateNested } from "class-validator";
 import { StringFilter } from "../../util/StringFilter";
 import { EnumUserLanguage } from "./EnumUserLanguage";
+import { ParentListRelationFilter } from "../../parent/base/ParentListRelationFilter";
 import { StafListRelationFilter } from "../../staf/base/StafListRelationFilter";
+import { StudentListRelationFilter } from "../../student/base/StudentListRelationFilter";
 
 @InputType()
 class UserWhereInput {
@@ -66,6 +68,18 @@ class UserWhereInput {
 
   @ApiProperty({
     required: false,
+    type: () => ParentListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ParentListRelationFilter)
+  @IsOptional()
+  @Field(() => ParentListRelationFilter, {
+    nullable: true,
+  })
+  parents?: ParentListRelationFilter;
+
+  @ApiProperty({
+    required: false,
     type: StringNullableFilter,
   })
   @Type(() => StringNullableFilter)
@@ -86,6 +100,18 @@ class UserWhereInput {
     nullable: true,
   })
   stafs?: StafListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => StudentListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => StudentListRelationFilter)
+  @IsOptional()
+  @Field(() => StudentListRelationFilter, {
+    nullable: true,
+  })
+  students?: StudentListRelationFilter;
 
   @ApiProperty({
     required: false,

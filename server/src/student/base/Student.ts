@@ -13,8 +13,10 @@ import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { IsString, IsOptional, IsDate, ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
+import { Parent } from "../../parent/base/Parent";
 import { Record } from "../../record/base/Record";
 import { School } from "../../school/base/School";
+import { User } from "../../user/base/User";
 
 @ObjectType()
 class Student {
@@ -55,6 +57,15 @@ class Student {
 
   @ApiProperty({
     required: false,
+    type: () => [Parent],
+  })
+  @ValidateNested()
+  @Type(() => Parent)
+  @IsOptional()
+  parent?: Array<Parent>;
+
+  @ApiProperty({
+    required: false,
     type: () => [Record],
   })
   @ValidateNested()
@@ -63,13 +74,12 @@ class Student {
   records?: Array<Record>;
 
   @ApiProperty({
-    required: false,
+    required: true,
     type: () => School,
   })
   @ValidateNested()
   @Type(() => School)
-  @IsOptional()
-  school?: School | null;
+  school?: School;
 
   @ApiProperty({
     required: false,
@@ -89,6 +99,14 @@ class Student {
   @Type(() => Date)
   @Field(() => Date)
   updatedAt!: Date;
+
+  @ApiProperty({
+    required: true,
+    type: () => User,
+  })
+  @ValidateNested()
+  @Type(() => User)
+  user?: User;
 }
 
 export { Student };

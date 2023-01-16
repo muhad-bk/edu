@@ -16,8 +16,9 @@ import { ValidateNested, IsOptional, IsEnum } from "class-validator";
 import { Type } from "class-transformer";
 import { StringFilter } from "../../util/StringFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { ParentWhereUniqueInput } from "../../parent/base/ParentWhereUniqueInput";
 import { RoleListRelationFilter } from "../../role/base/RoleListRelationFilter";
-import { EnumSchoolSchoolDistrict } from "./EnumSchoolSchoolDistrict";
+import { SchoolDistrictWhereUniqueInput } from "../../schoolDistrict/base/SchoolDistrictWhereUniqueInput";
 import { StafListRelationFilter } from "../../staf/base/StafListRelationFilter";
 import { EnumSchoolState } from "./EnumSchoolState";
 import { StudentListRelationFilter } from "../../student/base/StudentListRelationFilter";
@@ -62,6 +63,18 @@ class SchoolWhereInput {
 
   @ApiProperty({
     required: false,
+    type: () => ParentWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => ParentWhereUniqueInput)
+  @IsOptional()
+  @Field(() => ParentWhereUniqueInput, {
+    nullable: true,
+  })
+  parent?: ParentWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
     type: () => RoleListRelationFilter,
   })
   @ValidateNested()
@@ -74,14 +87,15 @@ class SchoolWhereInput {
 
   @ApiProperty({
     required: false,
-    enum: EnumSchoolSchoolDistrict,
+    type: () => SchoolDistrictWhereUniqueInput,
   })
-  @IsEnum(EnumSchoolSchoolDistrict)
+  @ValidateNested()
+  @Type(() => SchoolDistrictWhereUniqueInput)
   @IsOptional()
-  @Field(() => EnumSchoolSchoolDistrict, {
+  @Field(() => SchoolDistrictWhereUniqueInput, {
     nullable: true,
   })
-  schoolDistrict?: "A";
+  schoolDistrict?: SchoolDistrictWhereUniqueInput;
 
   @ApiProperty({
     required: false,
