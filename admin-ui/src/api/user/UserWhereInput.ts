@@ -3,9 +3,11 @@ import { StringFilter } from "../../util/StringFilter";
 import { StafListRelationFilter } from "../staf/StafListRelationFilter";
 
 export type UserWhereInput = {
-  firstName?: StringNullableFilter;
+  email?: StringNullableFilter;
+  fullName?: StringNullableFilter;
   id?: StringFilter;
-  lastName?: StringNullableFilter;
+  language?: "English";
+  profilePicUrl?: StringNullableFilter;
   stafs?: StafListRelationFilter;
   username?: StringFilter;
 };

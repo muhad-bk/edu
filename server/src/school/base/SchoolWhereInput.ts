@@ -20,6 +20,7 @@ import { RoleListRelationFilter } from "../../role/base/RoleListRelationFilter";
 import { EnumSchoolSchoolDistrict } from "./EnumSchoolSchoolDistrict";
 import { StafListRelationFilter } from "../../staf/base/StafListRelationFilter";
 import { EnumSchoolState } from "./EnumSchoolState";
+import { StudentListRelationFilter } from "../../student/base/StudentListRelationFilter";
 import { SubscriptionListRelationFilter } from "../../subscription/base/SubscriptionListRelationFilter";
 import { EnumSchoolTownship } from "./EnumSchoolTownship";
 
@@ -104,6 +105,18 @@ class SchoolWhereInput {
     nullable: true,
   })
   state?: "Sate_1" | "State_2";
+
+  @ApiProperty({
+    required: false,
+    type: () => StudentListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => StudentListRelationFilter)
+  @IsOptional()
+  @Field(() => StudentListRelationFilter, {
+    nullable: true,
+  })
+  students?: StudentListRelationFilter;
 
   @ApiProperty({
     required: false,

@@ -15,10 +15,12 @@ import {
   IsDate,
   IsString,
   IsOptional,
+  IsEnum,
   IsJSON,
   ValidateNested,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { EnumUserLanguage } from "./EnumUserLanguage";
 import { GraphQLJSON } from "graphql-type-json";
 import { JsonValue } from "type-fest";
 import { Staf } from "../../staf/base/Staf";
@@ -42,7 +44,18 @@ class User {
   @Field(() => String, {
     nullable: true,
   })
-  firstName!: string | null;
+  email!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  fullName!: string | null;
 
   @ApiProperty({
     required: true,
@@ -54,6 +67,17 @@ class User {
 
   @ApiProperty({
     required: false,
+    enum: EnumUserLanguage,
+  })
+  @IsEnum(EnumUserLanguage)
+  @IsOptional()
+  @Field(() => EnumUserLanguage, {
+    nullable: true,
+  })
+  language?: "English" | null;
+
+  @ApiProperty({
+    required: false,
     type: String,
   })
   @IsString()
@@ -61,7 +85,7 @@ class User {
   @Field(() => String, {
     nullable: true,
   })
-  lastName!: string | null;
+  profilePicUrl!: string | null;
 
   @ApiProperty({
     required: true,

@@ -3,9 +3,11 @@ import { Staf } from "../staf/Staf";
 
 export type User = {
   createdAt: Date;
-  firstName: string | null;
+  email: string | null;
+  fullName: string | null;
   id: string;
-  lastName: string | null;
+  language?: "English" | null;
+  profilePicUrl: string | null;
   roles: JsonValue;
   stafs?: Array<Staf>;
   updatedAt: Date;

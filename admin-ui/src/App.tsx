@@ -33,6 +33,14 @@ import { PermissionList } from "./permission/PermissionList";
 import { PermissionCreate } from "./permission/PermissionCreate";
 import { PermissionEdit } from "./permission/PermissionEdit";
 import { PermissionShow } from "./permission/PermissionShow";
+import { StudentList } from "./student/StudentList";
+import { StudentCreate } from "./student/StudentCreate";
+import { StudentEdit } from "./student/StudentEdit";
+import { StudentShow } from "./student/StudentShow";
+import { RecordList } from "./record/RecordList";
+import { RecordCreate } from "./record/RecordCreate";
+import { RecordEdit } from "./record/RecordEdit";
+import { RecordShow } from "./record/RecordShow";
 import { jwtAuthProvider } from "./auth-provider/ra-auth-jwt";
 
 const App = (): React.ReactElement => {
@@ -107,6 +115,20 @@ const App = (): React.ReactElement => {
           edit={PermissionEdit}
           create={PermissionCreate}
           show={PermissionShow}
+        />
+        <Resource
+          name="Student"
+          list={StudentList}
+          edit={StudentEdit}
+          create={StudentCreate}
+          show={StudentShow}
+        />
+        <Resource
+          name="Record"
+          list={RecordList}
+          edit={RecordEdit}
+          create={RecordCreate}
+          show={RecordShow}
         />
       </Admin>
     </div>

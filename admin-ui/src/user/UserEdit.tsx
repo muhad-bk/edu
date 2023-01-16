@@ -5,6 +5,7 @@ import {
   SimpleForm,
   EditProps,
   TextInput,
+  SelectInput,
   PasswordInput,
   SelectArrayInput,
   ReferenceArrayInput,
@@ -17,9 +18,18 @@ export const UserEdit = (props: EditProps): React.ReactElement => {
   return (
     <Edit {...props}>
       <SimpleForm>
-        <TextInput label="First Name" source="firstName" />
-        <TextInput label="Last Name" source="lastName" />
+        <TextInput label="Email" source="email" type="email" />
+        <TextInput label="FullName" source="fullName" />
+        <SelectInput
+          source="language"
+          label="Language"
+          choices={[{ label: "English", value: "English" }]}
+          optionText="label"
+          allowEmpty
+          optionValue="value"
+        />
         <PasswordInput label="Password" source="password" />
+        <TextInput label="Profile Pic URL" source="profilePicUrl" />
         <SelectArrayInput
           source="roles"
           choices={ROLES_OPTIONS}

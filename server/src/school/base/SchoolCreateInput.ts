@@ -18,6 +18,7 @@ import { RoleCreateNestedManyWithoutSchoolsInput } from "./RoleCreateNestedManyW
 import { EnumSchoolSchoolDistrict } from "./EnumSchoolSchoolDistrict";
 import { StafCreateNestedManyWithoutSchoolsInput } from "./StafCreateNestedManyWithoutSchoolsInput";
 import { EnumSchoolState } from "./EnumSchoolState";
+import { StudentCreateNestedManyWithoutSchoolsInput } from "./StudentCreateNestedManyWithoutSchoolsInput";
 import { SubscriptionCreateNestedManyWithoutSchoolsInput } from "./SubscriptionCreateNestedManyWithoutSchoolsInput";
 import { EnumSchoolTownship } from "./EnumSchoolTownship";
 
@@ -88,6 +89,18 @@ class SchoolCreateInput {
   @IsEnum(EnumSchoolState)
   @Field(() => EnumSchoolState)
   state!: "Sate_1" | "State_2";
+
+  @ApiProperty({
+    required: false,
+    type: () => StudentCreateNestedManyWithoutSchoolsInput,
+  })
+  @ValidateNested()
+  @Type(() => StudentCreateNestedManyWithoutSchoolsInput)
+  @IsOptional()
+  @Field(() => StudentCreateNestedManyWithoutSchoolsInput, {
+    nullable: true,
+  })
+  students?: StudentCreateNestedManyWithoutSchoolsInput;
 
   @ApiProperty({
     required: false,

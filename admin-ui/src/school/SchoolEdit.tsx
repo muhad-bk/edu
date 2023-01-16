@@ -14,6 +14,7 @@ import {
 import { SubscriptionTitle } from "../subscription/SubscriptionTitle";
 import { RoleTitle } from "../role/RoleTitle";
 import { StafTitle } from "../staf/StafTitle";
+import { StudentTitle } from "../student/StudentTitle";
 
 export const SchoolEdit = (props: EditProps): React.ReactElement => {
   return (
@@ -61,6 +62,14 @@ export const SchoolEdit = (props: EditProps): React.ReactElement => {
           optionText="label"
           optionValue="value"
         />
+        <ReferenceArrayInput
+          source="students"
+          reference="Student"
+          parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
+          format={(value: any) => value && value.map((v: any) => v.id)}
+        >
+          <SelectArrayInput optionText={StudentTitle} />
+        </ReferenceArrayInput>
         <ReferenceArrayInput
           source="SubscriptionHistory"
           reference="Subscription"
