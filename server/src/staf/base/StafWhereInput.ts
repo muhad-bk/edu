@@ -11,16 +11,31 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { ChartVistListRelationFilter } from "../../chartVist/base/ChartVistListRelationFilter";
-import { ValidateNested, IsOptional } from "class-validator";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
+import { IsOptional, ValidateNested, IsEnum } from "class-validator";
+import { ChartVistListRelationFilter } from "../../chartVist/base/ChartVistListRelationFilter";
+import { EnumStafGender } from "./EnumStafGender";
 import { StringFilter } from "../../util/StringFilter";
+import { RoleWhereUniqueInput } from "../../role/base/RoleWhereUniqueInput";
 import { SchoolListRelationFilter } from "../../school/base/SchoolListRelationFilter";
 import { SchoolDistrictWhereUniqueInput } from "../../schoolDistrict/base/SchoolDistrictWhereUniqueInput";
+import { EnumStafStatus } from "./EnumStafStatus";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 
 @InputType()
 class StafWhereInput {
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  address?: StringNullableFilter;
+
   @ApiProperty({
     required: false,
     type: () => ChartVistListRelationFilter,
@@ -35,6 +50,50 @@ class StafWhereInput {
 
   @ApiProperty({
     required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  contactDetails?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  destignation?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  fullName?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumStafGender,
+  })
+  @IsEnum(EnumStafGender)
+  @IsOptional()
+  @Field(() => EnumStafGender, {
+    nullable: true,
+  })
+  gender?: "Male" | "Female" | "NotSpecified";
+
+  @ApiProperty({
+    required: false,
     type: StringFilter,
   })
   @Type(() => StringFilter)
@@ -43,6 +102,51 @@ class StafWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  idNumber?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  officialEmail?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  race?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => RoleWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => RoleWhereUniqueInput)
+  @IsOptional()
+  @Field(() => RoleWhereUniqueInput, {
+    nullable: true,
+  })
+  role?: RoleWhereUniqueInput;
 
   @ApiProperty({
     required: false,
@@ -67,6 +171,17 @@ class StafWhereInput {
     nullable: true,
   })
   schoolDistricts?: SchoolDistrictWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumStafStatus,
+  })
+  @IsEnum(EnumStafStatus)
+  @IsOptional()
+  @Field(() => EnumStafStatus, {
+    nullable: true,
+  })
+  status?: "Active" | "Deactivate" | "Pending";
 
   @ApiProperty({
     required: false,

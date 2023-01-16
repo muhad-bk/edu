@@ -14,7 +14,9 @@ import { ApiProperty } from "@nestjs/swagger";
 import { IsString, IsOptional, ValidateNested } from "class-validator";
 import { PermissionUpdateManyWithoutRolesInput } from "./PermissionUpdateManyWithoutRolesInput";
 import { Type } from "class-transformer";
+import { SchoolDistrictUpdateManyWithoutRolesInput } from "./SchoolDistrictUpdateManyWithoutRolesInput";
 import { SchoolUpdateManyWithoutRolesInput } from "./SchoolUpdateManyWithoutRolesInput";
+import { StafUpdateManyWithoutRolesInput } from "./StafUpdateManyWithoutRolesInput";
 
 @InputType()
 class RoleUpdateInput {
@@ -43,6 +45,18 @@ class RoleUpdateInput {
 
   @ApiProperty({
     required: false,
+    type: () => SchoolDistrictUpdateManyWithoutRolesInput,
+  })
+  @ValidateNested()
+  @Type(() => SchoolDistrictUpdateManyWithoutRolesInput)
+  @IsOptional()
+  @Field(() => SchoolDistrictUpdateManyWithoutRolesInput, {
+    nullable: true,
+  })
+  schoolDistricts?: SchoolDistrictUpdateManyWithoutRolesInput;
+
+  @ApiProperty({
+    required: false,
     type: () => SchoolUpdateManyWithoutRolesInput,
   })
   @ValidateNested()
@@ -51,7 +65,19 @@ class RoleUpdateInput {
   @Field(() => SchoolUpdateManyWithoutRolesInput, {
     nullable: true,
   })
-  school?: SchoolUpdateManyWithoutRolesInput;
+  schools?: SchoolUpdateManyWithoutRolesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => StafUpdateManyWithoutRolesInput,
+  })
+  @ValidateNested()
+  @Type(() => StafUpdateManyWithoutRolesInput)
+  @IsOptional()
+  @Field(() => StafUpdateManyWithoutRolesInput, {
+    nullable: true,
+  })
+  stafs?: StafUpdateManyWithoutRolesInput;
 }
 
 export { RoleUpdateInput };

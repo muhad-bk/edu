@@ -14,7 +14,9 @@ import { ApiProperty } from "@nestjs/swagger";
 import { IsDate, IsString, IsOptional, ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
 import { Permission } from "../../permission/base/Permission";
+import { SchoolDistrict } from "../../schoolDistrict/base/SchoolDistrict";
 import { School } from "../../school/base/School";
+import { Staf } from "../../staf/base/Staf";
 
 @ObjectType()
 class Role {
@@ -56,12 +58,30 @@ class Role {
 
   @ApiProperty({
     required: false,
+    type: () => [SchoolDistrict],
+  })
+  @ValidateNested()
+  @Type(() => SchoolDistrict)
+  @IsOptional()
+  schoolDistricts?: Array<SchoolDistrict>;
+
+  @ApiProperty({
+    required: false,
     type: () => [School],
   })
   @ValidateNested()
   @Type(() => School)
   @IsOptional()
-  school?: Array<School>;
+  schools?: Array<School>;
+
+  @ApiProperty({
+    required: false,
+    type: () => [Staf],
+  })
+  @ValidateNested()
+  @Type(() => Staf)
+  @IsOptional()
+  stafs?: Array<Staf>;
 
   @ApiProperty({
     required: true,

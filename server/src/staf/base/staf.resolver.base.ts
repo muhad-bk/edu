@@ -29,6 +29,7 @@ import { ChartVistFindManyArgs } from "../../chartVist/base/ChartVistFindManyArg
 import { ChartVist } from "../../chartVist/base/ChartVist";
 import { SchoolFindManyArgs } from "../../school/base/SchoolFindManyArgs";
 import { School } from "../../school/base/School";
+import { Role } from "../../role/base/Role";
 import { SchoolDistrict } from "../../schoolDistrict/base/SchoolDistrict";
 import { User } from "../../user/base/User";
 import { StafService } from "../staf.service";
@@ -99,6 +100,12 @@ export class StafResolverBase {
       data: {
         ...args.data,
 
+        role: args.data.role
+          ? {
+              connect: args.data.role,
+            }
+          : undefined,
+
         schoolDistricts: args.data.schoolDistricts
           ? {
               connect: args.data.schoolDistricts,
@@ -125,6 +132,12 @@ export class StafResolverBase {
         ...args,
         data: {
           ...args.data,
+
+          role: args.data.role
+            ? {
+                connect: args.data.role,
+              }
+            : undefined,
 
           schoolDistricts: args.data.schoolDistricts
             ? {
@@ -204,6 +217,22 @@ export class StafResolverBase {
     }
 
     return results;
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @graphql.ResolveField(() => Role, { nullable: true })
+  @nestAccessControl.UseRoles({
+    resource: "Role",
+    action: "read",
+    possession: "any",
+  })
+  async role(@graphql.Parent() parent: Staf): Promise<Role | null> {
+    const result = await this.service.getRole(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)

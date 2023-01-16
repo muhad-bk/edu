@@ -6,6 +6,7 @@ import { StudentWhereUniqueInput } from "../student/StudentWhereUniqueInput";
 
 export type TreatmentWhereInput = {
   approval?: ApprovalWhereUniqueInput;
+  category?: "Immunisation" | "Treatment" | "Medication" | "MandatoryScreening";
   chartVist?: ChartVistWhereUniqueInput;
   generalDetails?: JsonFilter;
   id?: StringFilter;

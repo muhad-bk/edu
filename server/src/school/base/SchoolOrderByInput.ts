@@ -25,7 +25,16 @@ class SchoolOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  activeSuscriptionId?: SortOrder;
+  abbreviation?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  address?: SortOrder;
 
   @ApiProperty({
     required: false,
@@ -52,6 +61,15 @@ class SchoolOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  logoUrl?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   name?: SortOrder;
 
   @ApiProperty({
@@ -70,6 +88,15 @@ class SchoolOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  schoolCode?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   schoolDistrictId?: SortOrder;
 
   @ApiProperty({
@@ -80,6 +107,15 @@ class SchoolOrderByInput {
     nullable: true,
   })
   state?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  status?: SortOrder;
 
   @ApiProperty({
     required: false,

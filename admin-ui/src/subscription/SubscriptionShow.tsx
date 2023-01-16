@@ -7,10 +7,12 @@ import {
   TextField,
   DateField,
   BooleanField,
+  ReferenceManyField,
+  Datagrid,
   ReferenceField,
 } from "react-admin";
 
-import { SCHOOL_TITLE_FIELD } from "../school/SchoolTitle";
+import { SUBSCRIPTION_TITLE_FIELD } from "./SubscriptionTitle";
 
 export const SubscriptionShow = (props: ShowProps): React.ReactElement => {
   return (
@@ -22,14 +24,26 @@ export const SubscriptionShow = (props: ShowProps): React.ReactElement => {
         <BooleanField label="isStanderd " source="isStanderd" />
         <TextField label="Name" source="name" />
         <TextField label="period" source="period" />
-        <ReferenceField
-          label="School Subscription History"
-          source="school.id"
-          reference="School"
-        >
-          <TextField source={SCHOOL_TITLE_FIELD} />
-        </ReferenceField>
         <DateField source="updatedAt" label="Updated At" />
+        <ReferenceManyField
+          reference="SchoolDistrict"
+          target="SubscriptionId"
+          label="School Districts"
+        >
+          <Datagrid rowClick="show">
+            <DateField source="createdAt" label="Created At" />
+            <TextField label="ID" source="id" />
+            <TextField label="Name" source="name" />
+            <ReferenceField
+              label="subscription"
+              source="subscription.id"
+              reference="Subscription"
+            >
+              <TextField source={SUBSCRIPTION_TITLE_FIELD} />
+            </ReferenceField>
+            <DateField source="updatedAt" label="Updated At" />
+          </Datagrid>
+        </ReferenceManyField>
       </SimpleShowLayout>
     </Show>
   );

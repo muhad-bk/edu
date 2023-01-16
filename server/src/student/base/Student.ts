@@ -15,12 +15,15 @@ import {
   IsString,
   IsOptional,
   ValidateNested,
+  IsJSON,
   IsDate,
   IsEnum,
 } from "class-validator";
 import { Approval } from "../../approval/base/Approval";
 import { Type } from "class-transformer";
 import { ChartVist } from "../../chartVist/base/ChartVist";
+import { GraphQLJSON } from "graphql-type-json";
+import { JsonValue } from "type-fest";
 import { Parent } from "../../parent/base/Parent";
 import { Treatment } from "../../treatment/base/Treatment";
 import { School } from "../../school/base/School";
@@ -59,12 +62,32 @@ class Student {
   chartVists?: Array<ChartVist>;
 
   @ApiProperty({
+    required: false,
+  })
+  @IsJSON()
+  @IsOptional()
+  @Field(() => GraphQLJSON, {
+    nullable: true,
+  })
+  contactDetails!: JsonValue;
+
+  @ApiProperty({
     required: true,
   })
   @IsDate()
   @Type(() => Date)
   @Field(() => Date)
   createdAt!: Date;
+
+  @ApiProperty({
+    required: false,
+  })
+  @IsJSON()
+  @IsOptional()
+  @Field(() => GraphQLJSON, {
+    nullable: true,
+  })
+  generalDetails!: JsonValue;
 
   @ApiProperty({
     required: true,

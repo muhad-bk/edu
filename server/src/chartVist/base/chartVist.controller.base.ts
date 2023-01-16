@@ -351,6 +351,8 @@ export class ChartVistControllerBase {
           },
         },
 
+        category: true,
+
         chartVist: {
           select: {
             id: true,

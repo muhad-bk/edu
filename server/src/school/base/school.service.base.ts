@@ -10,7 +10,6 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-
 import {
   Prisma,
   School,
@@ -18,7 +17,6 @@ import {
   Role,
   Staf,
   Student,
-  Subscription,
   Parent,
   SchoolDistrict,
 } from "@prisma/client";
@@ -100,25 +98,6 @@ export class SchoolServiceBase {
         where: { id: parentId },
       })
       .students(args);
-  }
-
-  async findSubscriptionHistory(
-    parentId: string,
-    args: Prisma.SubscriptionFindManyArgs
-  ): Promise<Subscription[]> {
-    return this.prisma.school
-      .findUniqueOrThrow({
-        where: { id: parentId },
-      })
-      .SubscriptionHistory(args);
-  }
-
-  async getActiveSuscription(parentId: string): Promise<Subscription | null> {
-    return this.prisma.school
-      .findUnique({
-        where: { id: parentId },
-      })
-      .activeSuscription();
   }
 
   async getParent(parentId: string): Promise<Parent | null> {

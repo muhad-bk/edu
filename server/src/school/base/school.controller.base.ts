@@ -39,9 +39,6 @@ import { StafWhereUniqueInput } from "../../staf/base/StafWhereUniqueInput";
 import { StudentFindManyArgs } from "../../student/base/StudentFindManyArgs";
 import { Student } from "../../student/base/Student";
 import { StudentWhereUniqueInput } from "../../student/base/StudentWhereUniqueInput";
-import { SubscriptionFindManyArgs } from "../../subscription/base/SubscriptionFindManyArgs";
-import { Subscription } from "../../subscription/base/Subscription";
-import { SubscriptionWhereUniqueInput } from "../../subscription/base/SubscriptionWhereUniqueInput";
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
 export class SchoolControllerBase {
@@ -64,12 +61,6 @@ export class SchoolControllerBase {
       data: {
         ...data,
 
-        activeSuscription: data.activeSuscription
-          ? {
-              connect: data.activeSuscription,
-            }
-          : undefined,
-
         parent: data.parent
           ? {
               connect: data.parent,
@@ -83,14 +74,11 @@ export class SchoolControllerBase {
           : undefined,
       },
       select: {
-        activeSuscription: {
-          select: {
-            id: true,
-          },
-        },
-
+        abbreviation: true,
+        address: true,
         createdAt: true,
         id: true,
+        logoUrl: true,
         name: true,
 
         parent: {
@@ -99,6 +87,8 @@ export class SchoolControllerBase {
           },
         },
 
+        schoolCode: true,
+
         schoolDistrict: {
           select: {
             id: true,
@@ -106,6 +96,7 @@ export class SchoolControllerBase {
         },
 
         state: true,
+        status: true,
         township: true,
         updatedAt: true,
       },
@@ -127,14 +118,11 @@ export class SchoolControllerBase {
     return this.service.findMany({
       ...args,
       select: {
-        activeSuscription: {
-          select: {
-            id: true,
-          },
-        },
-
+        abbreviation: true,
+        address: true,
         createdAt: true,
         id: true,
+        logoUrl: true,
         name: true,
 
         parent: {
@@ -143,6 +131,8 @@ export class SchoolControllerBase {
           },
         },
 
+        schoolCode: true,
+
         schoolDistrict: {
           select: {
             id: true,
@@ -150,6 +140,7 @@ export class SchoolControllerBase {
         },
 
         state: true,
+        status: true,
         township: true,
         updatedAt: true,
       },
@@ -172,14 +163,11 @@ export class SchoolControllerBase {
     const result = await this.service.findOne({
       where: params,
       select: {
-        activeSuscription: {
-          select: {
-            id: true,
-          },
-        },
-
+        abbreviation: true,
+        address: true,
         createdAt: true,
         id: true,
+        logoUrl: true,
         name: true,
 
         parent: {
@@ -188,6 +176,8 @@ export class SchoolControllerBase {
           },
         },
 
+        schoolCode: true,
+
         schoolDistrict: {
           select: {
             id: true,
@@ -195,6 +185,7 @@ export class SchoolControllerBase {
         },
 
         state: true,
+        status: true,
         township: true,
         updatedAt: true,
       },
@@ -227,12 +218,6 @@ export class SchoolControllerBase {
         data: {
           ...data,
 
-          activeSuscription: data.activeSuscription
-            ? {
-                connect: data.activeSuscription,
-              }
-            : undefined,
-
           parent: data.parent
             ? {
                 connect: data.parent,
@@ -246,14 +231,11 @@ export class SchoolControllerBase {
             : undefined,
         },
         select: {
-          activeSuscription: {
-            select: {
-              id: true,
-            },
-          },
-
+          abbreviation: true,
+          address: true,
           createdAt: true,
           id: true,
+          logoUrl: true,
           name: true,
 
           parent: {
@@ -262,6 +244,8 @@ export class SchoolControllerBase {
             },
           },
 
+          schoolCode: true,
+
           schoolDistrict: {
             select: {
               id: true,
@@ -269,6 +253,7 @@ export class SchoolControllerBase {
           },
 
           state: true,
+          status: true,
           township: true,
           updatedAt: true,
         },
@@ -299,14 +284,11 @@ export class SchoolControllerBase {
       return await this.service.delete({
         where: params,
         select: {
-          activeSuscription: {
-            select: {
-              id: true,
-            },
-          },
-
+          abbreviation: true,
+          address: true,
           createdAt: true,
           id: true,
+          logoUrl: true,
           name: true,
 
           parent: {
@@ -315,6 +297,8 @@ export class SchoolControllerBase {
             },
           },
 
+          schoolCode: true,
+
           schoolDistrict: {
             select: {
               id: true,
@@ -322,6 +306,7 @@ export class SchoolControllerBase {
           },
 
           state: true,
+          status: true,
           township: true,
           updatedAt: true,
         },
@@ -566,8 +551,22 @@ export class SchoolControllerBase {
     const results = await this.service.findStafs(params.id, {
       ...query,
       select: {
+        address: true,
+        contactDetails: true,
         createdAt: true,
+        destignation: true,
+        fullName: true,
+        gender: true,
         id: true,
+        idNumber: true,
+        officialEmail: true,
+        race: true,
+
+        role: {
+          select: {
+            id: true,
+          },
+        },
 
         schoolDistricts: {
           select: {
@@ -575,6 +574,7 @@ export class SchoolControllerBase {
           },
         },
 
+        status: true,
         updatedAt: true,
 
         user: {
@@ -675,7 +675,9 @@ export class SchoolControllerBase {
       ...query,
       select: {
         address: true,
+        contactDetails: true,
         createdAt: true,
+        generalDetails: true,
         id: true,
         name: true,
 
@@ -760,112 +762,6 @@ export class SchoolControllerBase {
   ): Promise<void> {
     const data = {
       students: {
-        disconnect: body,
-      },
-    };
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @common.UseInterceptors(AclFilterResponseInterceptor)
-  @nestAccessControl.UseRoles({
-    resource: "Subscription",
-    action: "read",
-    possession: "any",
-  })
-  @common.Get("/:id/SubscriptionHistory")
-  @ApiNestedQuery(SubscriptionFindManyArgs)
-  async findManySubscriptionHistory(
-    @common.Req() request: Request,
-    @common.Param() params: SchoolWhereUniqueInput
-  ): Promise<Subscription[]> {
-    const query = plainToClass(SubscriptionFindManyArgs, request.query);
-    const results = await this.service.findSubscriptionHistory(params.id, {
-      ...query,
-      select: {
-        amount: true,
-        createdAt: true,
-        id: true,
-        isStanderd: true,
-        name: true,
-        period: true,
-
-        schoolSubscriptionHistory: {
-          select: {
-            id: true,
-          },
-        },
-
-        updatedAt: true,
-      },
-    });
-    if (results === null) {
-      throw new errors.NotFoundException(
-        `No resource was found for ${JSON.stringify(params)}`
-      );
-    }
-    return results;
-  }
-
-  @nestAccessControl.UseRoles({
-    resource: "School",
-    action: "update",
-    possession: "any",
-  })
-  @common.Post("/:id/SubscriptionHistory")
-  async connectSubscriptionHistory(
-    @common.Param() params: SchoolWhereUniqueInput,
-    @common.Body() body: SubscriptionWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      SubscriptionHistory: {
-        connect: body,
-      },
-    };
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @nestAccessControl.UseRoles({
-    resource: "School",
-    action: "update",
-    possession: "any",
-  })
-  @common.Patch("/:id/SubscriptionHistory")
-  async updateSubscriptionHistory(
-    @common.Param() params: SchoolWhereUniqueInput,
-    @common.Body() body: SubscriptionWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      SubscriptionHistory: {
-        set: body,
-      },
-    };
-    await this.service.update({
-      where: params,
-      data,
-      select: { id: true },
-    });
-  }
-
-  @nestAccessControl.UseRoles({
-    resource: "School",
-    action: "update",
-    possession: "any",
-  })
-  @common.Delete("/:id/SubscriptionHistory")
-  async disconnectSubscriptionHistory(
-    @common.Param() params: SchoolWhereUniqueInput,
-    @common.Body() body: SubscriptionWhereUniqueInput[]
-  ): Promise<void> {
-    const data = {
-      SubscriptionHistory: {
         disconnect: body,
       },
     };

@@ -15,11 +15,13 @@ import { Approval } from "../../approval/base/Approval";
 import {
   ValidateNested,
   IsOptional,
+  IsEnum,
   IsDate,
   IsJSON,
   IsString,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { EnumTreatmentCategory } from "./EnumTreatmentCategory";
 import { ChartVist } from "../../chartVist/base/ChartVist";
 import { GraphQLJSON } from "graphql-type-json";
 import { JsonValue } from "type-fest";
@@ -35,6 +37,22 @@ class Treatment {
   @Type(() => Approval)
   @IsOptional()
   approval?: Approval | null;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumTreatmentCategory,
+  })
+  @IsEnum(EnumTreatmentCategory)
+  @IsOptional()
+  @Field(() => EnumTreatmentCategory, {
+    nullable: true,
+  })
+  category?:
+    | "Immunisation"
+    | "Treatment"
+    | "Medication"
+    | "MandatoryScreening"
+    | null;
 
   @ApiProperty({
     required: false,

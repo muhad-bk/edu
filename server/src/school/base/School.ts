@@ -11,21 +11,21 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { Subscription } from "../../subscription/base/Subscription";
 import {
-  ValidateNested,
-  IsOptional,
-  IsDate,
   IsString,
+  IsOptional,
+  ValidateNested,
+  IsDate,
   IsEnum,
 } from "class-validator";
-import { Type } from "class-transformer";
 import { ChartVist } from "../../chartVist/base/ChartVist";
+import { Type } from "class-transformer";
 import { Parent } from "../../parent/base/Parent";
 import { Role } from "../../role/base/Role";
 import { SchoolDistrict } from "../../schoolDistrict/base/SchoolDistrict";
 import { Staf } from "../../staf/base/Staf";
 import { EnumSchoolState } from "./EnumSchoolState";
+import { EnumSchoolStatus } from "./EnumSchoolStatus";
 import { Student } from "../../student/base/Student";
 import { EnumSchoolTownship } from "./EnumSchoolTownship";
 
@@ -33,12 +33,25 @@ import { EnumSchoolTownship } from "./EnumSchoolTownship";
 class School {
   @ApiProperty({
     required: false,
-    type: () => Subscription,
+    type: String,
   })
-  @ValidateNested()
-  @Type(() => Subscription)
+  @IsString()
   @IsOptional()
-  activeSuscription?: Subscription | null;
+  @Field(() => String, {
+    nullable: true,
+  })
+  abbreviation!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  address!: string | null;
 
   @ApiProperty({
     required: false,
@@ -74,6 +87,17 @@ class School {
   @Field(() => String, {
     nullable: true,
   })
+  logoUrl!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
   name!: string | null;
 
   @ApiProperty({
@@ -93,6 +117,14 @@ class School {
   @Type(() => Role)
   @IsOptional()
   roles?: Array<Role>;
+
+  @ApiProperty({
+    required: true,
+    type: String,
+  })
+  @IsString()
+  @Field(() => String)
+  schoolCode!: string;
 
   @ApiProperty({
     required: false,
@@ -124,21 +156,23 @@ class School {
 
   @ApiProperty({
     required: false,
+    enum: EnumSchoolStatus,
+  })
+  @IsEnum(EnumSchoolStatus)
+  @IsOptional()
+  @Field(() => EnumSchoolStatus, {
+    nullable: true,
+  })
+  status?: "Active" | "Deactivate" | "Pending" | null;
+
+  @ApiProperty({
+    required: false,
     type: () => [Student],
   })
   @ValidateNested()
   @Type(() => Student)
   @IsOptional()
   students?: Array<Student>;
-
-  @ApiProperty({
-    required: false,
-    type: () => [Subscription],
-  })
-  @ValidateNested()
-  @Type(() => Subscription)
-  @IsOptional()
-  SubscriptionHistory?: Array<Subscription>;
 
   @ApiProperty({
     required: true,

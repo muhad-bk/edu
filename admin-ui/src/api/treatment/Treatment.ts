@@ -5,6 +5,12 @@ import { Student } from "../student/Student";
 
 export type Treatment = {
   approval?: Approval | null;
+  category?:
+    | "Immunisation"
+    | "Treatment"
+    | "Medication"
+    | "MandatoryScreening"
+    | null;
   chartVist?: ChartVist | null;
   createdAt: Date;
   generalDetails: JsonValue;

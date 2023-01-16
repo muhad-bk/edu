@@ -1,5 +1,5 @@
 import { ConfigurableModule } from "../configurableModule/ConfigurableModule";
-import { School } from "../school/School";
+import { SchoolDistrict } from "../schoolDistrict/SchoolDistrict";
 import { SubscriptionPlan } from "../subscriptionPlan/SubscriptionPlan";
 
 export type Subscription = {
@@ -10,8 +10,7 @@ export type Subscription = {
   isStanderd: boolean;
   name: string;
   period?: "Monthly" | "Yearly" | null;
-  schools?: Array<School>;
-  schoolSubscriptionHistory?: School | null;
+  schoolDistricts?: Array<SchoolDistrict>;
   subscriptionPlans?: Array<SubscriptionPlan>;
   updatedAt: Date;
 };

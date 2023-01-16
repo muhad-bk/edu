@@ -12,9 +12,11 @@ https://docs.amplication.com/how-to/custom-code
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { IsString, IsOptional, ValidateNested } from "class-validator";
-import { SchoolUpdateManyWithoutSchoolDistrictsInput } from "./SchoolUpdateManyWithoutSchoolDistrictsInput";
+import { RoleUpdateManyWithoutSchoolDistrictsInput } from "./RoleUpdateManyWithoutSchoolDistrictsInput";
 import { Type } from "class-transformer";
+import { SchoolUpdateManyWithoutSchoolDistrictsInput } from "./SchoolUpdateManyWithoutSchoolDistrictsInput";
 import { StafUpdateManyWithoutSchoolDistrictsInput } from "./StafUpdateManyWithoutSchoolDistrictsInput";
+import { SubscriptionWhereUniqueInput } from "../../subscription/base/SubscriptionWhereUniqueInput";
 
 @InputType()
 class SchoolDistrictUpdateInput {
@@ -28,6 +30,18 @@ class SchoolDistrictUpdateInput {
     nullable: true,
   })
   name?: string;
+
+  @ApiProperty({
+    required: false,
+    type: () => RoleUpdateManyWithoutSchoolDistrictsInput,
+  })
+  @ValidateNested()
+  @Type(() => RoleUpdateManyWithoutSchoolDistrictsInput)
+  @IsOptional()
+  @Field(() => RoleUpdateManyWithoutSchoolDistrictsInput, {
+    nullable: true,
+  })
+  roles?: RoleUpdateManyWithoutSchoolDistrictsInput;
 
   @ApiProperty({
     required: false,
@@ -52,6 +66,18 @@ class SchoolDistrictUpdateInput {
     nullable: true,
   })
   stafs?: StafUpdateManyWithoutSchoolDistrictsInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => SubscriptionWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SubscriptionWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SubscriptionWhereUniqueInput, {
+    nullable: true,
+  })
+  subscription?: SubscriptionWhereUniqueInput | null;
 }
 
 export { SchoolDistrictUpdateInput };

@@ -11,34 +11,43 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { SubscriptionWhereUniqueInput } from "../../subscription/base/SubscriptionWhereUniqueInput";
-import { ValidateNested, IsOptional, IsEnum } from "class-validator";
+import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
+import { IsOptional, ValidateNested, IsEnum } from "class-validator";
 import { ChartVistListRelationFilter } from "../../chartVist/base/ChartVistListRelationFilter";
 import { StringFilter } from "../../util/StringFilter";
-import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { ParentWhereUniqueInput } from "../../parent/base/ParentWhereUniqueInput";
 import { RoleListRelationFilter } from "../../role/base/RoleListRelationFilter";
 import { SchoolDistrictWhereUniqueInput } from "../../schoolDistrict/base/SchoolDistrictWhereUniqueInput";
 import { StafListRelationFilter } from "../../staf/base/StafListRelationFilter";
 import { EnumSchoolState } from "./EnumSchoolState";
+import { EnumSchoolStatus } from "./EnumSchoolStatus";
 import { StudentListRelationFilter } from "../../student/base/StudentListRelationFilter";
-import { SubscriptionListRelationFilter } from "../../subscription/base/SubscriptionListRelationFilter";
 import { EnumSchoolTownship } from "./EnumSchoolTownship";
 
 @InputType()
 class SchoolWhereInput {
   @ApiProperty({
     required: false,
-    type: () => SubscriptionWhereUniqueInput,
+    type: StringNullableFilter,
   })
-  @ValidateNested()
-  @Type(() => SubscriptionWhereUniqueInput)
+  @Type(() => StringNullableFilter)
   @IsOptional()
-  @Field(() => SubscriptionWhereUniqueInput, {
+  @Field(() => StringNullableFilter, {
     nullable: true,
   })
-  activeSuscription?: SubscriptionWhereUniqueInput;
+  abbreviation?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  address?: StringNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -62,6 +71,17 @@ class SchoolWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  logoUrl?: StringNullableFilter;
 
   @ApiProperty({
     required: false,
@@ -100,6 +120,17 @@ class SchoolWhereInput {
 
   @ApiProperty({
     required: false,
+    type: StringFilter,
+  })
+  @Type(() => StringFilter)
+  @IsOptional()
+  @Field(() => StringFilter, {
+    nullable: true,
+  })
+  schoolCode?: StringFilter;
+
+  @ApiProperty({
+    required: false,
     type: () => SchoolDistrictWhereUniqueInput,
   })
   @ValidateNested()
@@ -135,6 +166,17 @@ class SchoolWhereInput {
 
   @ApiProperty({
     required: false,
+    enum: EnumSchoolStatus,
+  })
+  @IsEnum(EnumSchoolStatus)
+  @IsOptional()
+  @Field(() => EnumSchoolStatus, {
+    nullable: true,
+  })
+  status?: "Active" | "Deactivate" | "Pending";
+
+  @ApiProperty({
+    required: false,
     type: () => StudentListRelationFilter,
   })
   @ValidateNested()
@@ -144,18 +186,6 @@ class SchoolWhereInput {
     nullable: true,
   })
   students?: StudentListRelationFilter;
-
-  @ApiProperty({
-    required: false,
-    type: () => SubscriptionListRelationFilter,
-  })
-  @ValidateNested()
-  @Type(() => SubscriptionListRelationFilter)
-  @IsOptional()
-  @Field(() => SubscriptionListRelationFilter, {
-    nullable: true,
-  })
-  SubscriptionHistory?: SubscriptionListRelationFilter;
 
   @ApiProperty({
     required: false,

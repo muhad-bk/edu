@@ -10,19 +10,19 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { InputType, Field } from "@nestjs/graphql";
-import { SubscriptionWhereUniqueInput } from "../../subscription/base/SubscriptionWhereUniqueInput";
+import { SchoolDistrictWhereUniqueInput } from "../../schoolDistrict/base/SchoolDistrictWhereUniqueInput";
 import { ApiProperty } from "@nestjs/swagger";
 
 @InputType()
-class SubscriptionCreateNestedManyWithoutSchoolsInput {
-  @Field(() => [SubscriptionWhereUniqueInput], {
+class SchoolDistrictCreateNestedManyWithoutRolesInput {
+  @Field(() => [SchoolDistrictWhereUniqueInput], {
     nullable: true,
   })
   @ApiProperty({
     required: false,
-    type: () => [SubscriptionWhereUniqueInput],
+    type: () => [SchoolDistrictWhereUniqueInput],
   })
-  connect?: Array<SubscriptionWhereUniqueInput>;
+  connect?: Array<SchoolDistrictWhereUniqueInput>;
 }
 
-export { SubscriptionCreateNestedManyWithoutSchoolsInput };
+export { SchoolDistrictCreateNestedManyWithoutRolesInput };

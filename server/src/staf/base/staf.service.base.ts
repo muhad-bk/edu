@@ -15,6 +15,7 @@ import {
   Staf,
   ChartVist,
   School,
+  Role,
   SchoolDistrict,
   User,
 } from "@prisma/client";
@@ -74,6 +75,14 @@ export class StafServiceBase {
         where: { id: parentId },
       })
       .school(args);
+  }
+
+  async getRole(parentId: string): Promise<Role | null> {
+    return this.prisma.staf
+      .findUnique({
+        where: { id: parentId },
+      })
+      .role();
   }
 
   async getSchoolDistricts(parentId: string): Promise<SchoolDistrict | null> {

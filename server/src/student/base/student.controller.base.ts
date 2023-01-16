@@ -71,7 +71,9 @@ export class StudentControllerBase {
       },
       select: {
         address: true,
+        contactDetails: true,
         createdAt: true,
+        generalDetails: true,
         id: true,
         name: true,
 
@@ -110,7 +112,9 @@ export class StudentControllerBase {
       ...args,
       select: {
         address: true,
+        contactDetails: true,
         createdAt: true,
+        generalDetails: true,
         id: true,
         name: true,
 
@@ -150,7 +154,9 @@ export class StudentControllerBase {
       where: params,
       select: {
         address: true,
+        contactDetails: true,
         createdAt: true,
+        generalDetails: true,
         id: true,
         name: true,
 
@@ -209,7 +215,9 @@ export class StudentControllerBase {
         },
         select: {
           address: true,
+          contactDetails: true,
           createdAt: true,
+          generalDetails: true,
           id: true,
           name: true,
 
@@ -257,7 +265,9 @@ export class StudentControllerBase {
         where: params,
         select: {
           address: true,
+          contactDetails: true,
           createdAt: true,
+          generalDetails: true,
           id: true,
           name: true,
 
@@ -639,6 +649,8 @@ export class StudentControllerBase {
             id: true,
           },
         },
+
+        category: true,
 
         chartVist: {
           select: {

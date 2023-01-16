@@ -55,6 +55,12 @@ export class StafControllerBase {
       data: {
         ...data,
 
+        role: data.role
+          ? {
+              connect: data.role,
+            }
+          : undefined,
+
         schoolDistricts: data.schoolDistricts
           ? {
               connect: data.schoolDistricts,
@@ -66,8 +72,22 @@ export class StafControllerBase {
         },
       },
       select: {
+        address: true,
+        contactDetails: true,
         createdAt: true,
+        destignation: true,
+        fullName: true,
+        gender: true,
         id: true,
+        idNumber: true,
+        officialEmail: true,
+        race: true,
+
+        role: {
+          select: {
+            id: true,
+          },
+        },
 
         schoolDistricts: {
           select: {
@@ -75,6 +95,7 @@ export class StafControllerBase {
           },
         },
 
+        status: true,
         updatedAt: true,
 
         user: {
@@ -101,8 +122,22 @@ export class StafControllerBase {
     return this.service.findMany({
       ...args,
       select: {
+        address: true,
+        contactDetails: true,
         createdAt: true,
+        destignation: true,
+        fullName: true,
+        gender: true,
         id: true,
+        idNumber: true,
+        officialEmail: true,
+        race: true,
+
+        role: {
+          select: {
+            id: true,
+          },
+        },
 
         schoolDistricts: {
           select: {
@@ -110,6 +145,7 @@ export class StafControllerBase {
           },
         },
 
+        status: true,
         updatedAt: true,
 
         user: {
@@ -137,8 +173,22 @@ export class StafControllerBase {
     const result = await this.service.findOne({
       where: params,
       select: {
+        address: true,
+        contactDetails: true,
         createdAt: true,
+        destignation: true,
+        fullName: true,
+        gender: true,
         id: true,
+        idNumber: true,
+        officialEmail: true,
+        race: true,
+
+        role: {
+          select: {
+            id: true,
+          },
+        },
 
         schoolDistricts: {
           select: {
@@ -146,6 +196,7 @@ export class StafControllerBase {
           },
         },
 
+        status: true,
         updatedAt: true,
 
         user: {
@@ -183,6 +234,12 @@ export class StafControllerBase {
         data: {
           ...data,
 
+          role: data.role
+            ? {
+                connect: data.role,
+              }
+            : undefined,
+
           schoolDistricts: data.schoolDistricts
             ? {
                 connect: data.schoolDistricts,
@@ -194,8 +251,22 @@ export class StafControllerBase {
           },
         },
         select: {
+          address: true,
+          contactDetails: true,
           createdAt: true,
+          destignation: true,
+          fullName: true,
+          gender: true,
           id: true,
+          idNumber: true,
+          officialEmail: true,
+          race: true,
+
+          role: {
+            select: {
+              id: true,
+            },
+          },
 
           schoolDistricts: {
             select: {
@@ -203,6 +274,7 @@ export class StafControllerBase {
             },
           },
 
+          status: true,
           updatedAt: true,
 
           user: {
@@ -238,8 +310,22 @@ export class StafControllerBase {
       return await this.service.delete({
         where: params,
         select: {
+          address: true,
+          contactDetails: true,
           createdAt: true,
+          destignation: true,
+          fullName: true,
+          gender: true,
           id: true,
+          idNumber: true,
+          officialEmail: true,
+          race: true,
+
+          role: {
+            select: {
+              id: true,
+            },
+          },
 
           schoolDistricts: {
             select: {
@@ -247,6 +333,7 @@ export class StafControllerBase {
             },
           },
 
+          status: true,
           updatedAt: true,
 
           user: {
@@ -400,14 +487,11 @@ export class StafControllerBase {
     const results = await this.service.findSchool(params.id, {
       ...query,
       select: {
-        activeSuscription: {
-          select: {
-            id: true,
-          },
-        },
-
+        abbreviation: true,
+        address: true,
         createdAt: true,
         id: true,
+        logoUrl: true,
         name: true,
 
         parent: {
@@ -416,6 +500,8 @@ export class StafControllerBase {
           },
         },
 
+        schoolCode: true,
+
         schoolDistrict: {
           select: {
             id: true,
@@ -423,6 +509,7 @@ export class StafControllerBase {
         },
 
         state: true,
+        status: true,
         township: true,
         updatedAt: true,
       },

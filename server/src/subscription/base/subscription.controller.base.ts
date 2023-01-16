@@ -30,9 +30,9 @@ import { Subscription } from "./Subscription";
 import { ConfigurableModuleFindManyArgs } from "../../configurableModule/base/ConfigurableModuleFindManyArgs";
 import { ConfigurableModule } from "../../configurableModule/base/ConfigurableModule";
 import { ConfigurableModuleWhereUniqueInput } from "../../configurableModule/base/ConfigurableModuleWhereUniqueInput";
-import { SchoolFindManyArgs } from "../../school/base/SchoolFindManyArgs";
-import { School } from "../../school/base/School";
-import { SchoolWhereUniqueInput } from "../../school/base/SchoolWhereUniqueInput";
+import { SchoolDistrictFindManyArgs } from "../../schoolDistrict/base/SchoolDistrictFindManyArgs";
+import { SchoolDistrict } from "../../schoolDistrict/base/SchoolDistrict";
+import { SchoolDistrictWhereUniqueInput } from "../../schoolDistrict/base/SchoolDistrictWhereUniqueInput";
 import { SubscriptionPlanFindManyArgs } from "../../subscriptionPlan/base/SubscriptionPlanFindManyArgs";
 import { SubscriptionPlan } from "../../subscriptionPlan/base/SubscriptionPlan";
 import { SubscriptionPlanWhereUniqueInput } from "../../subscriptionPlan/base/SubscriptionPlanWhereUniqueInput";
@@ -57,15 +57,7 @@ export class SubscriptionControllerBase {
     @common.Body() data: SubscriptionCreateInput
   ): Promise<Subscription> {
     return await this.service.create({
-      data: {
-        ...data,
-
-        schoolSubscriptionHistory: data.schoolSubscriptionHistory
-          ? {
-              connect: data.schoolSubscriptionHistory,
-            }
-          : undefined,
-      },
+      data: data,
       select: {
         amount: true,
         createdAt: true,
@@ -73,13 +65,6 @@ export class SubscriptionControllerBase {
         isStanderd: true,
         name: true,
         period: true,
-
-        schoolSubscriptionHistory: {
-          select: {
-            id: true,
-          },
-        },
-
         updatedAt: true,
       },
     });
@@ -106,13 +91,6 @@ export class SubscriptionControllerBase {
         isStanderd: true,
         name: true,
         period: true,
-
-        schoolSubscriptionHistory: {
-          select: {
-            id: true,
-          },
-        },
-
         updatedAt: true,
       },
     });
@@ -140,13 +118,6 @@ export class SubscriptionControllerBase {
         isStanderd: true,
         name: true,
         period: true,
-
-        schoolSubscriptionHistory: {
-          select: {
-            id: true,
-          },
-        },
-
         updatedAt: true,
       },
     });
@@ -175,15 +146,7 @@ export class SubscriptionControllerBase {
     try {
       return await this.service.update({
         where: params,
-        data: {
-          ...data,
-
-          schoolSubscriptionHistory: data.schoolSubscriptionHistory
-            ? {
-                connect: data.schoolSubscriptionHistory,
-              }
-            : undefined,
-        },
+        data: data,
         select: {
           amount: true,
           createdAt: true,
@@ -191,13 +154,6 @@ export class SubscriptionControllerBase {
           isStanderd: true,
           name: true,
           period: true,
-
-          schoolSubscriptionHistory: {
-            select: {
-              id: true,
-            },
-          },
-
           updatedAt: true,
         },
       });
@@ -233,13 +189,6 @@ export class SubscriptionControllerBase {
           isStanderd: true,
           name: true,
           period: true,
-
-          schoolSubscriptionHistory: {
-            select: {
-              id: true,
-            },
-          },
-
           updatedAt: true,
         },
       });
@@ -352,44 +301,30 @@ export class SubscriptionControllerBase {
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
   @nestAccessControl.UseRoles({
-    resource: "School",
+    resource: "SchoolDistrict",
     action: "read",
     possession: "any",
   })
-  @common.Get("/:id/schools")
-  @ApiNestedQuery(SchoolFindManyArgs)
-  async findManySchools(
+  @common.Get("/:id/schoolDistricts")
+  @ApiNestedQuery(SchoolDistrictFindManyArgs)
+  async findManySchoolDistricts(
     @common.Req() request: Request,
     @common.Param() params: SubscriptionWhereUniqueInput
-  ): Promise<School[]> {
-    const query = plainToClass(SchoolFindManyArgs, request.query);
-    const results = await this.service.findSchools(params.id, {
+  ): Promise<SchoolDistrict[]> {
+    const query = plainToClass(SchoolDistrictFindManyArgs, request.query);
+    const results = await this.service.findSchoolDistricts(params.id, {
       ...query,
       select: {
-        activeSuscription: {
-          select: {
-            id: true,
-          },
-        },
-
         createdAt: true,
         id: true,
         name: true,
 
-        parent: {
+        subscription: {
           select: {
             id: true,
           },
         },
 
-        schoolDistrict: {
-          select: {
-            id: true,
-          },
-        },
-
-        state: true,
-        township: true,
         updatedAt: true,
       },
     });
@@ -406,13 +341,13 @@ export class SubscriptionControllerBase {
     action: "update",
     possession: "any",
   })
-  @common.Post("/:id/schools")
-  async connectSchools(
+  @common.Post("/:id/schoolDistricts")
+  async connectSchoolDistricts(
     @common.Param() params: SubscriptionWhereUniqueInput,
-    @common.Body() body: SchoolWhereUniqueInput[]
+    @common.Body() body: SchoolDistrictWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      schools: {
+      schoolDistricts: {
         connect: body,
       },
     };
@@ -428,13 +363,13 @@ export class SubscriptionControllerBase {
     action: "update",
     possession: "any",
   })
-  @common.Patch("/:id/schools")
-  async updateSchools(
+  @common.Patch("/:id/schoolDistricts")
+  async updateSchoolDistricts(
     @common.Param() params: SubscriptionWhereUniqueInput,
-    @common.Body() body: SchoolWhereUniqueInput[]
+    @common.Body() body: SchoolDistrictWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      schools: {
+      schoolDistricts: {
         set: body,
       },
     };
@@ -450,13 +385,13 @@ export class SubscriptionControllerBase {
     action: "update",
     possession: "any",
   })
-  @common.Delete("/:id/schools")
-  async disconnectSchools(
+  @common.Delete("/:id/schoolDistricts")
+  async disconnectSchoolDistricts(
     @common.Param() params: SubscriptionWhereUniqueInput,
-    @common.Body() body: SchoolWhereUniqueInput[]
+    @common.Body() body: SchoolDistrictWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      schools: {
+      schoolDistricts: {
         disconnect: body,
       },
     };

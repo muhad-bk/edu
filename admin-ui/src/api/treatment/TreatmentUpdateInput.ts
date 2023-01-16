@@ -5,6 +5,12 @@ import { StudentWhereUniqueInput } from "../student/StudentWhereUniqueInput";
 
 export type TreatmentUpdateInput = {
   approval?: ApprovalWhereUniqueInput | null;
+  category?:
+    | "Immunisation"
+    | "Treatment"
+    | "Medication"
+    | "MandatoryScreening"
+    | null;
   chartVist?: ChartVistWhereUniqueInput | null;
   generalDetails?: InputJsonValue;
   medicationDetails?: InputJsonValue;

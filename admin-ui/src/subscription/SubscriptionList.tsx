@@ -1,5 +1,4 @@
 import * as React from "react";
-
 import {
   List,
   Datagrid,
@@ -7,11 +6,8 @@ import {
   TextField,
   DateField,
   BooleanField,
-  ReferenceField,
 } from "react-admin";
-
 import Pagination from "../Components/Pagination";
-import { SCHOOL_TITLE_FIELD } from "../school/SchoolTitle";
 
 export const SubscriptionList = (props: ListProps): React.ReactElement => {
   return (
@@ -29,13 +25,6 @@ export const SubscriptionList = (props: ListProps): React.ReactElement => {
         <BooleanField label="isStanderd " source="isStanderd" />
         <TextField label="Name" source="name" />
         <TextField label="period" source="period" />
-        <ReferenceField
-          label="School Subscription History"
-          source="school.id"
-          reference="School"
-        >
-          <TextField source={SCHOOL_TITLE_FIELD} />
-        </ReferenceField>
         <DateField source="updatedAt" label="Updated At" />
       </Datagrid>
     </List>

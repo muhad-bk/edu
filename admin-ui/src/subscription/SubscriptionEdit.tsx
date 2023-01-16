@@ -10,11 +10,10 @@ import {
   BooleanInput,
   TextInput,
   SelectInput,
-  ReferenceInput,
 } from "react-admin";
 
 import { ConfigurableModuleTitle } from "../configurableModule/ConfigurableModuleTitle";
-import { SchoolTitle } from "../school/SchoolTitle";
+import { SchoolDistrictTitle } from "../schoolDistrict/SchoolDistrictTitle";
 import { SubscriptionPlanTitle } from "../subscriptionPlan/SubscriptionPlanTitle";
 
 export const SubscriptionEdit = (props: EditProps): React.ReactElement => {
@@ -44,20 +43,13 @@ export const SubscriptionEdit = (props: EditProps): React.ReactElement => {
           optionValue="value"
         />
         <ReferenceArrayInput
-          source="schools"
-          reference="School"
+          source="schoolDistricts"
+          reference="SchoolDistrict"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
-          <SelectArrayInput optionText={SchoolTitle} />
+          <SelectArrayInput optionText={SchoolDistrictTitle} />
         </ReferenceArrayInput>
-        <ReferenceInput
-          source="school.id"
-          reference="School"
-          label="School Subscription History"
-        >
-          <SelectInput optionText={SchoolTitle} />
-        </ReferenceInput>
         <ReferenceArrayInput
           source="subscriptionPlans"
           reference="SubscriptionPlan"

@@ -39,6 +39,8 @@ export const StudentEdit = (props: EditProps): React.ReactElement => {
         >
           <SelectArrayInput optionText={ChartVistTitle} />
         </ReferenceArrayInput>
+        <div />
+        <div />
         <TextInput label="Name" source="name" />
         <ReferenceArrayInput
           source="parent"
@@ -56,7 +58,7 @@ export const StudentEdit = (props: EditProps): React.ReactElement => {
         >
           <SelectArrayInput optionText={TreatmentTitle} />
         </ReferenceArrayInput>
-        <ReferenceInput source="school.id" reference="School" label="school">
+        <ReferenceInput source="school.id" reference="School" label="School">
           <SelectInput optionText={SchoolTitle} />
         </ReferenceInput>
         <SelectInput

@@ -13,8 +13,10 @@ import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { IsDate, IsString, ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
+import { Role } from "../../role/base/Role";
 import { School } from "../../school/base/School";
 import { Staf } from "../../staf/base/Staf";
+import { Subscription } from "../../subscription/base/Subscription";
 
 @ObjectType()
 class SchoolDistrict {
@@ -44,6 +46,15 @@ class SchoolDistrict {
 
   @ApiProperty({
     required: false,
+    type: () => [Role],
+  })
+  @ValidateNested()
+  @Type(() => Role)
+  @IsOptional()
+  roles?: Array<Role>;
+
+  @ApiProperty({
+    required: false,
     type: () => [School],
   })
   @ValidateNested()
@@ -59,6 +70,15 @@ class SchoolDistrict {
   @Type(() => Staf)
   @IsOptional()
   stafs?: Array<Staf>;
+
+  @ApiProperty({
+    required: false,
+    type: () => Subscription,
+  })
+  @ValidateNested()
+  @Type(() => Subscription)
+  @IsOptional()
+  subscription?: Subscription | null;
 
   @ApiProperty({
     required: true,

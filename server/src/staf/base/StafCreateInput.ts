@@ -11,15 +11,29 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+import { IsString, IsOptional, ValidateNested, IsEnum } from "class-validator";
 import { ChartVistCreateNestedManyWithoutStafsInput } from "./ChartVistCreateNestedManyWithoutStafsInput";
-import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
+import { EnumStafGender } from "./EnumStafGender";
+import { RoleWhereUniqueInput } from "../../role/base/RoleWhereUniqueInput";
 import { SchoolCreateNestedManyWithoutStafsInput } from "./SchoolCreateNestedManyWithoutStafsInput";
 import { SchoolDistrictWhereUniqueInput } from "../../schoolDistrict/base/SchoolDistrictWhereUniqueInput";
+import { EnumStafStatus } from "./EnumStafStatus";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
 
 @InputType()
 class StafCreateInput {
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  address?: string | null;
+
   @ApiProperty({
     required: false,
     type: () => ChartVistCreateNestedManyWithoutStafsInput,
@@ -31,6 +45,95 @@ class StafCreateInput {
     nullable: true,
   })
   chartVists?: ChartVistCreateNestedManyWithoutStafsInput;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  contactDetails?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  destignation?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  fullName?: string | null;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumStafGender,
+  })
+  @IsEnum(EnumStafGender)
+  @IsOptional()
+  @Field(() => EnumStafGender, {
+    nullable: true,
+  })
+  gender?: "Male" | "Female" | "NotSpecified" | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  idNumber?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  officialEmail?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  race?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => RoleWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => RoleWhereUniqueInput)
+  @IsOptional()
+  @Field(() => RoleWhereUniqueInput, {
+    nullable: true,
+  })
+  role?: RoleWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,
@@ -55,6 +158,17 @@ class StafCreateInput {
     nullable: true,
   })
   schoolDistricts?: SchoolDistrictWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumStafStatus,
+  })
+  @IsEnum(EnumStafStatus)
+  @IsOptional()
+  @Field(() => EnumStafStatus, {
+    nullable: true,
+  })
+  status?: "Active" | "Deactivate" | "Pending" | null;
 
   @ApiProperty({
     required: true,

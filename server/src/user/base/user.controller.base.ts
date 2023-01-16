@@ -328,8 +328,22 @@ export class UserControllerBase {
     const results = await this.service.findStafs(params.id, {
       ...query,
       select: {
+        address: true,
+        contactDetails: true,
         createdAt: true,
+        destignation: true,
+        fullName: true,
+        gender: true,
         id: true,
+        idNumber: true,
+        officialEmail: true,
+        race: true,
+
+        role: {
+          select: {
+            id: true,
+          },
+        },
 
         schoolDistricts: {
           select: {
@@ -337,6 +351,7 @@ export class UserControllerBase {
           },
         },
 
+        status: true,
         updatedAt: true,
 
         user: {
@@ -437,7 +452,9 @@ export class UserControllerBase {
       ...query,
       select: {
         address: true,
+        contactDetails: true,
         createdAt: true,
+        generalDetails: true,
         id: true,
         name: true,
 

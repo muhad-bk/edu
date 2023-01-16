@@ -11,15 +11,35 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+import {
+  IsString,
+  IsOptional,
+  ValidateNested,
+  IsDate,
+  IsEnum,
+} from "class-validator";
 import { ChartVist } from "../../chartVist/base/ChartVist";
-import { ValidateNested, IsOptional, IsDate, IsString } from "class-validator";
 import { Type } from "class-transformer";
+import { EnumStafGender } from "./EnumStafGender";
+import { Role } from "../../role/base/Role";
 import { School } from "../../school/base/School";
 import { SchoolDistrict } from "../../schoolDistrict/base/SchoolDistrict";
+import { EnumStafStatus } from "./EnumStafStatus";
 import { User } from "../../user/base/User";
 
 @ObjectType()
 class Staf {
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  address!: string | null;
+
   @ApiProperty({
     required: false,
     type: () => [ChartVist],
@@ -30,6 +50,17 @@ class Staf {
   chartVists?: Array<ChartVist>;
 
   @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  contactDetails!: string | null;
+
+  @ApiProperty({
     required: true,
   })
   @IsDate()
@@ -38,12 +69,87 @@ class Staf {
   createdAt!: Date;
 
   @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  destignation!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  fullName!: string | null;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumStafGender,
+  })
+  @IsEnum(EnumStafGender)
+  @IsOptional()
+  @Field(() => EnumStafGender, {
+    nullable: true,
+  })
+  gender?: "Male" | "Female" | "NotSpecified" | null;
+
+  @ApiProperty({
     required: true,
     type: String,
   })
   @IsString()
   @Field(() => String)
   id!: string;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  idNumber!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  officialEmail!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  race!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => Role,
+  })
+  @ValidateNested()
+  @Type(() => Role)
+  @IsOptional()
+  role?: Role | null;
 
   @ApiProperty({
     required: false,
@@ -62,6 +168,17 @@ class Staf {
   @Type(() => SchoolDistrict)
   @IsOptional()
   schoolDistricts?: SchoolDistrict | null;
+
+  @ApiProperty({
+    required: false,
+    enum: EnumStafStatus,
+  })
+  @IsEnum(EnumStafStatus)
+  @IsOptional()
+  @Field(() => EnumStafStatus, {
+    nullable: true,
+  })
+  status?: "Active" | "Deactivate" | "Pending" | null;
 
   @ApiProperty({
     required: true,

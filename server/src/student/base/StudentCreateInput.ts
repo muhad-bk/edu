@@ -11,10 +11,18 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsOptional, ValidateNested, IsEnum } from "class-validator";
+import {
+  IsString,
+  IsOptional,
+  ValidateNested,
+  IsJSON,
+  IsEnum,
+} from "class-validator";
 import { ApprovalCreateNestedManyWithoutStudentsInput } from "./ApprovalCreateNestedManyWithoutStudentsInput";
 import { Type } from "class-transformer";
 import { ChartVistCreateNestedManyWithoutStudentsInput } from "./ChartVistCreateNestedManyWithoutStudentsInput";
+import { GraphQLJSON } from "graphql-type-json";
+import { InputJsonValue } from "../../types";
 import { ParentCreateNestedManyWithoutStudentsInput } from "./ParentCreateNestedManyWithoutStudentsInput";
 import { TreatmentCreateNestedManyWithoutStudentsInput } from "./TreatmentCreateNestedManyWithoutStudentsInput";
 import { SchoolWhereUniqueInput } from "../../school/base/SchoolWhereUniqueInput";
@@ -57,6 +65,26 @@ class StudentCreateInput {
     nullable: true,
   })
   chartVists?: ChartVistCreateNestedManyWithoutStudentsInput;
+
+  @ApiProperty({
+    required: false,
+  })
+  @IsJSON()
+  @IsOptional()
+  @Field(() => GraphQLJSON, {
+    nullable: true,
+  })
+  contactDetails?: InputJsonValue;
+
+  @ApiProperty({
+    required: false,
+  })
+  @IsJSON()
+  @IsOptional()
+  @Field(() => GraphQLJSON, {
+    nullable: true,
+  })
+  generalDetails?: InputJsonValue;
 
   @ApiProperty({
     required: true,

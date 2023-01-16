@@ -14,7 +14,9 @@ import { ApiProperty } from "@nestjs/swagger";
 import { IsString, IsOptional, ValidateNested } from "class-validator";
 import { PermissionCreateNestedManyWithoutRolesInput } from "./PermissionCreateNestedManyWithoutRolesInput";
 import { Type } from "class-transformer";
+import { SchoolDistrictCreateNestedManyWithoutRolesInput } from "./SchoolDistrictCreateNestedManyWithoutRolesInput";
 import { SchoolCreateNestedManyWithoutRolesInput } from "./SchoolCreateNestedManyWithoutRolesInput";
+import { StafCreateNestedManyWithoutRolesInput } from "./StafCreateNestedManyWithoutRolesInput";
 
 @InputType()
 class RoleCreateInput {
@@ -43,6 +45,18 @@ class RoleCreateInput {
 
   @ApiProperty({
     required: false,
+    type: () => SchoolDistrictCreateNestedManyWithoutRolesInput,
+  })
+  @ValidateNested()
+  @Type(() => SchoolDistrictCreateNestedManyWithoutRolesInput)
+  @IsOptional()
+  @Field(() => SchoolDistrictCreateNestedManyWithoutRolesInput, {
+    nullable: true,
+  })
+  schoolDistricts?: SchoolDistrictCreateNestedManyWithoutRolesInput;
+
+  @ApiProperty({
+    required: false,
     type: () => SchoolCreateNestedManyWithoutRolesInput,
   })
   @ValidateNested()
@@ -51,7 +65,19 @@ class RoleCreateInput {
   @Field(() => SchoolCreateNestedManyWithoutRolesInput, {
     nullable: true,
   })
-  school?: SchoolCreateNestedManyWithoutRolesInput;
+  schools?: SchoolCreateNestedManyWithoutRolesInput;
+
+  @ApiProperty({
+    required: false,
+    type: () => StafCreateNestedManyWithoutRolesInput,
+  })
+  @ValidateNested()
+  @Type(() => StafCreateNestedManyWithoutRolesInput)
+  @IsOptional()
+  @Field(() => StafCreateNestedManyWithoutRolesInput, {
+    nullable: true,
+  })
+  stafs?: StafCreateNestedManyWithoutRolesInput;
 }
 
 export { RoleCreateInput };

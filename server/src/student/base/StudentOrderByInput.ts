@@ -34,7 +34,25 @@ class StudentOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  contactDetails?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   createdAt?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  generalDetails?: SortOrder;
 
   @ApiProperty({
     required: false,

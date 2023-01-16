@@ -19,29 +19,45 @@ import { SchoolService } from "../school.service";
 const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
+  abbreviation: "exampleAbbreviation",
+  address: "exampleAddress",
   createdAt: new Date(),
   id: "exampleId",
+  logoUrl: "exampleLogoUrl",
   name: "exampleName",
+  schoolCode: "exampleSchoolCode",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
+  abbreviation: "exampleAbbreviation",
+  address: "exampleAddress",
   createdAt: new Date(),
   id: "exampleId",
+  logoUrl: "exampleLogoUrl",
   name: "exampleName",
+  schoolCode: "exampleSchoolCode",
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
+    abbreviation: "exampleAbbreviation",
+    address: "exampleAddress",
     createdAt: new Date(),
     id: "exampleId",
+    logoUrl: "exampleLogoUrl",
     name: "exampleName",
+    schoolCode: "exampleSchoolCode",
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
+  abbreviation: "exampleAbbreviation",
+  address: "exampleAddress",
   createdAt: new Date(),
   id: "exampleId",
+  logoUrl: "exampleLogoUrl",
   name: "exampleName",
+  schoolCode: "exampleSchoolCode",
   updatedAt: new Date(),
 };
 

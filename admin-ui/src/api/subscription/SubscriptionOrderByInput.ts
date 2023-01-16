@@ -7,6 +7,5 @@ export type SubscriptionOrderByInput = {
   isStanderd?: SortOrder;
   name?: SortOrder;
   period?: SortOrder;
-  schoolSubscriptionHistoryId?: SortOrder;
   updatedAt?: SortOrder;
 };

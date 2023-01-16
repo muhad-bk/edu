@@ -22,10 +22,12 @@ export const StudentList = (props: ListProps): React.ReactElement => {
     >
       <Datagrid rowClick="show">
         <TextField label="Address " source="address" />
+        <TextField label="Contact Details" source="contactDetails" />
         <DateField source="createdAt" label="Created At" />
+        <TextField label="General Details" source="generalDetails" />
         <TextField label="ID" source="id" />
         <TextField label="Name" source="name" />
-        <ReferenceField label="school" source="school.id" reference="School">
+        <ReferenceField label="School" source="school.id" reference="School">
           <TextField source={SCHOOL_TITLE_FIELD} />
         </ReferenceField>
         <TextField label="status" source="status" />

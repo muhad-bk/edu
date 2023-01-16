@@ -24,43 +24,42 @@ model User {
 }
 
 model School {
-  activeSuscription      Subscription?      @relation(name: "activeSuscription", fields: [activeSuscriptionId], references: [id])
-  activeSuscriptionId    String?            @unique
-  chartVists             ChartVist[]
-  createdAt              DateTime           @default(now())
-  id                     String             @id @default(auto()) @map("_id") @mongo.ObjectId
-  name                   String?            @unique
-  parent                 Parent?            @relation(fields: [parentId], references: [id])
-  parentId               String?
-  roles                  Role[]             @relation(fields: [rolesIds], references: [id])
-  rolesIds               String[]           @mongo.ObjectId
-  schoolDistrict         SchoolDistrict?    @relation(fields: [schoolDistrictId], references: [id])
-  schoolDistrictId       String?
-  stafs                  Staf[]             @relation(fields: [stafsIds], references: [id])
-  stafsIds               String[]           @mongo.ObjectId
-  state                  EnumSchoolState
-  students               Student[]
-  SubscriptionHistory    Subscription[]     @relation(name: "SubscriptionHistory", fields: [SubscriptionHistoryIds], references: [id])
-  SubscriptionHistoryIds String[]           @mongo.ObjectId
-  township               EnumSchoolTownship
-  updatedAt              DateTime           @updatedAt
+  abbreviation     String?
+  address          String?
+  chartVists       ChartVist[]
+  createdAt        DateTime           @default(now())
+  id               String             @id @default(auto()) @map("_id") @mongo.ObjectId
+  logoUrl          String?
+  name             String?            @unique
+  parent           Parent?            @relation(fields: [parentId], references: [id])
+  parentId         String?
+  roles            Role[]             @relation(fields: [rolesIds], references: [id])
+  rolesIds         String[]           @mongo.ObjectId
+  schoolCode       String             @unique
+  schoolDistrict   SchoolDistrict?    @relation(fields: [schoolDistrictId], references: [id])
+  schoolDistrictId String?
+  stafs            Staf[]             @relation(fields: [stafsIds], references: [id])
+  stafsIds         String[]           @mongo.ObjectId
+  state            EnumSchoolState
+  status           EnumSchoolStatus?
+  students         Student[]
+  township         EnumSchoolTownship
+  updatedAt        DateTime           @updatedAt
 }
 
 model Subscription {
-  amount                    Float
-  configurableModules       ConfigurableModule[]    @relation(fields: [configurableModulesIds], references: [id])
-  configurableModulesIds    String[]                @mongo.ObjectId
-  createdAt                 DateTime                @default(now())
-  id                        String                  @id @default(auto()) @map("_id") @mongo.ObjectId
-  isStanderd                Boolean
-  name                      String                  @unique
-  period                    EnumSubscriptionPeriod?
-  schools                   School[]                @relation(name: "SubscriptionHistory", fields: [schoolsIds], references: [id])
-  schoolsIds                String[]                @mongo.ObjectId
-  schoolSubscriptionHistory School?                 @relation(name: "activeSuscription")
-  subscriptionPlans         SubscriptionPlan[]      @relation(fields: [subscriptionPlansIds], references: [id])
-  subscriptionPlansIds      String[]                @mongo.ObjectId
-  updatedAt                 DateTime                @updatedAt
+  amount                 Float
+  configurableModules    ConfigurableModule[]    @relation(fields: [configurableModulesIds], references: [id])
+  configurableModulesIds String[]                @mongo.ObjectId
+  createdAt              DateTime                @default(now())
+  id                     String                  @id @default(auto()) @map("_id") @mongo.ObjectId
+  isStanderd             Boolean
+  name                   String                  @unique
+  period                 EnumSubscriptionPeriod?
+  schoolDistricts        SchoolDistrict[]
+  subscriptionPlans      SubscriptionPlan[]      @relation(fields: [subscriptionPlansIds], references: [id])
+  subscriptionPlansIds   String[]                @mongo.ObjectId
+  updatedAt              DateTime                @updatedAt
 }
 
 model ConfigurableModule {
@@ -74,26 +73,40 @@ model ConfigurableModule {
 }
 
 model Staf {
+  address           String?
   chartVists        ChartVist[]
+  contactDetails    String?
   createdAt         DateTime        @default(now())
+  destignation      String?
+  fullName          String?
+  gender            EnumStafGender?
   id                String          @id @default(auto()) @map("_id") @mongo.ObjectId
+  idNumber          String?
+  officialEmail     String?
+  race              String?
+  role              Role?           @relation(fields: [roleId], references: [id])
+  roleId            String?
   school            School[]        @relation(fields: [schoolIds], references: [id])
   schoolIds         String[]        @mongo.ObjectId
   schoolDistricts   SchoolDistrict? @relation(fields: [schoolDistrictsId], references: [id])
   schoolDistrictsId String?
+  status            EnumStafStatus?
   updatedAt         DateTime        @updatedAt
   user              User            @relation(fields: [userId], references: [id])
   userId            String          @unique
 }
 
 model Role {
-  createdAt   DateTime     @default(now())
-  id          String       @id @default(auto()) @map("_id") @mongo.ObjectId
-  name        String?
-  permissions Permission[]
-  school      School[]     @relation(fields: [schoolIds], references: [id])
-  schoolIds   String[]     @mongo.ObjectId
-  updatedAt   DateTime     @updatedAt
+  createdAt          DateTime         @default(now())
+  id                 String           @id @default(auto()) @map("_id") @mongo.ObjectId
+  name               String?
+  permissions        Permission[]
+  schoolDistricts    SchoolDistrict[] @relation(fields: [schoolDistrictsIds], references: [id])
+  schoolDistrictsIds String[]         @mongo.ObjectId
+  schools            School[]         @relation(fields: [schoolsIds], references: [id])
+  schoolsIds         String[]         @mongo.ObjectId
+  stafs              Staf[]
+  updatedAt          DateTime         @updatedAt
 }
 
 model Permission {
@@ -107,38 +120,41 @@ model Permission {
 }
 
 model Student {
-  address    String?
-  approvals  Approval[]
-  chartVists ChartVist[]
-  createdAt  DateTime           @default(now())
-  id         String             @id @default(auto()) @map("_id") @mongo.ObjectId
-  name       String
-  parent     Parent[]           @relation(fields: [parentIds], references: [id])
-  parentIds  String[]           @mongo.ObjectId
-  records    Treatment[]
-  school     School             @relation(fields: [schoolId], references: [id])
-  schoolId   String
-  status     EnumStudentStatus?
-  studentId  String?
-  updatedAt  DateTime           @updatedAt
-  user       User               @relation(fields: [userId], references: [id])
-  userId     String
+  address        String?
+  approvals      Approval[]
+  chartVists     ChartVist[]
+  contactDetails Json?
+  createdAt      DateTime           @default(now())
+  generalDetails Json?
+  id             String             @id @default(auto()) @map("_id") @mongo.ObjectId
+  name           String
+  parent         Parent[]           @relation(fields: [parentIds], references: [id])
+  parentIds      String[]           @mongo.ObjectId
+  records        Treatment[]
+  school         School             @relation(fields: [schoolId], references: [id])
+  schoolId       String
+  status         EnumStudentStatus?
+  studentId      String?
+  updatedAt      DateTime           @updatedAt
+  user           User               @relation(fields: [userId], references: [id])
+  userId         String
 }
 
 model Treatment {
-  approval          Approval?  @relation(fields: [approvalId], references: [id])
-  approvalId        String?    @unique
-  chartVist         ChartVist? @relation(fields: [chartVistId], references: [id])
+  approval          Approval?              @relation(fields: [approvalId], references: [id])
+  approvalId        String?                @unique
+  category          EnumTreatmentCategory?
+  chartVist         ChartVist?             @relation(fields: [chartVistId], references: [id])
   chartVistId       String?
-  createdAt         DateTime   @default(now())
+  createdAt         DateTime               @default(now())
   generalDetails    Json
-  id                String     @id @default(auto()) @map("_id") @mongo.ObjectId
+  id                String                 @id @default(auto()) @map("_id") @mongo.ObjectId
   medicationDetails Json?
-  student           Student?   @relation(fields: [studentId], references: [id])
+  student           Student?               @relation(fields: [studentId], references: [id])
   studentId         String?
   timingDetails     Json?
   treatmentDetails  Json
-  updatedAt         DateTime   @updatedAt
+  updatedAt         DateTime               @updatedAt
 }
 
 model Parent {
@@ -156,12 +172,16 @@ model Parent {
 }
 
 model SchoolDistrict {
-  createdAt DateTime @default(now())
-  id        String   @id @default(auto()) @map("_id") @mongo.ObjectId
-  name      String
-  schools   School[]
-  stafs     Staf[]
-  updatedAt DateTime @updatedAt
+  createdAt      DateTime      @default(now())
+  id             String        @id @default(auto()) @map("_id") @mongo.ObjectId
+  name           String
+  roles          Role[]        @relation(fields: [rolesIds], references: [id])
+  rolesIds       String[]      @mongo.ObjectId
+  schools        School[]
+  stafs          Staf[]
+  subscription   Subscription? @relation(fields: [subscriptionId], references: [id])
+  subscriptionId String?
+  updatedAt      DateTime      @updatedAt
 }
 
 model Approval {
@@ -210,6 +230,12 @@ enum EnumSchoolState {
   State_2
 }
 
+enum EnumSchoolStatus {
+  Active
+  Deactivate
+  Pending
+}
+
 enum EnumSchoolTownship {
   T1
   T2
@@ -220,10 +246,29 @@ enum EnumSubscriptionPeriod {
   Yearly
 }
 
+enum EnumStafGender {
+  Male
+  Female
+  NotSpecified
+}
+
+enum EnumStafStatus {
+  Active
+  Deactivate
+  Pending
+}
+
 enum EnumStudentStatus {
   Active
   Deactivate
   Pending
+}
+
+enum EnumTreatmentCategory {
+  Immunisation
+  Treatment
+  Medication
+  MandatoryScreening
 }
 
 enum EnumChartVistChartType {

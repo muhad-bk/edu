@@ -14,8 +14,10 @@ import { ApiProperty } from "@nestjs/swagger";
 import { StringFilter } from "../../util/StringFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested } from "class-validator";
+import { RoleListRelationFilter } from "../../role/base/RoleListRelationFilter";
 import { SchoolListRelationFilter } from "../../school/base/SchoolListRelationFilter";
 import { StafListRelationFilter } from "../../staf/base/StafListRelationFilter";
+import { SubscriptionWhereUniqueInput } from "../../subscription/base/SubscriptionWhereUniqueInput";
 
 @InputType()
 class SchoolDistrictWhereInput {
@@ -43,6 +45,18 @@ class SchoolDistrictWhereInput {
 
   @ApiProperty({
     required: false,
+    type: () => RoleListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => RoleListRelationFilter)
+  @IsOptional()
+  @Field(() => RoleListRelationFilter, {
+    nullable: true,
+  })
+  roles?: RoleListRelationFilter;
+
+  @ApiProperty({
+    required: false,
     type: () => SchoolListRelationFilter,
   })
   @ValidateNested()
@@ -64,6 +78,18 @@ class SchoolDistrictWhereInput {
     nullable: true,
   })
   stafs?: StafListRelationFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SubscriptionWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SubscriptionWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SubscriptionWhereUniqueInput, {
+    nullable: true,
+  })
+  subscription?: SubscriptionWhereUniqueInput;
 }
 
 export { SchoolDistrictWhereInput };

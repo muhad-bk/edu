@@ -22,6 +22,7 @@ export const TreatmentShow = (props: ShowProps): React.ReactElement => {
         >
           <TextField source={APPROVAL_TITLE_FIELD} />
         </ReferenceField>
+        <TextField label="Category" source="category" />
         <ReferenceField
           label="Chart Vist"
           source="chartvist.id"

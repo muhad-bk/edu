@@ -27,6 +27,9 @@ import { SchoolDistrictWhereUniqueInput } from "./SchoolDistrictWhereUniqueInput
 import { SchoolDistrictFindManyArgs } from "./SchoolDistrictFindManyArgs";
 import { SchoolDistrictUpdateInput } from "./SchoolDistrictUpdateInput";
 import { SchoolDistrict } from "./SchoolDistrict";
+import { RoleFindManyArgs } from "../../role/base/RoleFindManyArgs";
+import { Role } from "../../role/base/Role";
+import { RoleWhereUniqueInput } from "../../role/base/RoleWhereUniqueInput";
 import { SchoolFindManyArgs } from "../../school/base/SchoolFindManyArgs";
 import { School } from "../../school/base/School";
 import { SchoolWhereUniqueInput } from "../../school/base/SchoolWhereUniqueInput";
@@ -54,11 +57,26 @@ export class SchoolDistrictControllerBase {
     @common.Body() data: SchoolDistrictCreateInput
   ): Promise<SchoolDistrict> {
     return await this.service.create({
-      data: data,
+      data: {
+        ...data,
+
+        subscription: data.subscription
+          ? {
+              connect: data.subscription,
+            }
+          : undefined,
+      },
       select: {
         createdAt: true,
         id: true,
         name: true,
+
+        subscription: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -82,6 +100,13 @@ export class SchoolDistrictControllerBase {
         createdAt: true,
         id: true,
         name: true,
+
+        subscription: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -106,6 +131,13 @@ export class SchoolDistrictControllerBase {
         createdAt: true,
         id: true,
         name: true,
+
+        subscription: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -134,11 +166,26 @@ export class SchoolDistrictControllerBase {
     try {
       return await this.service.update({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          subscription: data.subscription
+            ? {
+                connect: data.subscription,
+              }
+            : undefined,
+        },
         select: {
           createdAt: true,
           id: true,
           name: true,
+
+          subscription: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -171,6 +218,13 @@ export class SchoolDistrictControllerBase {
           createdAt: true,
           id: true,
           name: true,
+
+          subscription: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -182,6 +236,102 @@ export class SchoolDistrictControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.UseInterceptors(AclFilterResponseInterceptor)
+  @nestAccessControl.UseRoles({
+    resource: "Role",
+    action: "read",
+    possession: "any",
+  })
+  @common.Get("/:id/roles")
+  @ApiNestedQuery(RoleFindManyArgs)
+  async findManyRoles(
+    @common.Req() request: Request,
+    @common.Param() params: SchoolDistrictWhereUniqueInput
+  ): Promise<Role[]> {
+    const query = plainToClass(RoleFindManyArgs, request.query);
+    const results = await this.service.findRoles(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+        id: true,
+        name: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "SchoolDistrict",
+    action: "update",
+    possession: "any",
+  })
+  @common.Post("/:id/roles")
+  async connectRoles(
+    @common.Param() params: SchoolDistrictWhereUniqueInput,
+    @common.Body() body: RoleWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      roles: {
+        connect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "SchoolDistrict",
+    action: "update",
+    possession: "any",
+  })
+  @common.Patch("/:id/roles")
+  async updateRoles(
+    @common.Param() params: SchoolDistrictWhereUniqueInput,
+    @common.Body() body: RoleWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      roles: {
+        set: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @nestAccessControl.UseRoles({
+    resource: "SchoolDistrict",
+    action: "update",
+    possession: "any",
+  })
+  @common.Delete("/:id/roles")
+  async disconnectRoles(
+    @common.Param() params: SchoolDistrictWhereUniqueInput,
+    @common.Body() body: RoleWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      roles: {
+        disconnect: body,
+      },
+    };
+    await this.service.update({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
@@ -200,14 +350,11 @@ export class SchoolDistrictControllerBase {
     const results = await this.service.findSchools(params.id, {
       ...query,
       select: {
-        activeSuscription: {
-          select: {
-            id: true,
-          },
-        },
-
+        abbreviation: true,
+        address: true,
         createdAt: true,
         id: true,
+        logoUrl: true,
         name: true,
 
         parent: {
@@ -216,6 +363,8 @@ export class SchoolDistrictControllerBase {
           },
         },
 
+        schoolCode: true,
+
         schoolDistrict: {
           select: {
             id: true,
@@ -223,6 +372,7 @@ export class SchoolDistrictControllerBase {
         },
 
         state: true,
+        status: true,
         township: true,
         updatedAt: true,
       },
@@ -317,8 +467,22 @@ export class SchoolDistrictControllerBase {
     const results = await this.service.findStafs(params.id, {
       ...query,
       select: {
+        address: true,
+        contactDetails: true,
         createdAt: true,
+        destignation: true,
+        fullName: true,
+        gender: true,
         id: true,
+        idNumber: true,
+        officialEmail: true,
+        race: true,
+
+        role: {
+          select: {
+            id: true,
+          },
+        },
 
         schoolDistricts: {
           select: {
@@ -326,6 +490,7 @@ export class SchoolDistrictControllerBase {
           },
         },
 
+        status: true,
         updatedAt: true,
 
         user: {
