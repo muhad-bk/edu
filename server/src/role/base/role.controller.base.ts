@@ -308,6 +308,7 @@ export class RoleControllerBase {
     const results = await this.service.findSchoolDistricts(params.id, {
       ...query,
       select: {
+        address: true,
         createdAt: true,
         id: true,
         name: true,

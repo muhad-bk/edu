@@ -11,7 +11,7 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsString, ValidateNested, IsOptional } from "class-validator";
+import { IsString, IsOptional, IsDate, ValidateNested } from "class-validator";
 import { Type } from "class-transformer";
 import { Role } from "../../role/base/Role";
 import { School } from "../../school/base/School";
@@ -20,6 +20,17 @@ import { Subscription } from "../../subscription/base/Subscription";
 
 @ObjectType()
 class SchoolDistrict {
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  address!: string | null;
+
   @ApiProperty({
     required: true,
   })

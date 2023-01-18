@@ -4,6 +4,7 @@ import { StafUpdateManyWithoutSchoolDistrictsInput } from "./StafUpdateManyWitho
 import { SubscriptionWhereUniqueInput } from "../subscription/SubscriptionWhereUniqueInput";
 
 export type SchoolDistrictUpdateInput = {
+  address?: string | null;
   name?: string;
   roles?: RoleUpdateManyWithoutSchoolDistrictsInput;
   schools?: SchoolUpdateManyWithoutSchoolDistrictsInput;
