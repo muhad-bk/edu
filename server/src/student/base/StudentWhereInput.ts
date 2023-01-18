@@ -19,7 +19,7 @@ import { ChartVistListRelationFilter } from "../../chartVist/base/ChartVistListR
 import { JsonFilter } from "../../util/JsonFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { ParentListRelationFilter } from "../../parent/base/ParentListRelationFilter";
-import { TreatmentListRelationFilter } from "../../treatment/base/TreatmentListRelationFilter";
+import { MedicalRecordListRelationFilter } from "../../medicalRecord/base/MedicalRecordListRelationFilter";
 import { SchoolWhereUniqueInput } from "../../school/base/SchoolWhereUniqueInput";
 import { EnumStudentStatus } from "./EnumStudentStatus";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
@@ -119,15 +119,15 @@ class StudentWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => TreatmentListRelationFilter,
+    type: () => MedicalRecordListRelationFilter,
   })
   @ValidateNested()
-  @Type(() => TreatmentListRelationFilter)
+  @Type(() => MedicalRecordListRelationFilter)
   @IsOptional()
-  @Field(() => TreatmentListRelationFilter, {
+  @Field(() => MedicalRecordListRelationFilter, {
     nullable: true,
   })
-  records?: TreatmentListRelationFilter;
+  records?: MedicalRecordListRelationFilter;
 
   @ApiProperty({
     required: false,

@@ -31,8 +31,8 @@ import { ChartVistFindManyArgs } from "../../chartVist/base/ChartVistFindManyArg
 import { ChartVist } from "../../chartVist/base/ChartVist";
 import { ParentFindManyArgs } from "../../parent/base/ParentFindManyArgs";
 import { Parent } from "../../parent/base/Parent";
-import { TreatmentFindManyArgs } from "../../treatment/base/TreatmentFindManyArgs";
-import { Treatment } from "../../treatment/base/Treatment";
+import { MedicalRecordFindManyArgs } from "../../medicalRecord/base/MedicalRecordFindManyArgs";
+import { MedicalRecord } from "../../medicalRecord/base/MedicalRecord";
 import { School } from "../../school/base/School";
 import { User } from "../../user/base/User";
 import { StudentService } from "../student.service";
@@ -237,16 +237,16 @@ export class StudentResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => [Treatment])
+  @graphql.ResolveField(() => [MedicalRecord])
   @nestAccessControl.UseRoles({
-    resource: "Treatment",
+    resource: "MedicalRecord",
     action: "read",
     possession: "any",
   })
   async records(
     @graphql.Parent() parent: Student,
-    @graphql.Args() args: TreatmentFindManyArgs
-  ): Promise<Treatment[]> {
+    @graphql.Args() args: MedicalRecordFindManyArgs
+  ): Promise<MedicalRecord[]> {
     const results = await this.service.findRecords(parent.id, args);
 
     if (!results) {

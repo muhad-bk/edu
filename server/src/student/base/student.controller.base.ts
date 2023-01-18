@@ -36,9 +36,9 @@ import { ChartVistWhereUniqueInput } from "../../chartVist/base/ChartVistWhereUn
 import { ParentFindManyArgs } from "../../parent/base/ParentFindManyArgs";
 import { Parent } from "../../parent/base/Parent";
 import { ParentWhereUniqueInput } from "../../parent/base/ParentWhereUniqueInput";
-import { TreatmentFindManyArgs } from "../../treatment/base/TreatmentFindManyArgs";
-import { Treatment } from "../../treatment/base/Treatment";
-import { TreatmentWhereUniqueInput } from "../../treatment/base/TreatmentWhereUniqueInput";
+import { MedicalRecordFindManyArgs } from "../../medicalRecord/base/MedicalRecordFindManyArgs";
+import { MedicalRecord } from "../../medicalRecord/base/MedicalRecord";
+import { MedicalRecordWhereUniqueInput } from "../../medicalRecord/base/MedicalRecordWhereUniqueInput";
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
 export class StudentControllerBase {
@@ -630,17 +630,17 @@ export class StudentControllerBase {
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
   @nestAccessControl.UseRoles({
-    resource: "Treatment",
+    resource: "MedicalRecord",
     action: "read",
     possession: "any",
   })
   @common.Get("/:id/records")
-  @ApiNestedQuery(TreatmentFindManyArgs)
+  @ApiNestedQuery(MedicalRecordFindManyArgs)
   async findManyRecords(
     @common.Req() request: Request,
     @common.Param() params: StudentWhereUniqueInput
-  ): Promise<Treatment[]> {
-    const query = plainToClass(TreatmentFindManyArgs, request.query);
+  ): Promise<MedicalRecord[]> {
+    const query = plainToClass(MedicalRecordFindManyArgs, request.query);
     const results = await this.service.findRecords(params.id, {
       ...query,
       select: {
@@ -690,7 +690,7 @@ export class StudentControllerBase {
   @common.Post("/:id/records")
   async connectRecords(
     @common.Param() params: StudentWhereUniqueInput,
-    @common.Body() body: TreatmentWhereUniqueInput[]
+    @common.Body() body: MedicalRecordWhereUniqueInput[]
   ): Promise<void> {
     const data = {
       records: {
@@ -712,7 +712,7 @@ export class StudentControllerBase {
   @common.Patch("/:id/records")
   async updateRecords(
     @common.Param() params: StudentWhereUniqueInput,
-    @common.Body() body: TreatmentWhereUniqueInput[]
+    @common.Body() body: MedicalRecordWhereUniqueInput[]
   ): Promise<void> {
     const data = {
       records: {
@@ -734,7 +734,7 @@ export class StudentControllerBase {
   @common.Delete("/:id/records")
   async disconnectRecords(
     @common.Param() params: StudentWhereUniqueInput,
-    @common.Body() body: TreatmentWhereUniqueInput[]
+    @common.Body() body: MedicalRecordWhereUniqueInput[]
   ): Promise<void> {
     const data = {
       records: {

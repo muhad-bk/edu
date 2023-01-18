@@ -16,7 +16,7 @@ import { ValidateNested, IsOptional } from "class-validator";
 import { Type } from "class-transformer";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
-import { TreatmentWhereUniqueInput } from "../../treatment/base/TreatmentWhereUniqueInput";
+import { MedicalRecordWhereUniqueInput } from "../../medicalRecord/base/MedicalRecordWhereUniqueInput";
 import { StudentWhereUniqueInput } from "../../student/base/StudentWhereUniqueInput";
 
 @InputType()
@@ -68,15 +68,15 @@ class ApprovalWhereInput {
 
   @ApiProperty({
     required: false,
-    type: () => TreatmentWhereUniqueInput,
+    type: () => MedicalRecordWhereUniqueInput,
   })
   @ValidateNested()
-  @Type(() => TreatmentWhereUniqueInput)
+  @Type(() => MedicalRecordWhereUniqueInput)
   @IsOptional()
-  @Field(() => TreatmentWhereUniqueInput, {
+  @Field(() => MedicalRecordWhereUniqueInput, {
     nullable: true,
   })
-  record?: TreatmentWhereUniqueInput;
+  record?: MedicalRecordWhereUniqueInput;
 
   @ApiProperty({
     required: false,

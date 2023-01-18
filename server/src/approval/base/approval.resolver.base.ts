@@ -27,7 +27,7 @@ import { ApprovalFindUniqueArgs } from "./ApprovalFindUniqueArgs";
 import { Approval } from "./Approval";
 import { ParentFindManyArgs } from "../../parent/base/ParentFindManyArgs";
 import { Parent } from "../../parent/base/Parent";
-import { Treatment } from "../../treatment/base/Treatment";
+import { MedicalRecord } from "../../medicalRecord/base/MedicalRecord";
 import { Student } from "../../student/base/Student";
 import { ApprovalService } from "../approval.service";
 
@@ -195,13 +195,15 @@ export class ApprovalResolverBase {
   }
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
-  @graphql.ResolveField(() => Treatment, { nullable: true })
+  @graphql.ResolveField(() => MedicalRecord, { nullable: true })
   @nestAccessControl.UseRoles({
-    resource: "Treatment",
+    resource: "MedicalRecord",
     action: "read",
     possession: "any",
   })
-  async record(@graphql.Parent() parent: Approval): Promise<Treatment | null> {
+  async record(
+    @graphql.Parent() parent: Approval
+  ): Promise<MedicalRecord | null> {
     const result = await this.service.getRecord(parent.id);
 
     if (!result) {

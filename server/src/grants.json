@@ -576,6 +576,12 @@
     "attributes": "*"
   },
   {
+    "role": "admin",
+    "resource": "Role",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
     "role": "superAdmin",
     "resource": "Role",
     "action": "update:any",
@@ -799,121 +805,121 @@
   },
   {
     "role": "parent",
-    "resource": "Treatment",
+    "resource": "MedicalRecord",
     "action": "read:own",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Treatment",
+    "resource": "MedicalRecord",
     "action": "read:own",
     "attributes": "*"
   },
   {
     "role": "superAdmin",
-    "resource": "Treatment",
+    "resource": "MedicalRecord",
     "action": "read:own",
     "attributes": "*"
   },
   {
     "role": "admin",
-    "resource": "Treatment",
+    "resource": "MedicalRecord",
     "action": "read:own",
     "attributes": "*"
   },
   {
     "role": "parent",
-    "resource": "Treatment",
+    "resource": "MedicalRecord",
     "action": "create:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Treatment",
+    "resource": "MedicalRecord",
     "action": "create:any",
     "attributes": "*"
   },
   {
     "role": "superAdmin",
-    "resource": "Treatment",
+    "resource": "MedicalRecord",
     "action": "create:any",
     "attributes": "*"
   },
   {
     "role": "admin",
-    "resource": "Treatment",
+    "resource": "MedicalRecord",
     "action": "create:any",
     "attributes": "*"
   },
   {
     "role": "parent",
-    "resource": "Treatment",
+    "resource": "MedicalRecord",
     "action": "update:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Treatment",
+    "resource": "MedicalRecord",
     "action": "update:any",
     "attributes": "*"
   },
   {
     "role": "superAdmin",
-    "resource": "Treatment",
+    "resource": "MedicalRecord",
     "action": "update:any",
     "attributes": "*"
   },
   {
     "role": "admin",
-    "resource": "Treatment",
+    "resource": "MedicalRecord",
     "action": "update:any",
     "attributes": "*"
   },
   {
     "role": "parent",
-    "resource": "Treatment",
+    "resource": "MedicalRecord",
     "action": "delete:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Treatment",
+    "resource": "MedicalRecord",
     "action": "delete:any",
     "attributes": "*"
   },
   {
     "role": "superAdmin",
-    "resource": "Treatment",
+    "resource": "MedicalRecord",
     "action": "delete:any",
     "attributes": "*"
   },
   {
     "role": "admin",
-    "resource": "Treatment",
+    "resource": "MedicalRecord",
     "action": "delete:any",
     "attributes": "*"
   },
   {
     "role": "parent",
-    "resource": "Treatment",
+    "resource": "MedicalRecord",
     "action": "read:any",
     "attributes": "*"
   },
   {
     "role": "user",
-    "resource": "Treatment",
+    "resource": "MedicalRecord",
     "action": "read:any",
     "attributes": "*"
   },
   {
     "role": "superAdmin",
-    "resource": "Treatment",
+    "resource": "MedicalRecord",
     "action": "read:any",
     "attributes": "*"
   },
   {
     "role": "admin",
-    "resource": "Treatment",
+    "resource": "MedicalRecord",
     "action": "read:any",
     "attributes": "*"
   },

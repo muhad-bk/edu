@@ -24,7 +24,7 @@ import { ChartVistCreateNestedManyWithoutStudentsInput } from "./ChartVistCreate
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
 import { ParentCreateNestedManyWithoutStudentsInput } from "./ParentCreateNestedManyWithoutStudentsInput";
-import { TreatmentCreateNestedManyWithoutStudentsInput } from "./TreatmentCreateNestedManyWithoutStudentsInput";
+import { MedicalRecordCreateNestedManyWithoutStudentsInput } from "./MedicalRecordCreateNestedManyWithoutStudentsInput";
 import { SchoolWhereUniqueInput } from "../../school/base/SchoolWhereUniqueInput";
 import { EnumStudentStatus } from "./EnumStudentStatus";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
@@ -108,15 +108,15 @@ class StudentCreateInput {
 
   @ApiProperty({
     required: false,
-    type: () => TreatmentCreateNestedManyWithoutStudentsInput,
+    type: () => MedicalRecordCreateNestedManyWithoutStudentsInput,
   })
   @ValidateNested()
-  @Type(() => TreatmentCreateNestedManyWithoutStudentsInput)
+  @Type(() => MedicalRecordCreateNestedManyWithoutStudentsInput)
   @IsOptional()
-  @Field(() => TreatmentCreateNestedManyWithoutStudentsInput, {
+  @Field(() => MedicalRecordCreateNestedManyWithoutStudentsInput, {
     nullable: true,
   })
-  records?: TreatmentCreateNestedManyWithoutStudentsInput;
+  records?: MedicalRecordCreateNestedManyWithoutStudentsInput;
 
   @ApiProperty({
     required: true,

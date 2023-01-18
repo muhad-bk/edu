@@ -130,7 +130,7 @@ model Student {
   name           String
   parent         Parent[]           @relation(fields: [parentIds], references: [id])
   parentIds      String[]           @mongo.ObjectId
-  records        Treatment[]
+  records        MedicalRecord[]
   school         School             @relation(fields: [schoolId], references: [id])
   schoolId       String
   status         EnumStudentStatus?
@@ -140,21 +140,21 @@ model Student {
   userId         String
 }
 
-model Treatment {
-  approval          Approval?              @relation(fields: [approvalId], references: [id])
-  approvalId        String?                @unique
-  category          EnumTreatmentCategory?
-  chartVist         ChartVist?             @relation(fields: [chartVistId], references: [id])
+model MedicalRecord {
+  approval          Approval?                  @relation(fields: [approvalId], references: [id])
+  approvalId        String?                    @unique
+  category          EnumMedicalRecordCategory?
+  chartVist         ChartVist?                 @relation(fields: [chartVistId], references: [id])
   chartVistId       String?
-  createdAt         DateTime               @default(now())
+  createdAt         DateTime                   @default(now())
   generalDetails    Json
-  id                String                 @id @default(auto()) @map("_id") @mongo.ObjectId
+  id                String                     @id @default(auto()) @map("_id") @mongo.ObjectId
   medicationDetails Json?
-  student           Student?               @relation(fields: [studentId], references: [id])
+  student           Student?                   @relation(fields: [studentId], references: [id])
   studentId         String?
   timingDetails     Json?
   treatmentDetails  Json
-  updatedAt         DateTime               @updatedAt
+  updatedAt         DateTime                   @updatedAt
 }
 
 model Parent {
@@ -185,32 +185,32 @@ model SchoolDistrict {
 }
 
 model Approval {
-  approvedBy          Parent[]   @relation(fields: [approvedByIds], references: [id])
-  approvedByIds       String[]   @mongo.ObjectId
+  approvedBy          Parent[]       @relation(fields: [approvedByIds], references: [id])
+  approvedByIds       String[]       @mongo.ObjectId
   authorisationLetter String?
-  createdAt           DateTime   @default(now())
+  createdAt           DateTime       @default(now())
   description         String?
-  id                  String     @id @default(auto()) @map("_id") @mongo.ObjectId
-  record              Treatment?
-  student             Student?   @relation(fields: [studentId], references: [id])
+  id                  String         @id @default(auto()) @map("_id") @mongo.ObjectId
+  record              MedicalRecord?
+  student             Student?       @relation(fields: [studentId], references: [id])
   studentId           String?
-  updatedAt           DateTime   @updatedAt
+  updatedAt           DateTime       @updatedAt
 }
 
 model ChartVist {
-  chartType  EnumChartVistChartType
-  createdAt  DateTime               @default(now())
-  endTime    String?
-  id         String                 @id @default(auto()) @map("_id") @mongo.ObjectId
-  school     School?                @relation(fields: [schoolId], references: [id])
-  schoolId   String?
-  staf       Staf?                  @relation(fields: [stafId], references: [id])
-  stafId     String?
-  startTime  DateTime?
-  student    Student?               @relation(fields: [studentId], references: [id])
-  studentId  String?
-  treatments Treatment[]
-  updatedAt  DateTime               @updatedAt
+  chartType     EnumChartVistChartType
+  createdAt     DateTime               @default(now())
+  endTime       String?
+  id            String                 @id @default(auto()) @map("_id") @mongo.ObjectId
+  MedicalRecord MedicalRecord[]
+  school        School?                @relation(fields: [schoolId], references: [id])
+  schoolId      String?
+  staf          Staf?                  @relation(fields: [stafId], references: [id])
+  stafId        String?
+  startTime     DateTime?
+  student       Student?               @relation(fields: [studentId], references: [id])
+  studentId     String?
+  updatedAt     DateTime               @updatedAt
 }
 
 model SubscriptionPlan {
@@ -264,7 +264,7 @@ enum EnumStudentStatus {
   Pending
 }
 
-enum EnumTreatmentCategory {
+enum EnumMedicalRecordCategory {
   Immunisation
   Treatment
   Medication

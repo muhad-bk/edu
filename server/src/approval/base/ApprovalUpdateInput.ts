@@ -14,7 +14,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { ParentUpdateManyWithoutApprovalsInput } from "./ParentUpdateManyWithoutApprovalsInput";
 import { ValidateNested, IsOptional, IsString } from "class-validator";
 import { Type } from "class-transformer";
-import { TreatmentWhereUniqueInput } from "../../treatment/base/TreatmentWhereUniqueInput";
+import { MedicalRecordWhereUniqueInput } from "../../medicalRecord/base/MedicalRecordWhereUniqueInput";
 import { StudentWhereUniqueInput } from "../../student/base/StudentWhereUniqueInput";
 
 @InputType()
@@ -55,15 +55,15 @@ class ApprovalUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: () => TreatmentWhereUniqueInput,
+    type: () => MedicalRecordWhereUniqueInput,
   })
   @ValidateNested()
-  @Type(() => TreatmentWhereUniqueInput)
+  @Type(() => MedicalRecordWhereUniqueInput)
   @IsOptional()
-  @Field(() => TreatmentWhereUniqueInput, {
+  @Field(() => MedicalRecordWhereUniqueInput, {
     nullable: true,
   })
-  record?: TreatmentWhereUniqueInput | null;
+  record?: MedicalRecordWhereUniqueInput | null;
 
   @ApiProperty({
     required: false,

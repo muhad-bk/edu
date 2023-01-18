@@ -16,11 +16,12 @@ import { IsEnum, IsOptional, ValidateNested } from "class-validator";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
 import { StringFilter } from "../../util/StringFilter";
+import { MedicalRecordListRelationFilter } from "../../medicalRecord/base/MedicalRecordListRelationFilter";
+import { MedicalRecord } from "../../medicalRecord/base/MedicalRecord";
 import { SchoolWhereUniqueInput } from "../../school/base/SchoolWhereUniqueInput";
 import { StafWhereUniqueInput } from "../../staf/base/StafWhereUniqueInput";
 import { DateTimeNullableFilter } from "../../util/DateTimeNullableFilter";
 import { StudentWhereUniqueInput } from "../../student/base/StudentWhereUniqueInput";
-import { TreatmentListRelationFilter } from "../../treatment/base/TreatmentListRelationFilter";
 
 @InputType()
 class ChartVistWhereInput {
@@ -56,6 +57,18 @@ class ChartVistWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => MedicalRecordListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => MedicalRecordListRelationFilter)
+  @IsOptional()
+  @Field(() => MedicalRecordListRelationFilter, {
+    nullable: true,
+  })
+  MedicalRecord?: MedicalRecordListRelationFilter;
 
   @ApiProperty({
     required: false,
@@ -103,18 +116,6 @@ class ChartVistWhereInput {
     nullable: true,
   })
   student?: StudentWhereUniqueInput;
-
-  @ApiProperty({
-    required: false,
-    type: () => TreatmentListRelationFilter,
-  })
-  @ValidateNested()
-  @Type(() => TreatmentListRelationFilter)
-  @IsOptional()
-  @Field(() => TreatmentListRelationFilter, {
-    nullable: true,
-  })
-  treatments?: TreatmentListRelationFilter;
 }
 
 export { ChartVistWhereInput };

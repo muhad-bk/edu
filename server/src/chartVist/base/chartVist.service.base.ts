@@ -13,7 +13,7 @@ import { PrismaService } from "../../prisma/prisma.service";
 import {
   Prisma,
   ChartVist,
-  Treatment,
+  MedicalRecord,
   School,
   Staf,
   Student,
@@ -54,15 +54,15 @@ export class ChartVistServiceBase {
     return this.prisma.chartVist.delete(args);
   }
 
-  async findTreatments(
+  async findMedicalRecord(
     parentId: string,
-    args: Prisma.TreatmentFindManyArgs
-  ): Promise<Treatment[]> {
+    args: Prisma.MedicalRecordFindManyArgs
+  ): Promise<MedicalRecord[]> {
     return this.prisma.chartVist
       .findUniqueOrThrow({
         where: { id: parentId },
       })
-      .treatments(args);
+      .MedicalRecord(args);
   }
 
   async getSchool(parentId: string): Promise<School | null> {

@@ -1,7 +1,7 @@
 import { ParentListRelationFilter } from "../parent/ParentListRelationFilter";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { StringFilter } from "../../util/StringFilter";
-import { TreatmentWhereUniqueInput } from "../treatment/TreatmentWhereUniqueInput";
+import { MedicalRecordWhereUniqueInput } from "../medicalRecord/MedicalRecordWhereUniqueInput";
 import { StudentWhereUniqueInput } from "../student/StudentWhereUniqueInput";
 
 export type ApprovalWhereInput = {
@@ -9,6 +9,6 @@ export type ApprovalWhereInput = {
   authorisationLetter?: StringNullableFilter;
   description?: StringNullableFilter;
   id?: StringFilter;
-  record?: TreatmentWhereUniqueInput;
+  record?: MedicalRecordWhereUniqueInput;
   student?: StudentWhereUniqueInput;
 };

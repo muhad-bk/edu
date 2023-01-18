@@ -14,7 +14,7 @@ import {
 import { ApprovalTitle } from "../approval/ApprovalTitle";
 import { ChartVistTitle } from "../chartVist/ChartVistTitle";
 import { ParentTitle } from "../parent/ParentTitle";
-import { TreatmentTitle } from "../treatment/TreatmentTitle";
+import { MedicalRecordTitle } from "../medicalRecord/MedicalRecordTitle";
 import { SchoolTitle } from "../school/SchoolTitle";
 import { UserTitle } from "../user/UserTitle";
 
@@ -52,11 +52,11 @@ export const StudentCreate = (props: CreateProps): React.ReactElement => {
         </ReferenceArrayInput>
         <ReferenceArrayInput
           source="records"
-          reference="Treatment"
+          reference="MedicalRecord"
           parse={(value: any) => value && value.map((v: any) => ({ id: v }))}
           format={(value: any) => value && value.map((v: any) => v.id)}
         >
-          <SelectArrayInput optionText={TreatmentTitle} />
+          <SelectArrayInput optionText={MedicalRecordTitle} />
         </ReferenceArrayInput>
         <ReferenceInput source="school.id" reference="School" label="School">
           <SelectInput optionText={SchoolTitle} />

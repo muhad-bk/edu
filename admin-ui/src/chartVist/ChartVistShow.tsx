@@ -37,9 +37,9 @@ export const ChartVistShow = (props: ShowProps): React.ReactElement => {
         </ReferenceField>
         <DateField source="updatedAt" label="Updated At" />
         <ReferenceManyField
-          reference="Treatment"
+          reference="MedicalRecord"
           target="ChartVistId"
-          label="Treatments"
+          label="MedicalRecords"
         >
           <Datagrid rowClick="show">
             <ReferenceField

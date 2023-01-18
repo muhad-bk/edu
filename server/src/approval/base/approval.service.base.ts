@@ -10,7 +10,13 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-import { Prisma, Approval, Parent, Treatment, Student } from "@prisma/client";
+import {
+  Prisma,
+  Approval,
+  Parent,
+  MedicalRecord,
+  Student,
+} from "@prisma/client";
 
 export class ApprovalServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -58,7 +64,7 @@ export class ApprovalServiceBase {
       .approvedBy(args);
   }
 
-  async getRecord(parentId: string): Promise<Treatment | null> {
+  async getRecord(parentId: string): Promise<MedicalRecord | null> {
     return this.prisma.approval
       .findUnique({
         where: { id: parentId },

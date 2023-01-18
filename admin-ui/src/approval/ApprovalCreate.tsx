@@ -12,7 +12,7 @@ import {
 } from "react-admin";
 
 import { ParentTitle } from "../parent/ParentTitle";
-import { TreatmentTitle } from "../treatment/TreatmentTitle";
+import { MedicalRecordTitle } from "../medicalRecord/MedicalRecordTitle";
 import { StudentTitle } from "../student/StudentTitle";
 
 export const ApprovalCreate = (props: CreateProps): React.ReactElement => {
@@ -30,11 +30,11 @@ export const ApprovalCreate = (props: CreateProps): React.ReactElement => {
         <TextInput label="Authorisation Letter" source="authorisationLetter" />
         <TextInput label="Description" multiline source="description" />
         <ReferenceInput
-          source="treatment.id"
-          reference="Treatment"
+          source="medicalrecord.id"
+          reference="MedicalRecord"
           label="Record"
         >
-          <SelectInput optionText={TreatmentTitle} />
+          <SelectInput optionText={MedicalRecordTitle} />
         </ReferenceInput>
         <ReferenceInput source="student.id" reference="Student" label="Student">
           <SelectInput optionText={StudentTitle} />

@@ -9,7 +9,7 @@ import { StafModule } from "./staf/staf.module";
 import { RoleModule } from "./role/role.module";
 import { PermissionModule } from "./permission/permission.module";
 import { StudentModule } from "./student/student.module";
-import { TreatmentModule } from "./treatment/treatment.module";
+import { MedicalRecordModule } from "./medicalRecord/medicalRecord.module";
 import { ParentModule } from "./parent/parent.module";
 import { SchoolDistrictModule } from "./schoolDistrict/schoolDistrict.module";
 import { ApprovalModule } from "./approval/approval.module";
@@ -37,7 +37,7 @@ import { GraphQLModule } from "@nestjs/graphql";
     RoleModule,
     PermissionModule,
     StudentModule,
-    TreatmentModule,
+    MedicalRecordModule,
     ParentModule,
     SchoolDistrictModule,
     ApprovalModule,
