@@ -25,7 +25,7 @@ import { ChartVist } from "../../chartVist/base/ChartVist";
 import { GraphQLJSON } from "graphql-type-json";
 import { JsonValue } from "type-fest";
 import { Parent } from "../../parent/base/Parent";
-import { Treatment } from "../../treatment/base/Treatment";
+import { MedicalRecord } from "../../medicalRecord/base/MedicalRecord";
 import { School } from "../../school/base/School";
 import { EnumStudentStatus } from "./EnumStudentStatus";
 import { User } from "../../user/base/User";
@@ -116,12 +116,12 @@ class Student {
 
   @ApiProperty({
     required: false,
-    type: () => [Treatment],
+    type: () => [MedicalRecord],
   })
   @ValidateNested()
-  @Type(() => Treatment)
+  @Type(() => MedicalRecord)
   @IsOptional()
-  records?: Array<Treatment>;
+  records?: Array<MedicalRecord>;
 
   @ApiProperty({
     required: true,

@@ -1,5 +1,5 @@
 import { Parent } from "../parent/Parent";
-import { Treatment } from "../treatment/Treatment";
+import { MedicalRecord } from "../medicalRecord/MedicalRecord";
 import { Student } from "../student/Student";
 
 export type Approval = {
@@ -8,7 +8,7 @@ export type Approval = {
   createdAt: Date;
   description: string | null;
   id: string;
-  record?: Treatment | null;
+  record?: MedicalRecord | null;
   student?: Student | null;
   updatedAt: Date;
 };

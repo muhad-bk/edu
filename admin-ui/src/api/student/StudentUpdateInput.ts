@@ -2,7 +2,7 @@ import { ApprovalUpdateManyWithoutStudentsInput } from "./ApprovalUpdateManyWith
 import { ChartVistUpdateManyWithoutStudentsInput } from "./ChartVistUpdateManyWithoutStudentsInput";
 import { InputJsonValue } from "../../types";
 import { ParentUpdateManyWithoutStudentsInput } from "./ParentUpdateManyWithoutStudentsInput";
-import { TreatmentUpdateManyWithoutStudentsInput } from "./TreatmentUpdateManyWithoutStudentsInput";
+import { MedicalRecordUpdateManyWithoutStudentsInput } from "./MedicalRecordUpdateManyWithoutStudentsInput";
 import { SchoolWhereUniqueInput } from "../school/SchoolWhereUniqueInput";
 import { UserWhereUniqueInput } from "../user/UserWhereUniqueInput";
 
@@ -14,7 +14,7 @@ export type StudentUpdateInput = {
   generalDetails?: InputJsonValue;
   name?: string;
   parent?: ParentUpdateManyWithoutStudentsInput;
-  records?: TreatmentUpdateManyWithoutStudentsInput;
+  records?: MedicalRecordUpdateManyWithoutStudentsInput;
   school?: SchoolWhereUniqueInput;
   status?: "Active" | "Deactivate" | "Pending" | null;
   studentId?: string | null;

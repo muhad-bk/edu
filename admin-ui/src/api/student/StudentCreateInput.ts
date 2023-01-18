@@ -2,7 +2,7 @@ import { ApprovalCreateNestedManyWithoutStudentsInput } from "./ApprovalCreateNe
 import { ChartVistCreateNestedManyWithoutStudentsInput } from "./ChartVistCreateNestedManyWithoutStudentsInput";
 import { InputJsonValue } from "../../types";
 import { ParentCreateNestedManyWithoutStudentsInput } from "./ParentCreateNestedManyWithoutStudentsInput";
-import { TreatmentCreateNestedManyWithoutStudentsInput } from "./TreatmentCreateNestedManyWithoutStudentsInput";
+import { MedicalRecordCreateNestedManyWithoutStudentsInput } from "./MedicalRecordCreateNestedManyWithoutStudentsInput";
 import { SchoolWhereUniqueInput } from "../school/SchoolWhereUniqueInput";
 import { UserWhereUniqueInput } from "../user/UserWhereUniqueInput";
 
@@ -14,7 +14,7 @@ export type StudentCreateInput = {
   generalDetails?: InputJsonValue;
   name: string;
   parent?: ParentCreateNestedManyWithoutStudentsInput;
-  records?: TreatmentCreateNestedManyWithoutStudentsInput;
+  records?: MedicalRecordCreateNestedManyWithoutStudentsInput;
   school: SchoolWhereUniqueInput;
   status?: "Active" | "Deactivate" | "Pending" | null;
   studentId?: string | null;

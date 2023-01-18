@@ -24,7 +24,7 @@ import { ChartVistUpdateManyWithoutStudentsInput } from "./ChartVistUpdateManyWi
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
 import { ParentUpdateManyWithoutStudentsInput } from "./ParentUpdateManyWithoutStudentsInput";
-import { TreatmentUpdateManyWithoutStudentsInput } from "./TreatmentUpdateManyWithoutStudentsInput";
+import { MedicalRecordUpdateManyWithoutStudentsInput } from "./MedicalRecordUpdateManyWithoutStudentsInput";
 import { SchoolWhereUniqueInput } from "../../school/base/SchoolWhereUniqueInput";
 import { EnumStudentStatus } from "./EnumStudentStatus";
 import { UserWhereUniqueInput } from "../../user/base/UserWhereUniqueInput";
@@ -111,15 +111,15 @@ class StudentUpdateInput {
 
   @ApiProperty({
     required: false,
-    type: () => TreatmentUpdateManyWithoutStudentsInput,
+    type: () => MedicalRecordUpdateManyWithoutStudentsInput,
   })
   @ValidateNested()
-  @Type(() => TreatmentUpdateManyWithoutStudentsInput)
+  @Type(() => MedicalRecordUpdateManyWithoutStudentsInput)
   @IsOptional()
-  @Field(() => TreatmentUpdateManyWithoutStudentsInput, {
+  @Field(() => MedicalRecordUpdateManyWithoutStudentsInput, {
     nullable: true,
   })
-  records?: TreatmentUpdateManyWithoutStudentsInput;
+  records?: MedicalRecordUpdateManyWithoutStudentsInput;
 
   @ApiProperty({
     required: false,

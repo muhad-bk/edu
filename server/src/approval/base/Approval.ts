@@ -14,7 +14,7 @@ import { ApiProperty } from "@nestjs/swagger";
 import { Parent } from "../../parent/base/Parent";
 import { ValidateNested, IsOptional, IsString, IsDate } from "class-validator";
 import { Type } from "class-transformer";
-import { Treatment } from "../../treatment/base/Treatment";
+import { MedicalRecord } from "../../medicalRecord/base/MedicalRecord";
 import { Student } from "../../student/base/Student";
 
 @ObjectType()
@@ -68,11 +68,11 @@ class Approval {
 
   @ApiProperty({
     required: true,
-    type: () => Treatment,
+    type: () => MedicalRecord,
   })
   @ValidateNested()
-  @Type(() => Treatment)
-  record?: Treatment | null;
+  @Type(() => MedicalRecord)
+  record?: MedicalRecord | null;
 
   @ApiProperty({
     required: false,

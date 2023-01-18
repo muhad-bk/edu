@@ -2,7 +2,7 @@ import { Approval } from "../approval/Approval";
 import { ChartVist } from "../chartVist/ChartVist";
 import { JsonValue } from "type-fest";
 import { Parent } from "../parent/Parent";
-import { Treatment } from "../treatment/Treatment";
+import { MedicalRecord } from "../medicalRecord/MedicalRecord";
 import { School } from "../school/School";
 import { User } from "../user/User";
 
@@ -16,7 +16,7 @@ export type Student = {
   id: string;
   name: string;
   parent?: Array<Parent>;
-  records?: Array<Treatment>;
+  records?: Array<MedicalRecord>;
   school?: School;
   status?: "Active" | "Deactivate" | "Pending" | null;
   studentId: string | null;

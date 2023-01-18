@@ -20,10 +20,10 @@ import {
   ValidateNested,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { MedicalRecord } from "../../medicalRecord/base/MedicalRecord";
 import { School } from "../../school/base/School";
 import { Staf } from "../../staf/base/Staf";
 import { Student } from "../../student/base/Student";
-import { Treatment } from "../../treatment/base/Treatment";
 
 @ObjectType()
 class ChartVist {
@@ -66,6 +66,15 @@ class ChartVist {
 
   @ApiProperty({
     required: false,
+    type: () => [MedicalRecord],
+  })
+  @ValidateNested()
+  @Type(() => MedicalRecord)
+  @IsOptional()
+  MedicalRecord?: Array<MedicalRecord>;
+
+  @ApiProperty({
+    required: false,
     type: () => School,
   })
   @ValidateNested()
@@ -101,15 +110,6 @@ class ChartVist {
   @Type(() => Student)
   @IsOptional()
   student?: Student | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => [Treatment],
-  })
-  @ValidateNested()
-  @Type(() => Treatment)
-  @IsOptional()
-  treatments?: Array<Treatment>;
 
   @ApiProperty({
     required: true,

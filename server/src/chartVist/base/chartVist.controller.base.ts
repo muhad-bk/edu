@@ -27,9 +27,9 @@ import { ChartVistWhereUniqueInput } from "./ChartVistWhereUniqueInput";
 import { ChartVistFindManyArgs } from "./ChartVistFindManyArgs";
 import { ChartVistUpdateInput } from "./ChartVistUpdateInput";
 import { ChartVist } from "./ChartVist";
-import { TreatmentFindManyArgs } from "../../treatment/base/TreatmentFindManyArgs";
-import { Treatment } from "../../treatment/base/Treatment";
-import { TreatmentWhereUniqueInput } from "../../treatment/base/TreatmentWhereUniqueInput";
+import { MedicalRecordFindManyArgs } from "../../medicalRecord/base/MedicalRecordFindManyArgs";
+import { MedicalRecord } from "../../medicalRecord/base/MedicalRecord";
+import { MedicalRecordWhereUniqueInput } from "../../medicalRecord/base/MedicalRecordWhereUniqueInput";
 @swagger.ApiBearerAuth()
 @common.UseGuards(defaultAuthGuard.DefaultAuthGuard, nestAccessControl.ACGuard)
 export class ChartVistControllerBase {
@@ -331,18 +331,18 @@ export class ChartVistControllerBase {
 
   @common.UseInterceptors(AclFilterResponseInterceptor)
   @nestAccessControl.UseRoles({
-    resource: "Treatment",
+    resource: "MedicalRecord",
     action: "read",
     possession: "any",
   })
-  @common.Get("/:id/treatments")
-  @ApiNestedQuery(TreatmentFindManyArgs)
-  async findManyTreatments(
+  @common.Get("/:id/MedicalRecord")
+  @ApiNestedQuery(MedicalRecordFindManyArgs)
+  async findManyMedicalRecord(
     @common.Req() request: Request,
     @common.Param() params: ChartVistWhereUniqueInput
-  ): Promise<Treatment[]> {
-    const query = plainToClass(TreatmentFindManyArgs, request.query);
-    const results = await this.service.findTreatments(params.id, {
+  ): Promise<MedicalRecord[]> {
+    const query = plainToClass(MedicalRecordFindManyArgs, request.query);
+    const results = await this.service.findMedicalRecord(params.id, {
       ...query,
       select: {
         approval: {
@@ -388,13 +388,13 @@ export class ChartVistControllerBase {
     action: "update",
     possession: "any",
   })
-  @common.Post("/:id/treatments")
-  async connectTreatments(
+  @common.Post("/:id/MedicalRecord")
+  async connectMedicalRecord(
     @common.Param() params: ChartVistWhereUniqueInput,
-    @common.Body() body: TreatmentWhereUniqueInput[]
+    @common.Body() body: MedicalRecordWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      treatments: {
+      MedicalRecord: {
         connect: body,
       },
     };
@@ -410,13 +410,13 @@ export class ChartVistControllerBase {
     action: "update",
     possession: "any",
   })
-  @common.Patch("/:id/treatments")
-  async updateTreatments(
+  @common.Patch("/:id/MedicalRecord")
+  async updateMedicalRecord(
     @common.Param() params: ChartVistWhereUniqueInput,
-    @common.Body() body: TreatmentWhereUniqueInput[]
+    @common.Body() body: MedicalRecordWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      treatments: {
+      MedicalRecord: {
         set: body,
       },
     };
@@ -432,13 +432,13 @@ export class ChartVistControllerBase {
     action: "update",
     possession: "any",
   })
-  @common.Delete("/:id/treatments")
-  async disconnectTreatments(
+  @common.Delete("/:id/MedicalRecord")
+  async disconnectMedicalRecord(
     @common.Param() params: ChartVistWhereUniqueInput,
-    @common.Body() body: TreatmentWhereUniqueInput[]
+    @common.Body() body: MedicalRecordWhereUniqueInput[]
   ): Promise<void> {
     const data = {
-      treatments: {
+      MedicalRecord: {
         disconnect: body,
       },
     };

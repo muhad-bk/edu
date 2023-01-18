@@ -4,7 +4,7 @@ import { ChartVistListRelationFilter } from "../chartVist/ChartVistListRelationF
 import { JsonFilter } from "../../util/JsonFilter";
 import { StringFilter } from "../../util/StringFilter";
 import { ParentListRelationFilter } from "../parent/ParentListRelationFilter";
-import { TreatmentListRelationFilter } from "../treatment/TreatmentListRelationFilter";
+import { MedicalRecordListRelationFilter } from "../medicalRecord/MedicalRecordListRelationFilter";
 import { SchoolWhereUniqueInput } from "../school/SchoolWhereUniqueInput";
 import { UserWhereUniqueInput } from "../user/UserWhereUniqueInput";
 
@@ -17,7 +17,7 @@ export type StudentWhereInput = {
   id?: StringFilter;
   name?: StringFilter;
   parent?: ParentListRelationFilter;
-  records?: TreatmentListRelationFilter;
+  records?: MedicalRecordListRelationFilter;
   school?: SchoolWhereUniqueInput;
   status?: "Active" | "Deactivate" | "Pending";
   studentId?: StringNullableFilter;

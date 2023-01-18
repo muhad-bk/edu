@@ -16,7 +16,7 @@ import {
   Approval,
   ChartVist,
   Parent,
-  Treatment,
+  MedicalRecord,
   School,
   User,
 } from "@prisma/client";
@@ -91,8 +91,8 @@ export class StudentServiceBase {
 
   async findRecords(
     parentId: string,
-    args: Prisma.TreatmentFindManyArgs
-  ): Promise<Treatment[]> {
+    args: Prisma.MedicalRecordFindManyArgs
+  ): Promise<MedicalRecord[]> {
     return this.prisma.student
       .findUniqueOrThrow({
         where: { id: parentId },

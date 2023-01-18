@@ -19,11 +19,12 @@ import {
   ValidateNested,
   IsDate,
 } from "class-validator";
-import { SchoolWhereUniqueInput } from "../../school/base/SchoolWhereUniqueInput";
+import { MedicalRecordUpdateManyWithoutChartVistsInput } from "./MedicalRecordUpdateManyWithoutChartVistsInput";
 import { Type } from "class-transformer";
+import { MedicalRecord } from "../../medicalRecord/base/MedicalRecord";
+import { SchoolWhereUniqueInput } from "../../school/base/SchoolWhereUniqueInput";
 import { StafWhereUniqueInput } from "../../staf/base/StafWhereUniqueInput";
 import { StudentWhereUniqueInput } from "../../student/base/StudentWhereUniqueInput";
-import { TreatmentUpdateManyWithoutChartVistsInput } from "./TreatmentUpdateManyWithoutChartVistsInput";
 
 @InputType()
 class ChartVistUpdateInput {
@@ -48,6 +49,18 @@ class ChartVistUpdateInput {
     nullable: true,
   })
   endTime?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => MedicalRecordUpdateManyWithoutChartVistsInput,
+  })
+  @ValidateNested()
+  @Type(() => MedicalRecordUpdateManyWithoutChartVistsInput)
+  @IsOptional()
+  @Field(() => MedicalRecordUpdateManyWithoutChartVistsInput, {
+    nullable: true,
+  })
+  MedicalRecord?: MedicalRecordUpdateManyWithoutChartVistsInput;
 
   @ApiProperty({
     required: false,
@@ -95,18 +108,6 @@ class ChartVistUpdateInput {
     nullable: true,
   })
   student?: StudentWhereUniqueInput | null;
-
-  @ApiProperty({
-    required: false,
-    type: () => TreatmentUpdateManyWithoutChartVistsInput,
-  })
-  @ValidateNested()
-  @Type(() => TreatmentUpdateManyWithoutChartVistsInput)
-  @IsOptional()
-  @Field(() => TreatmentUpdateManyWithoutChartVistsInput, {
-    nullable: true,
-  })
-  treatments?: TreatmentUpdateManyWithoutChartVistsInput;
 }
 
 export { ChartVistUpdateInput };

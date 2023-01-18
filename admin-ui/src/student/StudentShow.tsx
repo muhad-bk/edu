@@ -11,7 +11,7 @@ import {
   Datagrid,
 } from "react-admin";
 
-import { TREATMENT_TITLE_FIELD } from "../treatment/TreatmentTitle";
+import { MEDICALRECORD_TITLE_FIELD } from "../medicalRecord/MedicalRecordTitle";
 import { STUDENT_TITLE_FIELD } from "./StudentTitle";
 import { SCHOOL_TITLE_FIELD } from "../school/SchoolTitle";
 import { STAF_TITLE_FIELD } from "../staf/StafTitle";
@@ -53,10 +53,10 @@ export const StudentShow = (props: ShowProps): React.ReactElement => {
             <TextField label="ID" source="id" />
             <ReferenceField
               label="Record"
-              source="treatment.id"
-              reference="Treatment"
+              source="medicalrecord.id"
+              reference="MedicalRecord"
             >
-              <TextField source={TREATMENT_TITLE_FIELD} />
+              <TextField source={MEDICALRECORD_TITLE_FIELD} />
             </ReferenceField>
             <ReferenceField
               label="Student"
@@ -100,9 +100,9 @@ export const StudentShow = (props: ShowProps): React.ReactElement => {
           </Datagrid>
         </ReferenceManyField>
         <ReferenceManyField
-          reference="Treatment"
+          reference="MedicalRecord"
           target="StudentId"
-          label="Treatments"
+          label="MedicalRecords"
         >
           <Datagrid rowClick="show">
             <ReferenceField

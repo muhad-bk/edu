@@ -37,10 +37,10 @@ import { StudentList } from "./student/StudentList";
 import { StudentCreate } from "./student/StudentCreate";
 import { StudentEdit } from "./student/StudentEdit";
 import { StudentShow } from "./student/StudentShow";
-import { TreatmentList } from "./treatment/TreatmentList";
-import { TreatmentCreate } from "./treatment/TreatmentCreate";
-import { TreatmentEdit } from "./treatment/TreatmentEdit";
-import { TreatmentShow } from "./treatment/TreatmentShow";
+import { MedicalRecordList } from "./medicalRecord/MedicalRecordList";
+import { MedicalRecordCreate } from "./medicalRecord/MedicalRecordCreate";
+import { MedicalRecordEdit } from "./medicalRecord/MedicalRecordEdit";
+import { MedicalRecordShow } from "./medicalRecord/MedicalRecordShow";
 import { ParentList } from "./parent/ParentList";
 import { ParentCreate } from "./parent/ParentCreate";
 import { ParentEdit } from "./parent/ParentEdit";
@@ -144,11 +144,11 @@ const App = (): React.ReactElement => {
           show={StudentShow}
         />
         <Resource
-          name="Treatment"
-          list={TreatmentList}
-          edit={TreatmentEdit}
-          create={TreatmentCreate}
-          show={TreatmentShow}
+          name="MedicalRecord"
+          list={MedicalRecordList}
+          edit={MedicalRecordEdit}
+          create={MedicalRecordCreate}
+          show={MedicalRecordShow}
         />
         <Resource
           name="Parent"
