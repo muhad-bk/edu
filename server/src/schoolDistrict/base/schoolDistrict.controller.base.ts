@@ -67,6 +67,7 @@ export class SchoolDistrictControllerBase {
           : undefined,
       },
       select: {
+        address: true,
         createdAt: true,
         id: true,
         name: true,
@@ -97,6 +98,7 @@ export class SchoolDistrictControllerBase {
     return this.service.findMany({
       ...args,
       select: {
+        address: true,
         createdAt: true,
         id: true,
         name: true,
@@ -128,6 +130,7 @@ export class SchoolDistrictControllerBase {
     const result = await this.service.findOne({
       where: params,
       select: {
+        address: true,
         createdAt: true,
         id: true,
         name: true,
@@ -176,6 +179,7 @@ export class SchoolDistrictControllerBase {
             : undefined,
         },
         select: {
+          address: true,
           createdAt: true,
           id: true,
           name: true,
@@ -215,6 +219,7 @@ export class SchoolDistrictControllerBase {
       return await this.service.delete({
         where: params,
         select: {
+          address: true,
           createdAt: true,
           id: true,
           name: true,

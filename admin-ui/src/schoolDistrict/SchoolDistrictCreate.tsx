@@ -22,6 +22,7 @@ export const SchoolDistrictCreate = (
   return (
     <Create {...props}>
       <SimpleForm>
+        <TextInput label="Address" multiline source="address" />
         <TextInput label="Name" source="name" />
         <ReferenceArrayInput
           source="roles"

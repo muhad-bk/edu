@@ -4,6 +4,7 @@ import { StafCreateNestedManyWithoutSchoolDistrictsInput } from "./StafCreateNes
 import { SubscriptionWhereUniqueInput } from "../subscription/SubscriptionWhereUniqueInput";
 
 export type SchoolDistrictCreateInput = {
+  address?: string | null;
   name: string;
   roles?: RoleCreateNestedManyWithoutSchoolDistrictsInput;
   schools?: SchoolCreateNestedManyWithoutSchoolDistrictsInput;

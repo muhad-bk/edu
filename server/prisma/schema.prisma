@@ -172,6 +172,7 @@ model Parent {
 }
 
 model SchoolDistrict {
+  address        String?
   createdAt      DateTime      @default(now())
   id             String        @id @default(auto()) @map("_id") @mongo.ObjectId
   name           String

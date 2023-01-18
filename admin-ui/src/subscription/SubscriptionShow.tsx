@@ -31,6 +31,7 @@ export const SubscriptionShow = (props: ShowProps): React.ReactElement => {
           label="School Districts"
         >
           <Datagrid rowClick="show">
+            <TextField label="Address" source="address" />
             <DateField source="createdAt" label="Created At" />
             <TextField label="ID" source="id" />
             <TextField label="Name" source="name" />

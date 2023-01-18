@@ -4,6 +4,7 @@ import { Staf } from "../staf/Staf";
 import { Subscription } from "../subscription/Subscription";
 
 export type SchoolDistrict = {
+  address: string | null;
   createdAt: Date;
   id: string;
   name: string;
