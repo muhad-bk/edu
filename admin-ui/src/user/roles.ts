@@ -8,6 +8,10 @@ export const ROLES = [
     displayName: "User",
   },
   {
+    name: "student",
+    displayName: "student",
+  },
+  {
     name: "superAdmin",
     displayName: "super-admin",
   },
