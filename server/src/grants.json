@@ -12,6 +12,12 @@
     "attributes": "*"
   },
   {
+    "role": "student",
+    "resource": "User",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
     "role": "superAdmin",
     "resource": "User",
     "action": "read:own",
@@ -31,6 +37,12 @@
   },
   {
     "role": "user",
+    "resource": "User",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "User",
     "action": "create:any",
     "attributes": "*"
@@ -55,6 +67,12 @@
   },
   {
     "role": "user",
+    "resource": "User",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "User",
     "action": "update:any",
     "attributes": "*"
@@ -79,6 +97,12 @@
   },
   {
     "role": "user",
+    "resource": "User",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "User",
     "action": "delete:any",
     "attributes": "*"
@@ -108,6 +132,12 @@
     "attributes": "*"
   },
   {
+    "role": "student",
+    "resource": "User",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
     "role": "superAdmin",
     "resource": "User",
     "action": "read:any",
@@ -132,6 +162,12 @@
     "attributes": "*"
   },
   {
+    "role": "student",
+    "resource": "School",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
     "role": "superAdmin",
     "resource": "School",
     "action": "read:own",
@@ -151,6 +187,12 @@
   },
   {
     "role": "user",
+    "resource": "School",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "School",
     "action": "create:any",
     "attributes": "*"
@@ -175,6 +217,12 @@
   },
   {
     "role": "user",
+    "resource": "School",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "School",
     "action": "update:any",
     "attributes": "*"
@@ -199,6 +247,12 @@
   },
   {
     "role": "user",
+    "resource": "School",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "School",
     "action": "delete:any",
     "attributes": "*"
@@ -228,6 +282,12 @@
     "attributes": "*"
   },
   {
+    "role": "student",
+    "resource": "School",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
     "role": "superAdmin",
     "resource": "School",
     "action": "read:any",
@@ -252,6 +312,12 @@
     "attributes": "*"
   },
   {
+    "role": "student",
+    "resource": "Subscription",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
     "role": "superAdmin",
     "resource": "Subscription",
     "action": "read:own",
@@ -271,6 +337,12 @@
   },
   {
     "role": "user",
+    "resource": "Subscription",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "Subscription",
     "action": "create:any",
     "attributes": "*"
@@ -295,6 +367,12 @@
   },
   {
     "role": "user",
+    "resource": "Subscription",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "Subscription",
     "action": "update:any",
     "attributes": "*"
@@ -319,6 +397,12 @@
   },
   {
     "role": "user",
+    "resource": "Subscription",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "Subscription",
     "action": "delete:any",
     "attributes": "*"
@@ -343,6 +427,12 @@
   },
   {
     "role": "user",
+    "resource": "Subscription",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "Subscription",
     "action": "read:any",
     "attributes": "*"
@@ -372,13 +462,7 @@
     "attributes": "*"
   },
   {
-    "role": "superAdmin",
-    "resource": "ConfigurableModule",
-    "action": "read:own",
-    "attributes": "*"
-  },
-  {
-    "role": "admin",
+    "role": "student",
     "resource": "ConfigurableModule",
     "action": "read:own",
     "attributes": "*"
@@ -386,6 +470,18 @@
   {
     "role": "superAdmin",
     "resource": "ConfigurableModule",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "ConfigurableModule",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "superAdmin",
+    "resource": "ConfigurableModule",
     "action": "create:any",
     "attributes": "*"
   },
@@ -414,6 +510,12 @@
     "attributes": "*"
   },
   {
+    "role": "student",
+    "resource": "ConfigurableModule",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
     "role": "superAdmin",
     "resource": "ConfigurableModule",
     "action": "read:any",
@@ -438,6 +540,12 @@
     "attributes": "*"
   },
   {
+    "role": "student",
+    "resource": "Staf",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
     "role": "superAdmin",
     "resource": "Staf",
     "action": "read:own",
@@ -457,6 +565,12 @@
   },
   {
     "role": "user",
+    "resource": "Staf",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "Staf",
     "action": "create:any",
     "attributes": "*"
@@ -486,6 +600,12 @@
     "attributes": "*"
   },
   {
+    "role": "student",
+    "resource": "Staf",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
     "role": "superAdmin",
     "resource": "Staf",
     "action": "update:any",
@@ -505,6 +625,12 @@
   },
   {
     "role": "user",
+    "resource": "Staf",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "Staf",
     "action": "delete:any",
     "attributes": "*"
@@ -529,6 +655,12 @@
   },
   {
     "role": "user",
+    "resource": "Staf",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "Staf",
     "action": "read:any",
     "attributes": "*"
@@ -553,6 +685,12 @@
   },
   {
     "role": "user",
+    "resource": "Role",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "Role",
     "action": "read:own",
     "attributes": "*"
@@ -601,6 +739,12 @@
   },
   {
     "role": "user",
+    "resource": "Role",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "Role",
     "action": "read:any",
     "attributes": "*"
@@ -630,13 +774,7 @@
     "attributes": "*"
   },
   {
-    "role": "superAdmin",
-    "resource": "Permission",
-    "action": "read:own",
-    "attributes": "*"
-  },
-  {
-    "role": "admin",
+    "role": "student",
     "resource": "Permission",
     "action": "read:own",
     "attributes": "*"
@@ -644,6 +782,18 @@
   {
     "role": "superAdmin",
     "resource": "Permission",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "admin",
+    "resource": "Permission",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
+    "role": "superAdmin",
+    "resource": "Permission",
     "action": "create:any",
     "attributes": "*"
   },
@@ -672,6 +822,12 @@
     "attributes": "*"
   },
   {
+    "role": "student",
+    "resource": "Permission",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
     "role": "superAdmin",
     "resource": "Permission",
     "action": "read:any",
@@ -696,6 +852,12 @@
     "attributes": "*"
   },
   {
+    "role": "student",
+    "resource": "Student",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
     "role": "superAdmin",
     "resource": "Student",
     "action": "read:own",
@@ -715,6 +877,12 @@
   },
   {
     "role": "user",
+    "resource": "Student",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "Student",
     "action": "create:any",
     "attributes": "*"
@@ -739,6 +907,12 @@
   },
   {
     "role": "user",
+    "resource": "Student",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "Student",
     "action": "update:any",
     "attributes": "*"
@@ -763,6 +937,12 @@
   },
   {
     "role": "user",
+    "resource": "Student",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "Student",
     "action": "delete:any",
     "attributes": "*"
@@ -792,6 +972,12 @@
     "attributes": "*"
   },
   {
+    "role": "student",
+    "resource": "Student",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
     "role": "superAdmin",
     "resource": "Student",
     "action": "read:any",
@@ -816,6 +1002,12 @@
     "attributes": "*"
   },
   {
+    "role": "student",
+    "resource": "MedicalRecord",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
     "role": "superAdmin",
     "resource": "MedicalRecord",
     "action": "read:own",
@@ -835,6 +1027,12 @@
   },
   {
     "role": "user",
+    "resource": "MedicalRecord",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "MedicalRecord",
     "action": "create:any",
     "attributes": "*"
@@ -859,6 +1057,12 @@
   },
   {
     "role": "user",
+    "resource": "MedicalRecord",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "MedicalRecord",
     "action": "update:any",
     "attributes": "*"
@@ -883,6 +1087,12 @@
   },
   {
     "role": "user",
+    "resource": "MedicalRecord",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "MedicalRecord",
     "action": "delete:any",
     "attributes": "*"
@@ -912,6 +1122,12 @@
     "attributes": "*"
   },
   {
+    "role": "student",
+    "resource": "MedicalRecord",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
     "role": "superAdmin",
     "resource": "MedicalRecord",
     "action": "read:any",
@@ -936,6 +1152,12 @@
     "attributes": "*"
   },
   {
+    "role": "student",
+    "resource": "Parent",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
     "role": "superAdmin",
     "resource": "Parent",
     "action": "read:own",
@@ -955,6 +1177,12 @@
   },
   {
     "role": "user",
+    "resource": "Parent",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "Parent",
     "action": "create:any",
     "attributes": "*"
@@ -979,6 +1207,12 @@
   },
   {
     "role": "user",
+    "resource": "Parent",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "Parent",
     "action": "update:any",
     "attributes": "*"
@@ -1003,6 +1237,12 @@
   },
   {
     "role": "user",
+    "resource": "Parent",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "Parent",
     "action": "delete:any",
     "attributes": "*"
@@ -1032,6 +1272,12 @@
     "attributes": "*"
   },
   {
+    "role": "student",
+    "resource": "Parent",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
     "role": "superAdmin",
     "resource": "Parent",
     "action": "read:any",
@@ -1056,6 +1302,12 @@
     "attributes": "*"
   },
   {
+    "role": "student",
+    "resource": "SchoolDistrict",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
     "role": "superAdmin",
     "resource": "SchoolDistrict",
     "action": "read:own",
@@ -1075,6 +1327,12 @@
   },
   {
     "role": "user",
+    "resource": "SchoolDistrict",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "SchoolDistrict",
     "action": "create:any",
     "attributes": "*"
@@ -1099,6 +1357,12 @@
   },
   {
     "role": "user",
+    "resource": "SchoolDistrict",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "SchoolDistrict",
     "action": "update:any",
     "attributes": "*"
@@ -1123,6 +1387,12 @@
   },
   {
     "role": "user",
+    "resource": "SchoolDistrict",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "SchoolDistrict",
     "action": "delete:any",
     "attributes": "*"
@@ -1152,6 +1422,12 @@
     "attributes": "*"
   },
   {
+    "role": "student",
+    "resource": "SchoolDistrict",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
     "role": "superAdmin",
     "resource": "SchoolDistrict",
     "action": "read:any",
@@ -1176,6 +1452,12 @@
     "attributes": "*"
   },
   {
+    "role": "student",
+    "resource": "Approval",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
     "role": "superAdmin",
     "resource": "Approval",
     "action": "read:own",
@@ -1195,6 +1477,12 @@
   },
   {
     "role": "user",
+    "resource": "Approval",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "Approval",
     "action": "create:any",
     "attributes": "*"
@@ -1219,6 +1507,12 @@
   },
   {
     "role": "user",
+    "resource": "Approval",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "Approval",
     "action": "update:any",
     "attributes": "*"
@@ -1243,6 +1537,12 @@
   },
   {
     "role": "user",
+    "resource": "Approval",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "Approval",
     "action": "delete:any",
     "attributes": "*"
@@ -1267,6 +1567,12 @@
   },
   {
     "role": "user",
+    "resource": "Approval",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "Approval",
     "action": "read:any",
     "attributes": "*"
@@ -1296,6 +1602,12 @@
     "attributes": "*"
   },
   {
+    "role": "student",
+    "resource": "ChartVist",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
     "role": "superAdmin",
     "resource": "ChartVist",
     "action": "read:own",
@@ -1315,6 +1627,12 @@
   },
   {
     "role": "user",
+    "resource": "ChartVist",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "ChartVist",
     "action": "create:any",
     "attributes": "*"
@@ -1339,6 +1657,12 @@
   },
   {
     "role": "user",
+    "resource": "ChartVist",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "ChartVist",
     "action": "update:any",
     "attributes": "*"
@@ -1363,6 +1687,12 @@
   },
   {
     "role": "user",
+    "resource": "ChartVist",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "ChartVist",
     "action": "delete:any",
     "attributes": "*"
@@ -1387,6 +1717,12 @@
   },
   {
     "role": "user",
+    "resource": "ChartVist",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "ChartVist",
     "action": "read:any",
     "attributes": "*"
@@ -1416,6 +1752,12 @@
     "attributes": "*"
   },
   {
+    "role": "student",
+    "resource": "SubscriptionPlan",
+    "action": "read:own",
+    "attributes": "*"
+  },
+  {
     "role": "superAdmin",
     "resource": "SubscriptionPlan",
     "action": "read:own",
@@ -1435,6 +1777,12 @@
   },
   {
     "role": "user",
+    "resource": "SubscriptionPlan",
+    "action": "create:any",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "SubscriptionPlan",
     "action": "create:any",
     "attributes": "*"
@@ -1459,6 +1807,12 @@
   },
   {
     "role": "user",
+    "resource": "SubscriptionPlan",
+    "action": "update:any",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "SubscriptionPlan",
     "action": "update:any",
     "attributes": "*"
@@ -1483,6 +1837,12 @@
   },
   {
     "role": "user",
+    "resource": "SubscriptionPlan",
+    "action": "delete:any",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "SubscriptionPlan",
     "action": "delete:any",
     "attributes": "*"
@@ -1507,6 +1867,12 @@
   },
   {
     "role": "user",
+    "resource": "SubscriptionPlan",
+    "action": "read:any",
+    "attributes": "*"
+  },
+  {
+    "role": "student",
     "resource": "SubscriptionPlan",
     "action": "read:any",
     "attributes": "*"
